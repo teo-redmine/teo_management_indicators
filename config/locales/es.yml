@@ -1,0 +1,148 @@
+# Las cadenas en español para la internacionalización de Rails van aquí
+es:
+  # mi_etiqueta: "Mi etiqueta"
+  permission_view_indicadores: Ver indicadores
+
+  main_title_management_indicators: Indicadores Económicos
+
+  title_g1: Gráfica de ejecución de actuaciones "en curso"
+  title_g1b: Tiempo transcurrido
+  first_level_g1n1: Primer nivel
+  issue_type_g1n1: Tipo petición
+  issue_status_g1n1: Estado
+  start_date_g1n1: Fecha inicio
+  due_date_g1n1: Fecha fin
+  cost_g1n1: Importe
+
+  second_level_g1n2: Segundo nivel
+  issue_type_g1n2: Tipo petición
+  issue_status_inprocess_g1n2: Estado "en curso"
+  issue_status_g1n2: Estado
+  cost1_g1n2: Importe 1
+  cost2_g1n2: Importe 2
+  percentage_g1n2: Porcentaje
+
+  title_g2: Gráfica de importes ejecutados por año
+  first_level_g2n1: Primer nivel
+  issue_type_g2n1: Tipo petición
+  issue_status_g2n1: Estado
+
+  second_level_g2n2: Segundo nivel
+  issue_type_g2n2: Tipo petición
+  issue_status_g2n2: Estado
+  cost1_g2n2: Importe 1
+  cost2_g2n2: Importe 2
+  due_date_g2n2: Fecha fin
+
+  field_account: Cuenta
+  field_activity: Actividad
+  field_admin: Administrador
+  field_assignable: Se pueden asignar peticiones a este perfil
+  field_assigned_to: Asignado a
+  field_attr_firstname: Cualidad del nombre
+  field_attr_lastname: Cualidad del apellido
+  field_attr_login: Cualidad del identificador
+  field_attr_mail: Cualidad del Email
+  field_auth_source: Modo de identificación
+  field_author: Autor
+  field_base_dn: DN base
+  field_category: Categoría
+  field_column_names: Columnas
+  field_comments: Comentario
+  field_comments_sorting: Mostrar comentarios
+  field_created_on: Creado
+  field_default_value: Estado por defecto
+  field_delay: Retraso
+  field_description: Descripción
+  field_done_ratio: "% Realizado"
+  field_downloads: Descargas
+  field_due_date: Fecha fin
+  field_effective_date: Fecha
+  field_estimated_hours: Tiempo estimado
+  field_field_format: Formato
+  field_filename: Fichero
+  field_filesize: Tamaño
+  field_firstname: Nombre
+  field_fixed_version: Versión prevista
+  field_hide_mail: Ocultar mi dirección de correo
+  field_homepage: Sitio web
+  field_host: Anfitrión
+  field_hours: Horas
+  field_identifier: Identificador
+  field_is_closed: Petición resuelta
+  field_is_default: Estado por defecto
+  field_is_filter: Usado como filtro
+  field_is_for_all: Para todos los proyectos
+  field_is_in_roadmap: Consultar las peticiones en la planificación
+  field_is_public: Público
+  field_is_required: Obligatorio
+  field_issue: Petición
+  field_issue_to: Petición relacionada
+  field_language: Idioma
+  field_last_login_on: Última conexión
+  field_lastname: Apellido
+  field_login: Identificador
+  field_mail: Correo electrónico
+  field_mail_notification: Notificaciones por correo
+  field_max_length: Longitud máxima
+  field_min_length: Longitud mínima
+  field_name: Nombre
+  field_new_password: Nueva contraseña
+  field_notes: Notas
+  field_onthefly: Creación del usuario "al vuelo"
+  field_parent: Proyecto padre
+  field_parent_title: Página padre
+  field_password: Contraseña
+  field_password_confirmation: Confirmación
+  field_port: Puerto
+  field_possible_values: Valores posibles
+  field_priority: Prioridad
+  field_project: Proyecto
+  field_redirect_existing_links: Redireccionar enlaces existentes
+  field_regexp: Expresión regular
+  field_role: Perfil
+  field_searchable: Incluir en las búsquedas
+  field_spent_on: Fecha
+  field_start_date: Fecha de inicio
+  field_start_page: Página principal
+  field_status: Estado
+  field_subject: Asunto
+  field_subproject: Proyecto secundario
+  field_summary: Resumen
+  field_time_zone: Zona horaria
+  field_title: Título
+  field_tracker: Tipo
+  field_type: Tipo
+  field_updated_on: Actualizado
+  field_url: URL
+  field_user: Usuario
+  field_value: Valor
+  field_version: Versión
+  field_estimated_cost: Importe estimado
+  field_cost: Importe
+  field_accumulate: Acumulado
+  field_budget: Presupuesto
+  field_year: Año
+  field_days: Días
+  field_time_passed: Tiempo transcurrido
+  field_period: Plazo
+  field_today: Hoy
+  field_Nuevo: Nuevo
+  field_Nueva: Nueva
+  field_En curso: En curso
+  field_Resuelto: Resuelto
+  field_Resuelta: Resuelta
+  field_Comentarios: Comentarios
+  field_Cerrado: Cerrado
+  field_Cerrada: Cerrada
+  field_Rechazado: Rechazado
+  field_Rechazada: Rechazada
+  field_Facturado: Facturado
+  field_Facturada: Facturada
+  field_Importe final: Importe final
+  field_Importe estimado: Importe estimado
+  field_Seleccionar: Seleccionar...
+  field_Diesponible: Disponible
+  field_available: Disponible
+  field_passed: Transcurrido
+  field_completed: Completado

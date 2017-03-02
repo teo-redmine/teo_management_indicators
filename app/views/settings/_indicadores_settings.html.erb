@@ -1,0 +1,158 @@
+<fieldset>
+  <legend><h1><%= l(:title_g1) %></h1></legend>
+
+  <fieldset>
+    <legend><h2><%= l(:first_level_g1n1) %></h2></legend>
+
+    <table>
+      <tbody>
+        <tr>
+          <th><%= l(:issue_type_g1n1) %></th>
+          <td>
+            <%= select_tag('settings[tipo_peticion_g1n1]', options_for_select(Tracker.sorted.to_a.collect{ |u| [u.name, u.id] }, @settings['tipo_peticion_g1n1']), prompt: I18n.t("field_Seleccionar")) %>
+          </td>
+        </tr>
+        <tr>
+          <th><%= l(:issue_status_g1n1) %></th>
+          <td>
+            <%= select_tag('settings[estado_g1n1]', options_for_select(IssueStatus.sorted.to_a.collect{ |u| [I18n.t("field_" + u.name), u.id] }, @settings['estado_g1n1']), prompt: I18n.t("field_Seleccionar"), multiple: true) %>
+          </td>
+        </tr>
+        <tr>
+          <th><%= l(:start_date_g1n1) %></th>
+          <td>
+            <%= select_tag('settings[fecha_inicio_g1n1]', options_for_select(@fields.to_a.collect{ |key, value| [value, key] }, @settings['fecha_inicio_g1n1']), prompt: I18n.t("field_Seleccionar")) %>
+          </td>
+        </tr>
+        <tr>
+          <th><%= l(:due_date_g1n1) %></th>
+          <td>
+            <%= select_tag('settings[fecha_fin_g1n1]', options_for_select(@fields.to_a.collect{ |key, value| [value, key] }, @settings['fecha_fin_g1n1']), prompt: I18n.t("field_Seleccionar")) %>
+          </td>
+        </tr>
+        <tr>
+          <th><%= l(:cost_g1n1) %></th>
+          <td>
+            <%= select_tag('settings[importe_g1n1]', options_for_select(@fields.to_a.collect{ |key, value| [value, key] }, @settings['importe_g1n1']), prompt: I18n.t("field_Seleccionar")) %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </fieldset>
+
+  <br>
+
+  <fieldset>
+    <legend><h2><%= l(:second_level_g1n2) %></h2></legend>
+
+    <table>
+      <tbody>
+        <tr>
+          <th><%= l(:issue_type_g1n2) %></th>
+          <td>
+            <%= select_tag('settings[tipo_peticion_g1n2]', options_for_select(Tracker.sorted.to_a.collect{ |u| [u.name, u.id] }, @settings['tipo_peticion_g1n2']), prompt: I18n.t("field_Seleccionar")) %>
+          </td>
+        </tr>
+        <tr>
+          <th><%= l(:issue_status_inprocess_g1n2) %></th>
+          <td>
+            <%= select_tag('settings[estado_encurso_g1n2]', options_for_select(IssueStatus.sorted.to_a.collect{ |u| [I18n.t("field_" + u.name), u.id] }, @settings['estado_encurso_g1n2']), prompt: I18n.t("field_Seleccionar")) %>
+          </td>
+        </tr>
+        <tr>
+          <th><%= l(:issue_status_g1n2) %></th>
+          <td>
+            <%= select_tag('settings[estado_g1n2]', options_for_select(IssueStatus.sorted.to_a.collect{ |u| [I18n.t("field_" + u.name), u.id] }, @settings['estado_g1n2']), prompt: I18n.t("field_Seleccionar"), multiple: true) %>
+          </td>
+        </tr>
+        <tr>
+          <th><%= l(:cost1_g1n2) %></th>
+          <td>
+            <%= select_tag('settings[importe1_g1n2]', options_for_select(@fields.to_a.collect{ |key, value| [value, key] }, @settings['importe1_g1n2']), prompt: I18n.t("field_Seleccionar")) %>
+          </td>
+        </tr>
+        <tr>
+          <th><%= l(:cost2_g1n2) %></th>
+          <td>
+            <%= select_tag('settings[importe2_g1n2]', options_for_select(@fields.to_a.collect{ |key, value| [value, key] }, @settings['importe2_g1n2']), prompt: I18n.t("field_Seleccionar")) %>
+          </td>
+        </tr>
+        <tr>
+          <th><%= l(:percentage_g1n2) %></th>
+          <td>
+            <%= select_tag('settings[porcentaje_g1n2]', options_for_select(@fields.to_a.collect{ |key, value| [value, key] }, @settings['porcentaje_g1n2']), prompt: I18n.t("field_Seleccionar")) %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </fieldset>
+</fieldset>
+
+<br>
+
+
+<fieldset>
+  <legend><h1><%= l(:title_g2) %></h1></legend>
+
+  <fieldset>
+    <legend><h2><%= l(:first_level_g2n1) %></h2></legend>
+
+    <table>
+      <tbody>
+        <tr>
+          <th><%= l(:issue_type_g2n1) %></th>
+          <td>
+            <%= select_tag('settings[tipo_peticion_g2n1]', options_for_select(Tracker.sorted.to_a.collect{ |u| [u.name, u.id] }, @settings['tipo_peticion_g2n1']), prompt: I18n.t("field_Seleccionar")) %>
+          </td>
+        </tr>
+        <tr>
+          <th><%= l(:issue_status_g2n1) %></th>
+          <td>
+            <%= select_tag('settings[estado_g2n1]', options_for_select(IssueStatus.sorted.to_a.collect{ |u| [I18n.t("field_" + u.name), u.id] }, @settings['estado_g2n1']), prompt: I18n.t("field_Seleccionar"), multiple: true) %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </fieldset>
+
+  <br>
+
+  <fieldset>
+    <legend><h2><%= l(:second_level_g2n2) %></h2></legend>
+
+    <table>
+      <tbody>
+        <tr>
+          <th><%= l(:issue_type_g2n2) %></th>
+          <td>
+            <%= select_tag('settings[tipo_peticion_g2n2]', options_for_select(Tracker.sorted.to_a.collect{ |u| [u.name, u.id] }, @settings['tipo_peticion_g2n2']), prompt: I18n.t("field_Seleccionar")) %>
+          </td>
+        </tr>
+        <tr>
+          <th><%= l(:issue_status_g2n2) %></th>
+          <td>
+            <%= select_tag('settings[estado_g2n2]', options_for_select(IssueStatus.sorted.to_a.collect{ |u| [I18n.t("field_" + u.name), u.id] }, @settings['estado_g2n2']), prompt: I18n.t("field_Seleccionar"), multiple: true) %>
+          </td>
+        </tr>
+        <tr>
+          <th><%= l(:cost1_g2n2) %></th>
+          <td>
+            <%= select_tag('settings[importe1_g2n2]', options_for_select(@fields.to_a.collect{ |key, value| [value, key] }, @settings['importe1_g2n2']), prompt: I18n.t("field_Seleccionar")) %>
+          </td>
+        </tr>
+        <tr>
+          <th><%= l(:cost2_g2n2) %></th>
+          <td>
+            <%= select_tag('settings[importe2_g2n2]', options_for_select(@fields.to_a.collect{ |key, value| [value, key] }, @settings['importe2_g2n2']), prompt: I18n.t("field_Seleccionar")) %>
+          </td>
+        </tr>
+        <tr>
+          <th><%= l(:due_date_g2n2) %></th>
+          <td>
+            <%= select_tag('settings[fecha_fin_g2n2]', options_for_select(@fields.to_a.collect{ |key, value| [value, key] }, @settings['fecha_fin_g2n2']), prompt: I18n.t("field_Seleccionar")) %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </fieldset>
+</fieldset>

@@ -1,0 +1,186 @@
+# English strings go here for Rails i18n
+en:
+  # my_label: "My label"
+  permission_view_indicadores: View indicators
+
+  main_title_management_indicators: Economic Indicators
+
+  title_g1: Execution of "in process" actions chart
+  title_g1b: Time passed
+  first_level_g1n1: First level
+  issue_type_g1n1: Issue type
+  issue_status_g1n1: Status
+  start_date_g1n1: Start date
+  due_date_g1n1: Due date
+  cost_g1n1: Cost
+
+  second_level_g1n2: Second level
+  issue_type_g1n2: Issue type
+  issue_status_inprocess_g1n2: Status "In process"
+  issue_status_g1n2: Status
+  cost1_g1n2: Cost 1
+  cost2_g1n2: Cost 2
+  percentage_g1n2: Percentage
+
+  title_g2: Executed costs per year chart
+  first_level_g2n1: First level
+  issue_type_g2n1: Issue type
+  issue_status_g2n1: Status
+
+  second_level_g2n2: Second level
+  issue_type_g2n2: Issue type
+  issue_status_g2n2: Status
+  cost1_g2n2: Cost 1
+  cost2_g2n2: Cost 2
+  due_date_g2n2: Due date
+
+  field_name: Name
+  field_description: Description
+  field_summary: Summary
+  field_is_required: Required
+  field_firstname: First name
+  field_lastname: Last name
+  field_mail: Email
+  field_address: Email
+  field_filename: File
+  field_filesize: Size
+  field_downloads: Downloads
+  field_author: Author
+  field_created_on: Created
+  field_updated_on: Updated
+  field_closed_on: Closed
+  field_field_format: Format
+  field_is_for_all: For all projects
+  field_possible_values: Possible values
+  field_regexp: Regular expression
+  field_min_length: Minimum length
+  field_max_length: Maximum length
+  field_value: Value
+  field_category: Category
+  field_title: Title
+  field_project: Project
+  field_issue: Issue
+  field_status: Status
+  field_notes: Notes
+  field_is_closed: Issue closed
+  field_is_default: Default value
+  field_tracker: Tracker
+  field_subject: Subject
+  field_due_date: Due date
+  field_assigned_to: Assignee
+  field_priority: Priority
+  field_fixed_version: Target version
+  field_user: User
+  field_principal: Principal
+  field_role: Role
+  field_homepage: Homepage
+  field_is_public: Public
+  field_parent: Subproject of
+  field_is_in_roadmap: Issues displayed in roadmap
+  field_login: Login
+  field_mail_notification: Email notifications
+  field_admin: Administrator
+  field_last_login_on: Last connection
+  field_language: Language
+  field_effective_date: Date
+  field_password: Password
+  field_new_password: New password
+  field_password_confirmation: Confirmation
+  field_version: Version
+  field_type: Type
+  field_host: Host
+  field_port: Port
+  field_account: Account
+  field_base_dn: Base DN
+  field_attr_login: Login attribute
+  field_attr_firstname: Firstname attribute
+  field_attr_lastname: Lastname attribute
+  field_attr_mail: Email attribute
+  field_onthefly: On-the-fly user creation
+  field_start_date: Start date
+  field_done_ratio: "% Done"
+  field_auth_source: Authentication mode
+  field_hide_mail: Hide my email address
+  field_comments: Comment
+  field_url: URL
+  field_start_page: Start page
+  field_subproject: Subproject
+  field_hours: Hours
+  field_activity: Activity
+  field_spent_on: Date
+  field_identifier: Identifier
+  field_is_filter: Used as a filter
+  field_issue_to: Related issue
+  field_delay: Delay
+  field_assignable: Issues can be assigned to this role
+  field_redirect_existing_links: Redirect existing links
+  field_estimated_hours: Estimated time
+  field_column_names: Columns
+  field_time_entries: Log time
+  field_time_zone: Time zone
+  field_searchable: Searchable
+  field_default_value: Default value
+  field_comments_sorting: Display comments
+  field_parent_title: Parent page
+  field_editable: Editable
+  field_watcher: Watcher
+  field_identity_url: OpenID URL
+  field_content: Content
+  field_group_by: Group results by
+  field_sharing: Sharing
+  field_parent_issue: Parent task
+  field_member_of_group: "Assignee's group"
+  field_assigned_to_role: "Assignee's role"
+  field_text: Text field
+  field_visible: Visible
+  field_warn_on_leaving_unsaved: "Warn me when leaving a page with unsaved text"
+  field_issues_visibility: Issues visibility
+  field_is_private: Private
+  field_commit_logs_encoding: Commit messages encoding
+  field_scm_path_encoding: Path encoding
+  field_path_to_repository: Path to repository
+  field_root_directory: Root directory
+  field_cvsroot: CVSROOT
+  field_cvs_module: Module
+  field_repository_is_default: Main repository
+  field_multiple: Multiple values
+  field_auth_source_ldap_filter: LDAP filter
+  field_core_fields: Standard fields
+  field_timeout: "Timeout (in seconds)"
+  field_board_parent: Parent forum
+  field_private_notes: Private notes
+  field_inherit_members: Inherit members
+  field_generate_password: Generate password
+  field_must_change_passwd: Must change password at next logon
+  field_default_status: Default status
+  field_users_visibility: Users visibility
+  field_time_entries_visibility: Time logs visibility
+  field_total_estimated_hours: Total estimated time
+  field_estimated_cost: Estimated cost
+  field_cost: Cost
+  field_accumulate: Accumulate
+  field_budget: Budget
+  field_year: Year
+  field_days: Days
+  field_time_passed: Time passed
+  field_period: Period
+  field_today: Today
+  field_Nuevo: New
+  field_Nueva: New
+  field_En curso: In process
+  field_Resuelto: Solved
+  field_Resuelta: Solved
+  field_Comentarios: Comments
+  field_Cerrado: Closed
+  field_Cerrada: Closed
+  field_Rechazado: Rejected
+  field_Rechazada: Rejected
+  field_Facturado: Turned over
+  field_Facturada: Turned over
+  field_Importe final: Final cost
+  field_Importe estimado: Estimated cost
+  field_Seleccionar: Select...
+  field_Disponible: Available
+  field_available: Available
+  field_passed: Passed
+  field_completed: Completed
