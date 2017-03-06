@@ -43,7 +43,7 @@ module TeoManagementIndicatorsProjects
 		base.send(:include, InstanceMethods)
 
 		base.class_eval do
-			before_filter :find_project, :get_settings, :authorize
+			before_filter :get_settings
 			# Con esto sobreescribimos el metodo show del controlador de projects
 			alias_method_chain :show, :managementindicators
 		end
