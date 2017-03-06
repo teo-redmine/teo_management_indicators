@@ -14,6 +14,12 @@ También debemos de asegurarnos de que los permisos son los adecuados, ejecutand
 
     chmod -R a+rX teo_management_indicators/
 
+    chown -R redmine:redmine teo_management_indicators/
+
+A continuación, para que se instalen las gemas necesarias, se ejecuta desde la raíz de redmine:
+
+    bundle install --without development test
+
 
 Por último sólo queda reiniciar Redmine.
 

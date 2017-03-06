@@ -165,6 +165,17 @@ en:
   field_time_passed: Time passed
   field_period: Period
   field_today: Today
+  field_Difundir: Spread
+  field_Escalar: Scale
+  field_Fecha objetivo: Goal date
+  field_Justificación desvío: Divert cause
+  field_Solicitante real: Real applicant
+  field_Tiempo estimado inicial: Initial estimated time
+  field_Versión detección: Detection version
+  field_Presupuesto: Budget
+  field_Contrato: Contract
+
+  # Estados
   field_Nuevo: New
   field_Nueva: New
   field_En curso: In process
@@ -184,3 +195,6 @@ en:
   field_available: Available
   field_passed: Passed
   field_completed: Completed
+  field_Propuesto: Proposed
+  field_En espera: On standby
+  field_Cancelado: Cancelled

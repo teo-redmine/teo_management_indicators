@@ -127,6 +127,17 @@ es:
   field_time_passed: Tiempo transcurrido
   field_period: Plazo
   field_today: Hoy
+  field_Difundir: Difundir
+  field_Escalar: Escalar
+  field_Fecha objetivo: Fecha objetivo
+  field_Justificación desvío: Justificación desvío
+  field_Solicitante real: Solicitante real
+  field_Tiempo estimado inicial: Tiempo estimado inicial
+  field_Versión detección: Versión detección
+  field_Presupuesto: Presupuesto
+  field_Contrato: Contrato
+
+  # Estados
   field_Nuevo: Nuevo
   field_Nueva: Nueva
   field_En curso: En curso
@@ -142,7 +153,11 @@ es:
   field_Importe final: Importe final
   field_Importe estimado: Importe estimado
   field_Seleccionar: Seleccionar...
-  field_Diesponible: Disponible
+  field_Disponible: Disponible
   field_available: Disponible
   field_passed: Transcurrido
   field_completed: Completado
+  field_Propuesto: Propuesto
+  field_En espera: En espera
+  field_Cancelado: Cancelado
+  field_Cancelado: Cancelado
