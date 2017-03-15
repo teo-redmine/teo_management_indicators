@@ -2,28 +2,30 @@
 <%= javascript_include_tag 'highcharts-more.js', :plugin => 'teo_management_indicators' %>
 <%= javascript_include_tag 'modules/exporting.js', :plugin => 'teo_management_indicators' %>
 
-<% cargaGraficasProyecto('projects') %>
+<% cargaGraficasProyecto %>
 
-<% if User.current.allowed_to?(:view_indicadores, @project, :global => true) %>
-	<div class="box">
-		<br>
-		<div style="width:90%;">
-			<% if @acsG1 != nil && !@acsG1.empty? %>
-				<fieldset>
-					<%= high_chart("div_stackG1a", @stackG1a) %>
+<% if (@acsG1 != nil && !@acsG1.empty?) || (@mapaG2 != nil && !@mapaG2.empty?) %>
+	<% if User.current.allowed_to?(:view_indicadores, @project, :global => true) %>
+		<div class="box">
+			<br>
+			<div style="width:90%;">
+				<% if @acsG1 != nil && !@acsG1.empty? %>
+					<fieldset>
+						<%= high_chart("div_stackG1a", @stackG1a) %>
 
-					<%= high_chart("div_stackG1b", @stackG1b) %>
-				</fieldset>
-			<% end %>
+						<%= high_chart("div_stackG1b", @stackG1b) %>
+					</fieldset>
+				<% end %>
 
-			<% if @mapaG2 != nil && !@mapaG2.empty? %>
-				<br>
+				<% if @mapaG2 != nil && !@mapaG2.empty? %>
+					<br>
 
-				<fieldset>
-					<%= high_chart("div_chartG2", @chartG2) %>
-				</fieldset>
-			<% end %>
+					<fieldset>
+						<%= high_chart("div_chartG2", @chartG2) %>
+					</fieldset>
+				<% end %>
+			</div>
+			<br>
 		</div>
-		<br>
-	</div>
+	<% end %>
 <% end %>

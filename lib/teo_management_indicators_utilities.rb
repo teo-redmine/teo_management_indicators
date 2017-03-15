@@ -8,9 +8,9 @@ module TeoManagementIndicatorsUtilities
   end
 
   module InstanceMethods
-    def cargaGraficasProyecto(procedencia)
+    def cargaGraficasProyecto()
       get_settings
-      calculaGraficas(procedencia)
+      calculaGraficas('projects')
     end
 
     def get_settings
