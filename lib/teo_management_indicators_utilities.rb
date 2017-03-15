@@ -444,14 +444,11 @@ module TeoManagementIndicatorsUtilities
 
         if @mapaPorcentajesImportes != nil && !@mapaPorcentajesImportes.empty?
           cont = 0
-          #acumulador = 100
           @mapaPorcentajesImportes.each do |key, porcentajeEstado|
             if key != nil && key == "Disponible"
               f.series(name: I18n.t('field_available'), data: [(porcentajeEstado).round(0)], color: colorDisponible, pointWidth: pointWidth)
             elsif key != nil && key == "En curso-realizado"
-              #f.series(name: "(*)", data: [(porcentajeEstado).round(0)], color: colorEnCursoRealizado)
               f.series(name: I18n.t('field_completed'), data: [(porcentajeEstado).round(0)], color: colorEnCursoRealizado, pointWidth: pointWidth)
-              #f.series(name: "Completado", data: [(porcentajeEstado).round(0)], color: colorEnCurso)
             else
               isSt = IssueStatus.where({id: key})
 
@@ -465,24 +462,10 @@ module TeoManagementIndicatorsUtilities
 
               cont += 1
             end
-
-            #if acumulador == 100
-            #  plotLines.push(color: 'black', width: 2, value: acumulador, dashStyle: 'solid', label: {text: acumulador, align: 'right', rotation: 0, y: -2, style: {fontWeight: 'bold'}})
-            #end
-
-            #acumulador -= (porcentajeEstado).round(0)
-
-            #if acumulador != 0
-            #  plotLines.push(color: 'black', width: 2, value: acumulador, dashStyle: 'solid', label: {text: acumulador, align: 'right', rotation: 0, y: -2, style: {fontWeight: 'bold'}})
-            #end
           end
         else
           f.series(name: I18n.t('field_available'), data: [100], color: colorDisponible, pointWidth: pointWidth)
         end
-
-        #if plotLines != nil && !plotLines.empty?
-        #  f.yAxis(plotLines: plotLines)
-        #end
       end
 
       @stackG1b = LazyHighCharts::HighChart.new('stackG1b') do |f|
@@ -674,85 +657,6 @@ module TeoManagementIndicatorsUtilities
 
         f.series(name: "Presupuesto", data: arrayData, pointWidth: 40)
       end
-
-
-
-
-
-
-
-
-
-
-
-      
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      #@stack = LazyHighCharts::HighChart.new('stack') do |f|
-      #  f.title(text: "Stacked bar chart")
-      #  f.xAxis(categories: ["Bananas"])
-      #  f.series(name: "John", data: [2])
-      #  f.series(name: "Jane", data: [1])
-      #  f.series(name: "Joe", data: [5])
-#
-      #  f.yAxis [
-      #    {min: 0,
-      #    title: {text: "Total fruit consumption", margin: 70} }
-      #  ]
-#
-      #  f.legend(reversed: true)
-      #  f.plot_options({series: {stacking: "normal"}})
-      #  f.chart({defaultSeriesType: "bar"})
-      #end
-
-    	#@chart = LazyHighCharts::HighChart.new('graph') do |f|
-      #  f.title(text: "Population vs GDP For 5 Big Countries [2009]")
-      #  f.xAxis(categories: ["United States", "Japan", "China", "Germany", "France"])
-      #  f.series(name: "GDP in Billions", yAxis: 0, data: [14119, 5068, 4985, 3339, 2656])
-      #  f.series(name: "Population in Millions", yAxis: 1, data: [310, 127, 1340, 81, 65])
-#
-      #  f.yAxis [
-      #   {title: {text: "GDP in Billions", margin: 70} },
-      #    {title: {text: "Population in Millions"}, opposite: true},
-      #  ]
-#
-      #  f.legend(align: 'right', verticalAlign: 'top', y: 75, x: -50, layout: 'vertical')
-      #  f.chart({defaultSeriesType: "column"})
-      #end
-
-      #@chart_globals = LazyHighCharts::HighChartGlobals.new do |f|
-      #  f.global(useUTC: false)
-      #  f.chart(
-      #    backgroundColor: {
-      #      linearGradient: [0, 0, 500, 500],
-      #      stops: [
-      #        [0, "rgb(255, 255, 255)"],
-      #        [1, "rgb(240, 240, 255)"]
-      #      ]
-      #    },
-      #    borderWidth: 2,
-      #    plotBackgroundColor: "rgba(255, 255, 255, .9)",
-      #    plotShadow: true,
-      #    plotBorderWidth: 1
-      #  )
-      #  f.lang(thousandsSep: ",")
-      #  f.colors(["#90ed7d", "#f7a35c", "#8085e9", "#f15c80", "#e4d354"])
-      #end
     end
   end
 end
