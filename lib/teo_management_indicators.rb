@@ -1,5 +1,4 @@
 require_dependency 'settings_controller'
-#require_dependency 'projects_controller'
 
 module TeoManagementIndicatorsSettings
 	def self.included(base)
@@ -63,4 +62,3 @@ module TeoManagementIndicatorsProjects
 end
 
 SettingsController.send(:include, TeoManagementIndicatorsSettings::InstanceMethods)
-#ProjectsController.send(:include, TeoManagementIndicatorsProjects::InstanceMethods)
