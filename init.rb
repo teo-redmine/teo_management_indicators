@@ -2,10 +2,12 @@
 
 # Se incluye el codigo del plugin a los controladores de Settings y Projects
 require 'teo_management_indicators'
+# Para no pisar la vista y evitar conflictos con otros plugins,
+# la vista es modificada por un hook
+require 'indicators_hook_listener'
 
 ActionDispatch::Callbacks.to_prepare do
   SettingsController.send(:include, TeoManagementIndicatorsSettings)
-  ProjectsController.send(:include, TeoManagementIndicatorsProjects)
   IndicadoresController.send(:include, TeoManagementIndicatorsUtilities)
 end
 
@@ -25,3 +27,7 @@ Redmine::Plugin.register :teo_management_indicators do
 
   settings :default => {'empty' => true}, :partial => 'settings/indicadores_settings'
 end
+
+# Con esto hacemos que los métodos de TeoManagementIndicatorsUtilities
+# se puedan llamar dessde el partial _indicadores.html.erb (y desde cualquier vista)
+ApplicationHelper.send(:include, TeoManagementIndicatorsUtilities)

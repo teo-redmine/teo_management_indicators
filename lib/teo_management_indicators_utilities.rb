@@ -1,16 +1,23 @@
-require_dependency 'projects_controller'
+
 require_dependency 'indicadores_controller'
 
 module TeoManagementIndicatorsUtilities
+
   def self.included(base)
     base.send(:include, InstanceMethods)
   end
 
   module InstanceMethods
-    def calculaGraficas(procedencia)
-      @pruebaWe = "meh"
-      @pruebaWee = procedencia
+    def cargaGraficasProyecto(procedencia)
+      get_settings
+      calculaGraficas(procedencia)
+    end
 
+    def get_settings
+      @settings = Setting.plugin_teo_management_indicators
+    end
+
+    def calculaGraficas(procedencia)
       tipopeticiong1n1 = ""
       tipopeticiong1n2 = ""
       issuesOts = Array.new
@@ -750,5 +757,4 @@ module TeoManagementIndicatorsUtilities
   end
 end
 
-ProjectsController.send(:include, TeoManagementIndicatorsUtilities::InstanceMethods)
 IndicadoresController.send(:include, TeoManagementIndicatorsUtilities::InstanceMethods)
