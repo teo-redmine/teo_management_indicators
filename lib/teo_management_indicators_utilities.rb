@@ -1,4 +1,3 @@
-
 require_dependency 'indicadores_controller'
 
 module TeoManagementIndicatorsUtilities
@@ -26,6 +25,7 @@ module TeoManagementIndicatorsUtilities
 
       # Se reciben los parametros de la configuracion
       # y se prepara la grafica de estado de actuaciones "en curso"
+      logger.info('Se reciben los parametros de la configuracion y se prepara la grafica de estado de actuaciones "en curso"')
 
       tipospeticiong1n1 = Tracker.where({id: @settings['tipo_peticion_g1n1']})
       tipospeticiong1n2 = Tracker.where({id: @settings['tipo_peticion_g1n2']})
@@ -65,6 +65,7 @@ module TeoManagementIndicatorsUtilities
       tracker_fields = Tracker::CORE_FIELDS
 
       # Se obtienen las AC con el estado indicado
+      logger.info('Se obtienen las AC con el estado indicado')
       @acsG1 = Issue.where({project: whereProject, tracker: tipopeticiong1n1, status: estadosAcsg1n1})
 
       importeAC = 0
@@ -73,14 +74,18 @@ module TeoManagementIndicatorsUtilities
       @fechaHoy = Date.today
 
       if @acsG1 == nil || @acsG1.empty?
+        logger.info('No se encontraron ACs para gráfica 1')
         issuesOts = Issue.where({project: whereProject, tracker: tipopeticiong1n2})
       else
+        logger.info('Se encontraron ACs, se continúa con los cálculos para la gráfica 1')
+
         campoImporteg1n1 = IssueCustomField.where({id: (importeg1n1).sub("core__", '').sub("custom__", '')})
         campoFechaIniciog1n1 = IssueCustomField.where({id: (fechaIniciog1n1).sub("core__", '').sub("custom__", '')})
         campoFechaFing1n1 = IssueCustomField.where({id: (fechaFing1n1).sub("core__", '').sub("custom__", '')})
 
 
         # Por cada AC se obtendrán las OT y se agruparán por su estado
+        logger.info('Por cada AC se obtendrán las OT y se agruparán por su estado')
         @acsG1.each do |ac|
           importeACCore = nil
           fechaInicioCore = nil
@@ -383,7 +388,7 @@ module TeoManagementIndicatorsUtilities
           if key != nil && key == "Disponible"
             arrayAux.push("Disponible")
           else
-            if issueStatusOtsInProcess != nil && !issueStatusOtsInProcess.empty? && issueStatusOtsInProcess[0] != nil && issueStatusOtsInProcess[0].id == key
+            if issueStatusOtsInProcess != nil && !issueStatusOtsInProcess.empty? && issueStatusOtsInProcess[0] != nil && issueStatusOtsInProcess[0].id == key && @mapaPorcentajesImportes["En curso-realizado"] != nil
               porcentajeG1 += @mapaPorcentajesImportes["En curso-realizado"]
             end
 
