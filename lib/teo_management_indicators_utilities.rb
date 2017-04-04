@@ -161,13 +161,20 @@ module TeoManagementIndicatorsUtilities
               auxs = Array.new
 
               if !@mapaG1.empty? && @mapaG1[isOts.id] != nil && !@mapaG1[isOts.id].empty?
-                auxs << @mapaG1[isOts.id]
+                arrayMapaG1Aux = Array.new
+                arrayMapaG1Aux = @mapaG1[isOts.id]
+
+                for elementoMapaG1Aux in arrayMapaG1Aux
+                  auxs.push(elementoMapaG1Aux)
+                end
               end
 
               isOtsAux = Issue.where({tracker: tipopeticiong1n2, parent: ac.id, status: isOts})
 
               if isOtsAux != nil && !isOtsAux.empty?
-                auxs << isOtsAux
+                for elementoIsOtsAux in isOtsAux
+                  auxs.push(elementoIsOtsAux)
+                end
 
                 @mapaG1[isOts.id] = auxs
               end
@@ -212,87 +219,83 @@ module TeoManagementIndicatorsUtilities
       # Comprobando el importe final y, si no existiese, el importe estimado
       logger.info('Recopilando los datos para montar la gráfica 1')
       if @mapaG1 != nil && !@mapaG1.empty?
-        @mapaG1.each do |key, otss|
+        @mapaG1.each do |key, ots|
           importeEstado = 0
           mapaEnCurso = Hash.new
           porcentajeEnCursoRealizado = 0
 
-          if otss != nil && !otss.empty?
-            for ots in otss
-              if ots != nil && !ots.empty?
-                for ot in ots
-                  importeEstadoAux = 0
-                  valorFinalCore = 0
-                  valorEstimadoCore = 0
-                  porcentajeRealizadoCore = 0
-                  porcentajeRealizado = 0
+          if ots != nil && !ots.empty?
+            for ot in ots
+              importeEstadoAux = 0
+              valorFinalCore = 0
+              valorEstimadoCore = 0
+              porcentajeRealizadoCore = 0
+              porcentajeRealizado = 0
 
-                  if tracker_fields != nil && !tracker_fields.empty?
-                    tracker_fields.each do |field|
-                      if ("core__" + field).sub(/_id$/, '') == importe1g1n2
-                        valorFinalCore = eval("ot." + (importe1g1n2).sub("core__", ''))
-                      end
-
-                      if ("core__" + field).sub(/_id$/, '') == importe2g1n2
-                        valorEstimadoCore = eval("ot." + (importe2g1n2).sub("core__", ''))
-                      end
-
-                      if issueStatusOtsInProcess != nil && !issueStatusOtsInProcess.empty? && issueStatusOtsInProcess[0] != nil && issueStatusOtsInProcess[0].id == key
-                        if ("core__" + field).sub(/_id$/, '') == porcentajeg1n2
-                          porcentajeRealizadoCore = eval("ot." + (porcentajeg1n2).sub("core__", ''))
-                        end
-                      end
-                    end
+              if tracker_fields != nil && !tracker_fields.empty?
+                tracker_fields.each do |field|
+                  if ("core__" + field).sub(/_id$/, '') == importe1g1n2
+                    valorFinalCore = eval("ot." + (importe1g1n2).sub("core__", ''))
                   end
 
-                  if valorFinalCore == nil || valorFinalCore == 0
-                    importeEstadoAux += valorEstimadoCore
-                  else
-                    importeEstadoAux += valorFinalCore
+                  if ("core__" + field).sub(/_id$/, '') == importe2g1n2
+                    valorEstimadoCore = eval("ot." + (importe2g1n2).sub("core__", ''))
                   end
 
-                  if porcentajeRealizadoCore != nil
-                    porcentajeRealizado = porcentajeRealizadoCore
-                  end
-
-                  custom_field_values_ot = ot.custom_field_values
-
-                  if custom_field_values_ot != nil && !custom_field_values_ot.empty?
-                    valorFinal = 0
-                    valorEstimado = 0
-                    porcentajeRealizadoCustom = 0
-
-                    for cfv_ot in custom_field_values_ot
-                      if campoImporte1g1n2 != nil && !campoImporte1g1n2.empty? && campoImporte1g1n2[0] != nil && cfv_ot.custom_field_id == campoImporte1g1n2[0].id && cfv_ot.value != nil && cfv_ot.value != 0
-                        valorFinal += cfv_ot.value.to_i
-                      end
-
-                      if campoImporte2g1n2 != nil && !campoImporte2g1n2.empty? && campoImporte2g1n2[0] != nil && cfv_ot.custom_field_id == campoImporte2g1n2[0].id && cfv_ot.value != nil && cfv_ot.value != 0
-                        valorEstimado += cfv_ot.value.to_i
-                      end
-
-                      if campoPorcentajeg1n2 != nil && !campoPorcentajeg1n2.empty? && campoPorcentajeg1n2[0] != nil && cfv_ot.custom_field_id == campoPorcentajeg1n2[0].id && cfv_ot.value != nil
-                        porcentajeRealizadoCustom += cfv_ot.value.to_i
-                      end
+                  if issueStatusOtsInProcess != nil && !issueStatusOtsInProcess.empty? && issueStatusOtsInProcess[0] != nil && issueStatusOtsInProcess[0].id == key
+                    if ("core__" + field).sub(/_id$/, '') == porcentajeg1n2
+                      porcentajeRealizadoCore = eval("ot." + (porcentajeg1n2).sub("core__", ''))
                     end
-
-                    if valorFinal == nil || valorFinal == 0
-                      importeEstadoAux += valorEstimado
-                    else
-                      importeEstadoAux += valorFinal
-                    end
-
-                    if porcentajeRealizadoCustom != nil && porcentajeRealizadoCustom != 0
-                      porcentajeRealizado = porcentajeRealizadoCustom
-                    end
-                  end
-
-                  importeEstado += importeEstadoAux
-
-                  if issueStatusOtsInProcess != nil && !issueStatusOtsInProcess.empty? && issueStatusOtsInProcess[0] != nil && issueStatusOtsInProcess[0].id == key && importeEstadoAux != nil && porcentajeRealizado != nil
-                    mapaEnCurso[ot.id] = importeEstadoAux.to_s + "___" + porcentajeRealizado.to_s
                   end
                 end
+              end
+
+              if valorFinalCore == nil || valorFinalCore == 0
+                importeEstadoAux += valorEstimadoCore
+              else
+                importeEstadoAux += valorFinalCore
+              end
+
+              if porcentajeRealizadoCore != nil
+                porcentajeRealizado = porcentajeRealizadoCore
+              end
+
+              custom_field_values_ot = ot.custom_field_values
+
+              if custom_field_values_ot != nil && !custom_field_values_ot.empty?
+                valorFinal = 0
+                valorEstimado = 0
+                porcentajeRealizadoCustom = 0
+
+                for cfv_ot in custom_field_values_ot
+                  if campoImporte1g1n2 != nil && !campoImporte1g1n2.empty? && campoImporte1g1n2[0] != nil && cfv_ot.custom_field_id == campoImporte1g1n2[0].id && cfv_ot.value != nil && cfv_ot.value != 0
+                    valorFinal += cfv_ot.value.to_i
+                  end
+
+                  if campoImporte2g1n2 != nil && !campoImporte2g1n2.empty? && campoImporte2g1n2[0] != nil && cfv_ot.custom_field_id == campoImporte2g1n2[0].id && cfv_ot.value != nil && cfv_ot.value != 0
+                    valorEstimado += cfv_ot.value.to_i
+                  end
+
+                  if campoPorcentajeg1n2 != nil && !campoPorcentajeg1n2.empty? && campoPorcentajeg1n2[0] != nil && cfv_ot.custom_field_id == campoPorcentajeg1n2[0].id && cfv_ot.value != nil
+                    porcentajeRealizadoCustom += cfv_ot.value.to_i
+                  end
+                end
+
+                if valorFinal == nil || valorFinal == 0
+                  importeEstadoAux += valorEstimado
+                else
+                  importeEstadoAux += valorFinal
+                end
+
+                if porcentajeRealizadoCustom != nil && porcentajeRealizadoCustom != 0
+                  porcentajeRealizado = porcentajeRealizadoCustom
+                end
+              end
+
+              importeEstado += importeEstadoAux
+
+              if issueStatusOtsInProcess != nil && !issueStatusOtsInProcess.empty? && issueStatusOtsInProcess[0] != nil && issueStatusOtsInProcess[0].id == key && importeEstadoAux != nil && porcentajeRealizado != nil
+                mapaEnCurso[ot.id] = importeEstadoAux.to_s + "___" + porcentajeRealizado.to_s
               end
             end
           end
