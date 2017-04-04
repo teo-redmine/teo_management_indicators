@@ -1,11 +1,11 @@
-<%= javascript_include_tag 'highcharts.js', :plugin => 'teo_management_indicators' %>
-<%= javascript_include_tag 'highcharts-more.js', :plugin => 'teo_management_indicators' %>
-<%= javascript_include_tag 'modules/exporting.js', :plugin => 'teo_management_indicators' %>
+<% if User.current.allowed_to?(:view_indicadores, @project, :global => true) %>
+	<%= javascript_include_tag 'highcharts.js', :plugin => 'teo_management_indicators' %>
+	<%= javascript_include_tag 'highcharts-more.js', :plugin => 'teo_management_indicators' %>
+	<%= javascript_include_tag 'modules/exporting.js', :plugin => 'teo_management_indicators' %>
 
-<% cargaGraficasProyecto %>
+	<% cargaGraficasProyecto %>
 
-<% if (@acsG1 != nil && !@acsG1.empty?) || (@mapaG2 != nil && !@mapaG2.empty?) %>
-	<% if User.current.allowed_to?(:view_indicadores, @project, :global => true) %>
+	<% if (@acsG1 != nil && !@acsG1.empty?) || (@mapaG2 != nil && !@mapaG2.empty?) %>
 		<div class="box">
 			<br>
 			<div style="width:90%;">

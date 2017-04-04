@@ -7,16 +7,21 @@ module TeoManagementIndicatorsUtilities
   end
 
   module InstanceMethods
-    def cargaGraficasProyecto()
-      get_settings
-      calculaGraficas('projects')
+    def cargaGraficasProyecto
+      logger.info('Dentro de cargaGraficasProyecto')
+      if User.current.allowed_to?(:view_indicadores, @project, :global => true)
+        get_settings
+        calculaGraficas('projects')
+      end
     end
 
     def get_settings
+      logger.info('Dentro de get_settings')
       @settings = Setting.plugin_teo_management_indicators
     end
 
     def calculaGraficas(procedencia)
+      logger.info('Dentro de calculaGraficas(' + procedencia + ')')
       tipopeticiong1n1 = ""
       tipopeticiong1n2 = ""
       issuesOts = Array.new
@@ -65,7 +70,7 @@ module TeoManagementIndicatorsUtilities
       tracker_fields = Tracker::CORE_FIELDS
 
       # Se obtienen las AC con el estado indicado
-      logger.info('Se obtienen las AC con el estado indicado')
+      logger.info('Se obtienen las AC con el estado indicado (G1)')
       @acsG1 = Issue.where({project: whereProject, tracker: tipopeticiong1n1, status: estadosAcsg1n1})
 
       importeAC = 0
@@ -74,10 +79,10 @@ module TeoManagementIndicatorsUtilities
       @fechaHoy = Date.today
 
       if @acsG1 == nil || @acsG1.empty?
-        logger.info('No se encontraron ACs para gráfica 1')
+        logger.info('No se encontraron ACs (G1))')
         issuesOts = Issue.where({project: whereProject, tracker: tipopeticiong1n2})
       else
-        logger.info('Se encontraron ACs, se continúa con los cálculos para la gráfica 1')
+        logger.info('Se encontraron ACs, se continúa con los cálculos (G1))')
 
         campoImporteg1n1 = IssueCustomField.where({id: (importeg1n1).sub("core__", '').sub("custom__", '')})
         campoFechaIniciog1n1 = IssueCustomField.where({id: (fechaIniciog1n1).sub("core__", '').sub("custom__", '')})
@@ -85,7 +90,7 @@ module TeoManagementIndicatorsUtilities
 
 
         # Por cada AC se obtendrán las OT y se agruparán por su estado
-        logger.info('Por cada AC se obtendrán las OT y se agruparán por su estado')
+        logger.info('Por cada AC se obtendrán las OT y se agruparán por su estado (G1)')
         @acsG1.each do |ac|
           importeACCore = nil
           fechaInicioCore = nil
@@ -120,6 +125,7 @@ module TeoManagementIndicatorsUtilities
           end
 
           # Se obtiene el importe que se usará como referencia para calcular los porcentajes por estado
+          logger.info('Se obtiene el importe que se usará como referencia para calcular los porcentajes por estado')
           custom_field_values_ac = ac.custom_field_values
 
           if custom_field_values_ac != nil && !custom_field_values_ac.empty?
@@ -182,7 +188,7 @@ module TeoManagementIndicatorsUtilities
         @diasTranscurridos = (@fechaHoy - @fechaInicio).to_i
       end
 
-      if @diasTotales != nil && @diasTranscurridos != nil
+      if @diasTotales != nil && @diasTotales != 0 && @diasTranscurridos != nil && @diasTranscurridos != 0
         @porcentajeDiasTranscurridos = @diasTranscurridos * 100 / @diasTotales
       end
 
@@ -204,6 +210,7 @@ module TeoManagementIndicatorsUtilities
 
       # Por cada estado agrupado se acumularán los importes
       # Comprobando el importe final y, si no existiese, el importe estimado
+      logger.info('Recopilando los datos para montar la gráfica 1')
       if @mapaG1 != nil && !@mapaG1.empty?
         @mapaG1.each do |key, otss|
           importeEstado = 0
@@ -291,49 +298,61 @@ module TeoManagementIndicatorsUtilities
           end
 
           if issueStatusOtsInProcess != nil && !issueStatusOtsInProcess.empty? && issueStatusOtsInProcess[0] != nil && issueStatusOtsInProcess[0].id == key
-            importeRealizadoTotal = 0
+            if importeEstado != nil && importeEstado != 0 && importeAC != nil && importeAC != 0
+              importeRealizadoTotal = 0
 
-            if mapaEnCurso != nil && !mapaEnCurso.empty?
-              mapaEnCurso.each do |key, strValue|
-                arrValue = strValue.split("___")
+              if mapaEnCurso != nil && !mapaEnCurso.empty?
+                mapaEnCurso.each do |key, strValue|
+                  arrValue = strValue.split("___")
 
-                if arrValue != nil && !arrValue.empty? && arrValue.length == 2
-                  importeOTRealizado = arrValue[0].to_i
-                  porcentOTRealizado = arrValue[1].to_i
+                  if arrValue != nil && !arrValue.empty? && arrValue.length == 2
+                    importeOTRealizado = arrValue[0].to_i
+                    porcentOTRealizado = arrValue[1].to_i
 
-                  if importeOTRealizado != nil && importeOTRealizado != 0 && porcentOTRealizado != nil && porcentOTRealizado != 0
-                    importeRealizadoTotal += importeOTRealizado * porcentOTRealizado / 100
+                    if importeOTRealizado != nil && importeOTRealizado != 0 && porcentOTRealizado != nil && porcentOTRealizado != 0
+                      importeRealizadoTotal += importeOTRealizado * porcentOTRealizado / 100
+                    end
                   end
                 end
               end
-            end
 
-            if importeRealizadoTotal != nil && importeRealizadoTotal != 0
-              @importePonderado = (importeEstado - importeRealizadoTotal) * 100
+              if importeRealizadoTotal != nil && importeRealizadoTotal != 0
+                @importePonderado = (importeEstado - importeRealizadoTotal) * 100
 
-              @mapaPorcentajesImportes[key] = (((importeEstado - importeRealizadoTotal) * 100).round(1) / (importeAC).round(1)).round(0)
+                @mapaPorcentajesImportes[key] = (((importeEstado - importeRealizadoTotal) * 100).round(1) / (importeAC).round(1)).round(0)
 
-              porcentajeImportesAcumulado += (importeEstado * 100 / importeAC)
+                porcentajeImportesAcumulado += (importeEstado * 100 / importeAC)
 
-              porcentajeEnCursoRealizado = (importeRealizadoTotal * 100 / importeEstado).round(0)
+                porcentajeEnCursoRealizado = (importeRealizadoTotal * 100 / importeEstado).round(0)
 
-              if porcentajeEnCursoRealizado != nil
-                porcentajeEnCursoRealizadoPonderado = 0
-                porcentajeEnCursoAux = (importeEstado * 100 / importeAC).round(0)
+                if porcentajeEnCursoRealizado != nil
+                  porcentajeEnCursoRealizadoPonderado = 0
+                  porcentajeEnCursoAux = (importeEstado * 100 / importeAC).round(0)
 
-                if porcentajeEnCursoAux != nil && porcentajeEnCursoAux != 0
-                  porcentajeEnCursoRealizadoPonderado = (porcentajeEnCursoRealizado * porcentajeEnCursoAux / 100).round(0)
+                  if porcentajeEnCursoAux != nil && porcentajeEnCursoAux != 0
+                    porcentajeEnCursoRealizadoPonderado = (porcentajeEnCursoRealizado * porcentajeEnCursoAux / 100).round(0)
+                  end
+
+                  if porcentajeEnCursoRealizadoPonderado != nil
+                    @mapaPorcentajesImportes["En curso-realizado"] = porcentajeEnCursoRealizadoPonderado
+                  end
                 end
 
-                if porcentajeEnCursoRealizadoPonderado != nil
-                  @mapaPorcentajesImportes["En curso-realizado"] = porcentajeEnCursoRealizadoPonderado
-                end
+                @mapaImportes[key] = importeEstado
+
+                importeEstadoAcumulado += importeEstado
+              else
+                @mapaImportes[key] = importeEstado
+
+                importeEstadoAcumulado += importeEstado
+
+                @mapaPorcentajesImportes[key] = (importeEstado * 100 / importeAC)
+
+                porcentajeImportesAcumulado += (importeEstado * 100 / importeAC)
               end
-
-              @mapaImportes[key] = importeEstado
-
-              importeEstadoAcumulado += importeEstado
-            else
+            end
+          else
+            if importeEstado != nil && importeEstado != 0 && importeAC != nil && importeAC != 0
               @mapaImportes[key] = importeEstado
 
               importeEstadoAcumulado += importeEstado
@@ -342,14 +361,6 @@ module TeoManagementIndicatorsUtilities
 
               porcentajeImportesAcumulado += (importeEstado * 100 / importeAC)
             end
-          else
-            @mapaImportes[key] = importeEstado
-
-            importeEstadoAcumulado += importeEstado
-
-            @mapaPorcentajesImportes[key] = (importeEstado * 100 / importeAC)
-
-            porcentajeImportesAcumulado += (importeEstado * 100 / importeAC)
           end
 
           # importe1 * porcentaje1 / 100 = importeRealizado1
@@ -429,6 +440,7 @@ module TeoManagementIndicatorsUtilities
       colores.push(colorCerrado)
       colores.push(colorFacturado)
 
+      logger.info('Se inicializa stackG1a')
       @stackG1a = LazyHighCharts::HighChart.new('stackG1a') do |f|
         pointWidth = 60
         if procedencia == 'indicadores'
@@ -473,6 +485,7 @@ module TeoManagementIndicatorsUtilities
         end
       end
 
+      logger.info('Se inicializa stackG1b')
       @stackG1b = LazyHighCharts::HighChart.new('stackG1b') do |f|
         pointWidth = 15
         if procedencia == 'indicadores'
@@ -536,17 +549,20 @@ module TeoManagementIndicatorsUtilities
       @mapaG2 = Hash.new
       
       # Se obtienen las AC con el estado indicado
+      logger.info('Se obtienen las AC con el estado indicado (G2)')
       @acsG2 = Issue.where({project: whereProject, tracker: tipopeticiong2n1, status: estadosAcsg2n1})
 
-      importeAC = 0
       @fechaInicioG2 = nil
       @fechaFinG2 = nil
 
       if @acsG2 == nil || @acsG2.empty?
         # Si no hay AC se obtendrán directamente las OT del contenedor
+        logger.info('No se encontraron ACs (G2))')
         issuesOtsG2 = Issue.where({project: whereProject, tracker: tipopeticiong2n2, status: estadosOtsg2n2})
       else
+        logger.info('Se encontraron ACs, se continúa con los cálculos (G2))')
         # Por cada AC se obtendrán sus OT
+        logger.info('Por cada AC se obtendrán las OT (G2)')
         @acsG2.each do |ac|
           otsAux = Issue.where({tracker: tipopeticiong2n2, parent: ac.id, status: estadosOtsg2n2})
 
@@ -639,6 +655,7 @@ module TeoManagementIndicatorsUtilities
         @mapaG2 = @mapaG2.sort.to_h
       end
 
+      logger.info('Se inicializa chartG2')
       @chartG2 = LazyHighCharts::HighChart.new('chartG2') do |f|
         if procedencia == 'indicadores'
           f.chart({defaultSeriesType: "column", width: 700})
