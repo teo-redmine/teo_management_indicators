@@ -490,18 +490,20 @@ module TeoManagementIndicatorsUtilities
 
       logger.info('Se inicializa stackG1b')
       @stackG1b = LazyHighCharts::HighChart.new('stackG1b') do |f|
-        pointWidth = 15
+        #pointWidth = 15
+        pointWidth = 20
         if procedencia == 'indicadores'
           f.chart({defaultSeriesType: "bar", height: 100, width: 533})
         else
-          f.chart({defaultSeriesType: "bar", height: 85})
+          #f.chart({defaultSeriesType: "bar", height: 85})
+          f.chart({defaultSeriesType: "bar", height: 95})
         end
         f.legend(false)
         f.tooltip(false)
         f.exporting(false)
         f.title(text: I18n.t('title_g1b'))
         f.xAxis(categories: [""])
-        f.plot_options({bar: {stacking: "percent", dataLabels: {format: "{percentage}%", enabled: true, style: {color: "#FFFFFF", fontWeight: "bold"}}, grouping: false, shadow: false, borderWidth: 0, borderColor: "grey"}})
+        f.plot_options({bar: {stacking: "percent", dataLabels: {y: 0, format: "{percentage}%", enabled: true, style: {color: "#FFFFFF", fontWeight: "bold"}}, grouping: false, shadow: false, borderWidth: 0, borderColor: "grey"}})
 
         if @porcentajeDiasTranscurridos != nil
           f.series(name: I18n.t('field_available'), data: [100 - @porcentajeDiasTranscurridos], color: "grey", pointWidth: pointWidth)

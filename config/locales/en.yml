@@ -5,34 +5,54 @@ en:
 
   main_title_management_indicators: Economic Indicators
 
+  lbl_no_information: No information was found to calculate the indicators in this container.
+
   title_g1: Execution of "in process" actions chart
   title_g1b: Time passed
   first_level_g1n1: First level
   issue_type_g1n1: Issue type
+  issue_type_g1n1_info: Tipo de petición que se usará como referencia para el primer nivel de búsqueda
   issue_status_g1n1: Status
+  issue_status_g1n1_info: Estado que se usará para filtrar las peticiones del primer nivel de búsqueda
   start_date_g1n1: Start date
+  start_date_g1n1_info: Campo de fecha que se usará como punto de partida del periodo de tiempo que abarcan las peticiones
   due_date_g1n1: Due date
+  due_date_g1n1_info: Campo de fecha que se usará como punto final del periodo de tiempo que abarcan las peticiones
   cost_g1n1: Cost
+  cost_g1n1_info: Campo de importe que se tomará como referencia en las peticiones de primer nivel
 
   second_level_g1n2: Second level
   issue_type_g1n2: Issue type
+  issue_type_g1n2_info: Tipo de petición que se usará como referencia para el segundo nivel de búsqueda
   issue_status_inprocess_g1n2: Status "In process"
+  issue_status_inprocess_g1n2_info: Estado que se usará para identificar que una petición está en progreso
   issue_status_g1n2: Status
+  issue_status_g1n2_info: Estado que se usará para filtrar las peticiones del segundo nivel de búsqueda
   cost1_g1n2: Cost 1
+  cost1_g1n2_info: Campo de importe que se tomará como referencia en las peticiones de segundo nivel
   cost2_g1n2: Cost 2
+  cost2_g1n2_info: Campo de importe que se tomará como referencia en las peticiones de segundo nivel, en caso que el anterior campo no esté relleno en la petición
   percentage_g1n2: Percentage
+  percentage_g1n2_info: Campo de porcentaje que se usará para conocer la parte completada de las peticiones en progreso
 
   title_g2: Executed costs per year chart
   first_level_g2n1: First level
   issue_type_g2n1: Issue type
+  issue_type_g2n1_info: Tipo de petición que se usará como referencia para el primer nivel de búsqueda
   issue_status_g2n1: Status
+  issue_status_g2n1_info: Estado que se usará para filtrar las peticiones del primer nivel de búsqueda
 
   second_level_g2n2: Second level
   issue_type_g2n2: Issue type
+  issue_type_g2n2_info: Tipo de petición que se usará como referencia para el segundo nivel de búsqueda
   issue_status_g2n2: Status
+  issue_status_g2n2_info: Estado que se usará para filtrar las peticiones del segundo nivel de búsqueda
   cost1_g2n2: Cost 1
+  cost1_g2n2_info: Campo de importe que se tomará como referencia en las peticiones de segundo nivel
   cost2_g2n2: Cost 2
+  cost2_g2n2_info: Campo de importe que se tomará como referencia en las peticiones de segundo nivel, en caso que el anterior campo no esté relleno en la petición
   due_date_g2n2: Due date
+  due_date_g2n2_info: Campo de fecha que se usará como referencia para agrupar peticiones
 
   field_name: Name
   field_description: Description

@@ -13,9 +13,23 @@
           </td>
         </tr>
         <tr>
+          <td>
+          </td>
+          <td>
+            <em class="info"><%= t(:issue_type_g1n1_info) %></em>
+          </td>
+        </tr>
+        <tr>
           <th><%= l(:issue_status_g1n1) %></th>
           <td>
             <%= select_tag('settings[estado_g1n1]', options_for_select(IssueStatus.sorted.to_a.collect{ |u| [I18n.t("field_" + u.name), u.id] }, @settings['estado_g1n1']), prompt: I18n.t("field_Seleccionar"), multiple: true) %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+          </td>
+          <td>
+            <em class="info"><%= t(:issue_status_g1n1_info) %></em>
           </td>
         </tr>
         <tr>
@@ -25,15 +39,36 @@
           </td>
         </tr>
         <tr>
+          <td>
+          </td>
+          <td>
+            <em class="info"><%= t(:start_date_g1n1_info) %></em>
+          </td>
+        </tr>
+        <tr>
           <th><%= l(:due_date_g1n1) %></th>
           <td>
             <%= select_tag('settings[fecha_fin_g1n1]', options_for_select(@fields.to_a.collect{ |key, value| [value, key] }, @settings['fecha_fin_g1n1']), prompt: I18n.t("field_Seleccionar")) %>
           </td>
         </tr>
         <tr>
+          <td>
+          </td>
+          <td>
+            <em class="info"><%= t(:due_date_g1n1_info) %></em>
+          </td>
+        </tr>
+        <tr>
           <th><%= l(:cost_g1n1) %></th>
           <td>
             <%= select_tag('settings[importe_g1n1]', options_for_select(@fields.to_a.collect{ |key, value| [value, key] }, @settings['importe_g1n1']), prompt: I18n.t("field_Seleccionar")) %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+          </td>
+          <td>
+            <em class="info"><%= t(:cost_g1n1_info) %></em>
           </td>
         </tr>
       </tbody>
@@ -54,9 +89,23 @@
           </td>
         </tr>
         <tr>
+          <td>
+          </td>
+          <td>
+            <em class="info"><%= t(:issue_type_g1n2_info) %></em>
+          </td>
+        </tr>
+        <tr>
           <th><%= l(:issue_status_inprocess_g1n2) %></th>
           <td>
             <%= select_tag('settings[estado_encurso_g1n2]', options_for_select(IssueStatus.sorted.to_a.collect{ |u| [I18n.t("field_" + u.name), u.id] }, @settings['estado_encurso_g1n2']), prompt: I18n.t("field_Seleccionar")) %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+          </td>
+          <td>
+            <em class="info"><%= t(:issue_status_inprocess_g1n2_info) %></em>
           </td>
         </tr>
         <tr>
@@ -66,9 +115,23 @@
           </td>
         </tr>
         <tr>
+          <td>
+          </td>
+          <td>
+            <em class="info"><%= t(:issue_status_g1n2_info) %></em>
+          </td>
+        </tr>
+        <tr>
           <th><%= l(:cost1_g1n2) %></th>
           <td>
             <%= select_tag('settings[importe1_g1n2]', options_for_select(@fields.to_a.collect{ |key, value| [value, key] }, @settings['importe1_g1n2']), prompt: I18n.t("field_Seleccionar")) %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+          </td>
+          <td>
+            <em class="info"><%= t(:cost1_g1n2_info) %></em>
           </td>
         </tr>
         <tr>
@@ -78,9 +141,23 @@
           </td>
         </tr>
         <tr>
+          <td>
+          </td>
+          <td>
+            <em class="info"><%= t(:cost2_g1n2_info) %></em>
+          </td>
+        </tr>
+        <tr>
           <th><%= l(:percentage_g1n2) %></th>
           <td>
             <%= select_tag('settings[porcentaje_g1n2]', options_for_select(@fields.to_a.collect{ |key, value| [value, key] }, @settings['porcentaje_g1n2']), prompt: I18n.t("field_Seleccionar")) %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+          </td>
+          <td>
+            <em class="info"><%= t(:percentage_g1n2_info) %></em>
           </td>
         </tr>
       </tbody>
@@ -89,7 +166,6 @@
 </fieldset>
 
 <br>
-
 
 <fieldset>
   <legend><h1><%= l(:title_g2) %></h1></legend>
@@ -106,9 +182,23 @@
           </td>
         </tr>
         <tr>
+          <td>
+          </td>
+          <td>
+            <em class="info"><%= t(:issue_type_g2n1_info) %></em>
+          </td>
+        </tr>
+        <tr>
           <th><%= l(:issue_status_g2n1) %></th>
           <td>
             <%= select_tag('settings[estado_g2n1]', options_for_select(IssueStatus.sorted.to_a.collect{ |u| [I18n.t("field_" + u.name), u.id] }, @settings['estado_g2n1']), prompt: I18n.t("field_Seleccionar"), multiple: true) %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+          </td>
+          <td>
+            <em class="info"><%= t(:issue_status_g2n1_info) %></em>
           </td>
         </tr>
       </tbody>
@@ -129,9 +219,23 @@
           </td>
         </tr>
         <tr>
+          <td>
+          </td>
+          <td>
+            <em class="info"><%= t(:issue_type_g2n2_info) %></em>
+          </td>
+        </tr>
+        <tr>
           <th><%= l(:issue_status_g2n2) %></th>
           <td>
             <%= select_tag('settings[estado_g2n2]', options_for_select(IssueStatus.sorted.to_a.collect{ |u| [I18n.t("field_" + u.name), u.id] }, @settings['estado_g2n2']), prompt: I18n.t("field_Seleccionar"), multiple: true) %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+          </td>
+          <td>
+            <em class="info"><%= t(:issue_status_g2n2_info) %></em>
           </td>
         </tr>
         <tr>
@@ -141,15 +245,36 @@
           </td>
         </tr>
         <tr>
+          <td>
+          </td>
+          <td>
+            <em class="info"><%= t(:cost1_g2n2_info) %></em>
+          </td>
+        </tr>
+        <tr>
           <th><%= l(:cost2_g2n2) %></th>
           <td>
             <%= select_tag('settings[importe2_g2n2]', options_for_select(@fields.to_a.collect{ |key, value| [value, key] }, @settings['importe2_g2n2']), prompt: I18n.t("field_Seleccionar")) %>
           </td>
         </tr>
         <tr>
+          <td>
+          </td>
+          <td>
+            <em class="info"><%= t(:cost2_g2n2_info) %></em>
+          </td>
+        </tr>
+        <tr>
           <th><%= l(:due_date_g2n2) %></th>
           <td>
             <%= select_tag('settings[fecha_fin_g2n2]', options_for_select(@fields.to_a.collect{ |key, value| [value, key] }, @settings['fecha_fin_g2n2']), prompt: I18n.t("field_Seleccionar")) %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+          </td>
+          <td>
+            <em class="info"><%= t(:due_date_g2n2_info) %></em>
           </td>
         </tr>
       </tbody>

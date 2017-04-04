@@ -16,6 +16,10 @@
 
 <h2><%= l(:main_title_management_indicators) %></h2>
 
+<% if (@acsG1 == nil || @acsG1.empty?) && (@mapaG2 == nil || @mapaG2.empty?) %>
+	<%= l(:lbl_no_information) %>
+<% end %>
+
 <% if @acsG1 != nil && !@acsG1.empty? %>
 	<fieldset style="border:1px solid #628DB6;">
 		<div style="margin:0 0 0 5%">
