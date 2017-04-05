@@ -13,7 +13,7 @@ es:
   issue_type_g1n1: Tipo petición
   issue_type_g1n1_info: Tipo de petición que se usará como referencia para el primer nivel de búsqueda
   issue_status_g1n1: Estado
-  issue_status_g1n1_info: Estado que se usará para filtrar las peticiones del primer nivel de búsqueda
+  issue_status_g1n1_info: Estado o estados que se usarán para filtrar las peticiones del primer nivel de búsqueda
   start_date_g1n1: Fecha inicio
   start_date_g1n1_info: Campo de fecha que se usará como punto de partida del periodo de tiempo que abarcan las peticiones
   due_date_g1n1: Fecha fin
@@ -27,7 +27,7 @@ es:
   issue_status_inprocess_g1n2: Estado "en curso"
   issue_status_inprocess_g1n2_info: Estado que se usará para identificar que una petición está en progreso
   issue_status_g1n2: Estado
-  issue_status_g1n2_info: Estado que se usará para filtrar las peticiones del segundo nivel de búsqueda
+  issue_status_g1n2_info: Estado o estados que se usarán para filtrar las peticiones del segundo nivel de búsqueda
   cost1_g1n2: Importe 1
   cost1_g1n2_info: Campo de importe que se tomará como referencia en las peticiones de segundo nivel
   cost2_g1n2: Importe 2
@@ -40,13 +40,13 @@ es:
   issue_type_g2n1: Tipo petición
   issue_type_g2n1_info: Tipo de petición que se usará como referencia para el primer nivel de búsqueda
   issue_status_g2n1: Estado
-  issue_status_g2n1_info: Estado que se usará para filtrar las peticiones del primer nivel de búsqueda
+  issue_status_g2n1_info: Estado o estados que se usarán para filtrar las peticiones del primer nivel de búsqueda
 
   second_level_g2n2: Segundo nivel
   issue_type_g2n2: Tipo petición
   issue_type_g2n2_info: Tipo de petición que se usará como referencia para el segundo nivel de búsqueda
   issue_status_g2n2: Estado
-  issue_status_g2n2_info: Estado que se usará para filtrar las peticiones del segundo nivel de búsqueda
+  issue_status_g2n2_info: Estado o estados que se usarán para filtrar las peticiones del segundo nivel de búsqueda
   cost1_g2n2: Importe 1
   cost1_g2n2_info: Campo de importe que se tomará como referencia en las peticiones de segundo nivel
   cost2_g2n2: Importe 2
