@@ -484,22 +484,24 @@ module TeoManagementIndicatorsUtilities
         if @mapaPorcentajesImportes != nil && !@mapaPorcentajesImportes.empty?
           cont = 0
           @mapaPorcentajesImportes.each do |key, porcentajeEstado|
-            if key != nil && key == "Disponible"
-              f.series(name: I18n.t('field_available'), data: [(porcentajeEstado).round(0)], color: colorDisponible, pointWidth: pointWidth)
-            elsif key != nil && key == "En curso-realizado"
-              f.series(name: I18n.t('field_completed'), data: [(porcentajeEstado).round(0)], color: colorEnCursoRealizado, pointWidth: pointWidth)
-            else
-              isSt = IssueStatus.where({id: key})
+            if (porcentajeEstado).round(0) > 0
+              if key != nil && key == "Disponible"
+                f.series(name: I18n.t('field_available'), data: [(porcentajeEstado).round(0)], color: colorDisponible, pointWidth: pointWidth)
+              elsif key != nil && key == "En curso-realizado"
+                f.series(name: I18n.t('field_completed'), data: [(porcentajeEstado).round(0)], color: colorEnCursoRealizado, pointWidth: pointWidth)
+              else
+                isSt = IssueStatus.where({id: key})
 
-              if isSt != nil && !isSt.empty?
-                if cont < 4
-                  f.series(name: I18n.t("field_" + isSt[0].to_s), data: [(porcentajeEstado).round(0)], color: colores[cont], pointWidth: pointWidth)
-                else
-                  f.series(name: I18n.t("field_" + isSt[0].to_s), data: [(porcentajeEstado).round(0)], pointWidth: pointWidth)
+                if isSt != nil && !isSt.empty?
+                  if cont < 4
+                    f.series(name: I18n.t("field_" + isSt[0].to_s), data: [(porcentajeEstado).round(0)], color: colores[cont], pointWidth: pointWidth)
+                  else
+                    f.series(name: I18n.t("field_" + isSt[0].to_s), data: [(porcentajeEstado).round(0)], pointWidth: pointWidth)
+                  end
                 end
-              end
 
-              cont += 1
+                cont += 1
+              end
             end
           end
         else
