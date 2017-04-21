@@ -139,15 +139,15 @@ module TeoManagementIndicatorsUtilities
 
           if custom_field_values_ac != nil && !custom_field_values_ac.empty?
             for cfv_ac in custom_field_values_ac
-              if campoImporteg1n1 != nil && !campoImporteg1n1.empty? && campoImporteg1n1[0] != nil && cfv_ac.custom_field_id == campoImporteg1n1[0].id && cfv_ac.value != nil && cfv_ac.value != 0
+              if campoImporteg1n1 != nil && !campoImporteg1n1.empty? && campoImporteg1n1[0] != nil && cfv_ac.custom_field_id == campoImporteg1n1[0].id && cfv_ac.value != nil && cfv_ac.value.to_i != 0
                 importeAC += cfv_ac.value.to_i
               end
 
-              if campoFechaIniciog1n1 != nil && !campoFechaIniciog1n1.empty? && campoFechaIniciog1n1[0] != nil && cfv_ac.custom_field_id == campoFechaIniciog1n1[0].id && cfv_ac.value != nil && (@fechaInicio == nil || @fechaInicio > cfv_ac.value)
+              if campoFechaIniciog1n1 != nil && !campoFechaIniciog1n1.empty? && campoFechaIniciog1n1[0] != nil && cfv_ac.custom_field_id == campoFechaIniciog1n1[0].id && cfv_ac.value != nil && (@fechaInicio == nil || @fechaInicio > cfv_ac.value.to_date)
                 @fechaInicio = cfv_ac.value.to_date
               end
 
-              if campoFechaFing1n1 != nil && !campoFechaFing1n1.empty? && campoFechaFing1n1[0] != nil && cfv_ac.custom_field_id == campoFechaFing1n1[0].id && cfv_ac.value != nil && (@fechaFin == nil || @fechaFin > cfv_ac.value)
+              if campoFechaFing1n1 != nil && !campoFechaFing1n1.empty? && campoFechaFing1n1[0] != nil && cfv_ac.custom_field_id == campoFechaFing1n1[0].id && cfv_ac.value != nil && (@fechaFin == nil || @fechaFin > cfv_ac.value.to_date)
                 @fechaFin = cfv_ac.value.to_date
               end
             end
@@ -283,11 +283,11 @@ module TeoManagementIndicatorsUtilities
                 porcentajeRealizadoCustom = 0
 
                 for cfv_ot in custom_field_values_ot
-                  if campoImporte1g1n2 != nil && !campoImporte1g1n2.empty? && campoImporte1g1n2[0] != nil && cfv_ot.custom_field_id == campoImporte1g1n2[0].id && cfv_ot.value != nil && cfv_ot.value != 0
+                  if campoImporte1g1n2 != nil && !campoImporte1g1n2.empty? && campoImporte1g1n2[0] != nil && cfv_ot.custom_field_id == campoImporte1g1n2[0].id && cfv_ot.value != nil && cfv_ot.value.to_i != 0
                     valorFinal += cfv_ot.value.to_i
                   end
 
-                  if campoImporte2g1n2 != nil && !campoImporte2g1n2.empty? && campoImporte2g1n2[0] != nil && cfv_ot.custom_field_id == campoImporte2g1n2[0].id && cfv_ot.value != nil && cfv_ot.value != 0
+                  if campoImporte2g1n2 != nil && !campoImporte2g1n2.empty? && campoImporte2g1n2[0] != nil && cfv_ot.custom_field_id == campoImporte2g1n2[0].id && cfv_ot.value != nil && cfv_ot.value.to_i != 0
                     valorEstimado += cfv_ot.value.to_i
                   end
 
@@ -540,7 +540,6 @@ module TeoManagementIndicatorsUtilities
       tipopeticiong2n1 = ""
       tipopeticiong2n2 = ""
       issuesOtsG2 = Array.new
-      issueStatusOtsG2 = Array.new
 
       # Se reciben los parametros de la configuracion
       # y se prepara la grafica de importes ejecutados por año
@@ -559,10 +558,6 @@ module TeoManagementIndicatorsUtilities
 
       if tipospeticiong2n2 != nil && !tipospeticiong2n2.empty?
         tipopeticiong2n2 = tipospeticiong2n2[0]
-      end
-
-      if estadosOtsg2n2 != nil && !estadosOtsg2n2.empty?
-        issueStatusOtsG2 = IssueStatus.where({id: estadosOtsg2n2})
       end
 
       campoImporte1g2n2 = nil
@@ -640,7 +635,7 @@ module TeoManagementIndicatorsUtilities
             importe = valorFinalCore
           end
 
-          if fechaFinCore != nil
+          if fechaFinCore != nil && fechaFinCore != ''
             anyo = (fechaFinCore.to_date).strftime("%Y")
           end
 
@@ -648,15 +643,15 @@ module TeoManagementIndicatorsUtilities
 
           if custom_field_values_ot != nil && !custom_field_values_ot.empty?
             for cfv_ot in custom_field_values_ot
-              if campoImporte1g2n2 != nil && !campoImporte1g2n2.empty? && campoImporte1g2n2[0] != nil && cfv_ot.custom_field_id == campoImporte1g2n2[0].id && cfv_ot.value != nil && cfv_ot.value != 0
+              if campoImporte1g2n2 != nil && !campoImporte1g2n2.empty? && campoImporte1g2n2[0] != nil && cfv_ot.custom_field_id == campoImporte1g2n2[0].id && cfv_ot.value != nil && cfv_ot.value.to_i != 0
                 valorFinalCustom = cfv_ot.value.to_i
               end
 
-              if campoImporte2g2n2 != nil && !campoImporte2g2n2.empty? && campoImporte2g2n2[0] != nil && cfv_ot.custom_field_id == campoImporte2g2n2[0].id && cfv_ot.value != nil && cfv_ot.value != 0
+              if campoImporte2g2n2 != nil && !campoImporte2g2n2.empty? && campoImporte2g2n2[0] != nil && cfv_ot.custom_field_id == campoImporte2g2n2[0].id && cfv_ot.value != nil && cfv_ot.value.to_i != 0
                 valorEstimadoCustom = cfv_ot.value.to_i
               end
 
-              if campoFechaFing2n2 != nil && !campoFechaFing2n2.empty? && campoFechaFing2n2[0] != nil && cfv_ot.custom_field_id == campoFechaFing2n2[0].id && cfv_ot.value != nil && (anyo == nil || anyo == 0)
+              if campoFechaFing2n2 != nil && !campoFechaFing2n2.empty? && campoFechaFing2n2[0] != nil && cfv_ot.custom_field_id == campoFechaFing2n2[0].id && cfv_ot.value != nil && cfv_ot.value != ''
                 anyo = (cfv_ot.value.to_date).strftime("%Y")
               end
             end
