@@ -142,6 +142,7 @@ es:
   field_cost: Importe
   field_accumulate: Acumulado
   field_budget: Presupuesto
+  field_executed_cost: Importe ejecutado
   field_year: Año
   field_days: Días
   field_time_passed: Tiempo transcurrido
@@ -181,3 +182,4 @@ es:
   field_En espera: En espera
   field_Cancelado: Cancelado
   field_Cancelado: Cancelado
+  field_no_date: Sin año

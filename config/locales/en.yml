@@ -180,6 +180,7 @@ en:
   field_cost: Cost
   field_accumulate: Accumulate
   field_budget: Budget
+  field_executed_cost: Executed cost
   field_year: Year
   field_days: Days
   field_time_passed: Time passed
@@ -218,3 +219,4 @@ en:
   field_Propuesto: Proposed
   field_En espera: On standby
   field_Cancelado: Cancelled
+  field_no_date: No date

@@ -65,18 +65,18 @@
 					<table style="white-space: nowrap;">
 						<tr>
 							<td style="text-align:left;"><%= l(:field_start_date) %></td>
-							<% if @fechaInicio == nil %>
+							<% if @fechaInicio == nil || @fechaInicio == '' %>
 								<td></td>
 							<% else %>
-								<td style="text-align:right;"><%= (@fechaInicio).strftime("%d/%m/%y") %></td>
+								<td style="text-align:right;"><%= (@fechaInicio.to_date).strftime("%d/%m/%y") %></td>
 							<% end %>
 						</tr>
 						<tr>
 							<td style="text-align:left;"><%= l(:field_due_date) %></td>
-							<% if @fechaFin == nil %>
+							<% if @fechaFin == nil || @fechaFin == '' %>
 								<td></td>
 							<% else %>
-								<td style="text-align:right;"><%= (@fechaFin).strftime("%d/%m/%y") %></td>
+								<td style="text-align:right;"><%= (@fechaFin.to_date).strftime("%d/%m/%y") %></td>
 							<% end %>
 						</tr>
 						<tr>
@@ -85,10 +85,10 @@
 						</tr>
 						<tr>
 							<td style="text-align:left;"><%= l(:field_today) %></td>
-							<% if @fechaHoy == nil %>
+							<% if @fechaHoy == nil || @fechaHoy == '' %>
 								<td></td>
 							<% else %>
-								<td style="text-align:right;"><%= (@fechaHoy).strftime("%d/%m/%y") %></td>
+								<td style="text-align:right;"><%= (@fechaHoy.to_date).strftime("%d/%m/%y") %></td>
 							<% end %>
 						</tr>
 						<tr>
@@ -120,7 +120,7 @@
 					<table style="white-space: nowrap;">
 						<tr style="background-color: lightgrey;color: #3E5B76;font-weight: bold;">
 							<td style="text-align:center;"><%= l(:field_year) %></td>
-							<td style="text-align:center;"><%= l(:field_budget) %></td>
+							<td style="text-align:center;"><%= l(:field_executed_cost) %></td>
 						</tr>
 						<% if @mapaG2 != nil && !@mapaG2.empty? %>
 							<% @mapaG2.to_a.reverse.to_h.each do |key, value| %>

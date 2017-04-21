@@ -27,7 +27,7 @@ module TeoManagementIndicatorsSettings
 
 				if !@project_custom_fields.empty?
 					@project_custom_fields.each do |field|
-						@fields["custom__" + field.id.to_s] = I18n.t("field_" + field.name)
+						@fields["custom__" + field.id.to_s] = I18n.t("field_" + field.name, default: field.name)
 					end
 				end
 			end

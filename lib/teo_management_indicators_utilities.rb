@@ -84,10 +84,19 @@ module TeoManagementIndicatorsUtilities
       else
         logger.info('Se encontraron ACs, se continúa con los cálculos (G1))')
 
-        campoImporteg1n1 = IssueCustomField.where({id: (importeg1n1).sub("core__", '').sub("custom__", '')})
-        campoFechaIniciog1n1 = IssueCustomField.where({id: (fechaIniciog1n1).sub("core__", '').sub("custom__", '')})
-        campoFechaFing1n1 = IssueCustomField.where({id: (fechaFing1n1).sub("core__", '').sub("custom__", '')})
+        campoImporteg1n1 = nil
+        campoFechaIniciog1n1 = nil
+        campoFechaFing1n1 = nil
 
+        if importeg1n1 != nil
+          campoImporteg1n1 = IssueCustomField.where({id: (importeg1n1).sub("core__", '').sub("custom__", '')})
+        end
+        if fechaIniciog1n1 != nil
+          campoFechaIniciog1n1 = IssueCustomField.where({id: (fechaIniciog1n1).sub("core__", '').sub("custom__", '')})
+        end
+        if fechaFing1n1 != nil
+          campoFechaFing1n1 = IssueCustomField.where({id: (fechaFing1n1).sub("core__", '').sub("custom__", '')})
+        end
 
         # Por cada AC se obtendrán las OT y se agruparán por su estado
         logger.info('Por cada AC se obtendrán las OT y se agruparán por su estado (G1)')
@@ -134,16 +143,12 @@ module TeoManagementIndicatorsUtilities
                 importeAC += cfv_ac.value.to_i
               end
 
-              if campoFechaIniciog1n1 != nil && !campoFechaIniciog1n1.empty? && campoFechaIniciog1n1[0] != nil && cfv_ac.custom_field_id == campoFechaIniciog1n1[0].id && cfv_ac.value != nil && (fechaInicio == nil || fechaInicio > cfv_ac.value)
+              if campoFechaIniciog1n1 != nil && !campoFechaIniciog1n1.empty? && campoFechaIniciog1n1[0] != nil && cfv_ac.custom_field_id == campoFechaIniciog1n1[0].id && cfv_ac.value != nil && (@fechaInicio == nil || @fechaInicio > cfv_ac.value)
                 @fechaInicio = cfv_ac.value.to_date
               end
 
-              if campoFechaFing1n1 != nil && !campoFechaFing1n1.empty? && campoFechaFing1n1[0] != nil && cfv_ac.custom_field_id == campoFechaFing1n1[0].id && cfv_ac.value != nil && (fechaFin == nil || fechaFin > cfv_ac.value)
+              if campoFechaFing1n1 != nil && !campoFechaFing1n1.empty? && campoFechaFing1n1[0] != nil && cfv_ac.custom_field_id == campoFechaFing1n1[0].id && cfv_ac.value != nil && (@fechaFin == nil || @fechaFin > cfv_ac.value)
                 @fechaFin = cfv_ac.value.to_date
-              end
-
-              if campoFechaFing1n1 != nil && !campoFechaFing1n1.empty? && campoFechaFing1n1[0] != nil && cfv_ac.custom_field_id == campoFechaFing1n1[0].id && cfv_ac.value != nil && (fechaFin == nil || fechaFin > cfv_ac.value)
-                @fechaFin = cfv_ac.value
               end
             end
           end
@@ -187,11 +192,11 @@ module TeoManagementIndicatorsUtilities
       @diasTranscurridos = nil
       @porcentajeDiasTranscurridos = nil
 
-      if @fechaFin != nil && @fechaInicio != nil
+      if @fechaFin != nil && @fechaFin != '' && @fechaInicio != nil && @fechaInicio != ''
         @diasTotales = (@fechaFin - @fechaInicio).to_i
       end
       
-      if @fechaHoy != nil && @fechaInicio != nil
+      if @fechaHoy != nil && @fechaInicio != nil && @fechaHoy != '' && @fechaInicio != ''
         @diasTranscurridos = (@fechaHoy - @fechaInicio).to_i
       end
 
@@ -199,9 +204,19 @@ module TeoManagementIndicatorsUtilities
         @porcentajeDiasTranscurridos = @diasTranscurridos * 100 / @diasTotales
       end
 
-      campoImporte1g1n2 = IssueCustomField.where({id: (importe1g1n2).sub("core__", '').sub("custom__", '')})
-      campoImporte2g1n2 = IssueCustomField.where({id: (importe2g1n2).sub("core__", '').sub("custom__", '')})
-      campoPorcentajeg1n2 = IssueCustomField.where({id: (porcentajeg1n2).sub("core__", '').sub("custom__", '')})
+      campoImporte1g1n2 = nil
+      campoImporte2g1n2 = nil
+      campoPorcentajeg1n2 = nil
+
+      if importe1g1n2 != nil
+        campoImporte1g1n2 = IssueCustomField.where({id: (importe1g1n2).sub("core__", '').sub("custom__", '')})
+      end
+      if importe2g1n2 != nil
+        campoImporte2g1n2 = IssueCustomField.where({id: (importe2g1n2).sub("core__", '').sub("custom__", '')})
+      end
+      if porcentajeg1n2 != nil
+        campoPorcentajeg1n2 = IssueCustomField.where({id: (porcentajeg1n2).sub("core__", '').sub("custom__", '')})
+      end
 
       @mapaImportes = Hash.new
 
@@ -299,6 +314,10 @@ module TeoManagementIndicatorsUtilities
               end
             end
           end
+
+          # Se anula la división entre encurso y completado
+          issueStatusOtsInProcess = nil
+          # Eliminar asignación nil si se volviera a recuperar
 
           if issueStatusOtsInProcess != nil && !issueStatusOtsInProcess.empty? && issueStatusOtsInProcess[0] != nil && issueStatusOtsInProcess[0].id == key
             if importeEstado != nil && importeEstado != 0 && importeAC != nil && importeAC != 0
@@ -534,7 +553,6 @@ module TeoManagementIndicatorsUtilities
       importe2g2n2 = @settings['importe2_g2n2']
       fechaFing2n2 = @settings['fecha_fin_g2n2']
 
-
       if tipospeticiong2n1 != nil && !tipospeticiong2n1.empty?
         tipopeticiong2n1 = tipospeticiong2n1[0]
       end
@@ -547,9 +565,19 @@ module TeoManagementIndicatorsUtilities
         issueStatusOtsG2 = IssueStatus.where({id: estadosOtsg2n2})
       end
 
-      campoImporte1g2n2 = IssueCustomField.where({id: (importe1g2n2).sub("core__", '').sub("custom__", '')})
-      campoImporte2g2n2 = IssueCustomField.where({id: (importe2g2n2).sub("core__", '').sub("custom__", '')})
-      campoFechaFing2n2 = IssueCustomField.where({id: (fechaFing2n2).sub("core__", '').sub("custom__", '')})
+      campoImporte1g2n2 = nil
+      campoImporte2g2n2 = nil
+      campoFechaFing2n2 = nil
+
+      if importe1g2n2 != nil
+        campoImporte1g2n2 = IssueCustomField.where({id: (importe1g2n2).sub("core__", '').sub("custom__", '')})
+      end
+      if importe2g2n2 != nil
+        campoImporte2g2n2 = IssueCustomField.where({id: (importe2g2n2).sub("core__", '').sub("custom__", '')})
+      end
+      if fechaFing2n2 != nil
+        campoFechaFing2n2 = IssueCustomField.where({id: (fechaFing2n2).sub("core__", '').sub("custom__", '')})
+      end
 
       @mapaG2 = Hash.new
       
@@ -581,7 +609,7 @@ module TeoManagementIndicatorsUtilities
 
       if issuesOtsG2 != nil && !issuesOtsG2.empty?
         issuesOtsG2.each do |ot|
-          anyo = 0
+          anyo = I18n.t("field_no_date", default: "0")
           importe = 0
 
           valorFinalCore = nil
@@ -613,7 +641,7 @@ module TeoManagementIndicatorsUtilities
           end
 
           if fechaFinCore != nil
-            anyo = (fechaFinCore).strftime("%Y")
+            anyo = (fechaFinCore.to_date).strftime("%Y")
           end
 
           custom_field_values_ot = ot.custom_field_values
@@ -628,8 +656,8 @@ module TeoManagementIndicatorsUtilities
                 valorEstimadoCustom = cfv_ot.value.to_i
               end
 
-              if campoFechaFing2n2 != nil && !campoFechaFing2n2.empty? && campoFechaFing2n2[0] != nil && cfv_ac.custom_field_id == campoFechaFing2n2[0].id && cfv_ot.value != nil && (anyo == nil || anyo == 0)
-                anyo = (cfv_ot.value).strftime("%Y")
+              if campoFechaFing2n2 != nil && !campoFechaFing2n2.empty? && campoFechaFing2n2[0] != nil && cfv_ot.custom_field_id == campoFechaFing2n2[0].id && cfv_ot.value != nil && (anyo == nil || anyo == 0)
+                anyo = (cfv_ot.value.to_date).strftime("%Y")
               end
             end
 
@@ -642,7 +670,7 @@ module TeoManagementIndicatorsUtilities
             end
           end
 
-          if @mapaG2 != nil && anyo != 0
+          if @mapaG2 != nil
             if @mapaG2[anyo] == nil
               if importe != 0
                 @mapaG2[anyo] = importe
@@ -682,7 +710,8 @@ module TeoManagementIndicatorsUtilities
           arrayData.push(arrayMap)
         end
 
-        f.series(name: "Presupuesto", data: arrayData, pointWidth: 40)
+        f.series(name: I18n.t('field_executed_cost'), data: arrayData, pointWidth: 40)
+        #f.series(name: I18n.t('field_executed_cost'), data: arrayData, pointWidth: 40, dataLabels: {format: "{y}",enabled: true, style: {color: "#000000", fontWeight: "bold"}})
       end
     end
   end
