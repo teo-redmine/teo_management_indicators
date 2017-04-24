@@ -35,7 +35,7 @@
         <tr>
           <th><%= l(:start_date_g1n1) %></th>
           <td>
-            <%= select_tag('settings[fecha_inicio_g1n1]', options_for_select(@fields.to_a.collect{ |key, value| [value, key] }, @settings['fecha_inicio_g1n1']), prompt: I18n.t("field_Seleccionar")) %>
+            <%= select_tag('settings[fecha_inicio_g1n1]', options_for_select(@fieldsDate.to_a.collect{ |key, value| [value, key] }, @settings['fecha_inicio_g1n1']), prompt: I18n.t("field_Seleccionar")) %>
           </td>
         </tr>
         <tr>
@@ -48,7 +48,7 @@
         <tr>
           <th><%= l(:due_date_g1n1) %></th>
           <td>
-            <%= select_tag('settings[fecha_fin_g1n1]', options_for_select(@fields.to_a.collect{ |key, value| [value, key] }, @settings['fecha_fin_g1n1']), prompt: I18n.t("field_Seleccionar")) %>
+            <%= select_tag('settings[fecha_fin_g1n1]', options_for_select(@fieldsDate.to_a.collect{ |key, value| [value, key] }, @settings['fecha_fin_g1n1']), prompt: I18n.t("field_Seleccionar")) %>
           </td>
         </tr>
         <tr>
@@ -61,7 +61,7 @@
         <tr>
           <th><%= l(:cost_g1n1) %></th>
           <td>
-            <%= select_tag('settings[importe_g1n1]', options_for_select(@fields.to_a.collect{ |key, value| [value, key] }, @settings['importe_g1n1']), prompt: I18n.t("field_Seleccionar")) %>
+            <%= select_tag('settings[importe_g1n1]', options_for_select(@fieldsFloat.to_a.collect{ |key, value| [value, key] }, @settings['importe_g1n1']), prompt: I18n.t("field_Seleccionar")) %>
           </td>
         </tr>
         <tr>
@@ -126,7 +126,7 @@
         <tr>
           <th><%= l(:cost1_g1n2) %></th>
           <td>
-            <%= select_tag('settings[importe1_g1n2]', options_for_select(@fields.to_a.collect{ |key, value| [value, key] }, @settings['importe1_g1n2']), prompt: I18n.t("field_Seleccionar")) %>
+            <%= select_tag('settings[importe1_g1n2]', options_for_select(@fieldsFloat.to_a.collect{ |key, value| [value, key] }, @settings['importe1_g1n2']), prompt: I18n.t("field_Seleccionar")) %>
           </td>
         </tr>
         <tr>
@@ -139,7 +139,7 @@
         <tr>
           <th><%= l(:cost2_g1n2) %></th>
           <td>
-            <%= select_tag('settings[importe2_g1n2]', options_for_select(@fields.to_a.collect{ |key, value| [value, key] }, @settings['importe2_g1n2']), prompt: I18n.t("field_Seleccionar")) %>
+            <%= select_tag('settings[importe2_g1n2]', options_for_select(@fieldsFloat.to_a.collect{ |key, value| [value, key] }, @settings['importe2_g1n2']), prompt: I18n.t("field_Seleccionar")) %>
           </td>
         </tr>
         <tr>
@@ -245,7 +245,7 @@
         <tr>
           <th><%= l(:cost1_g2n2) %></th>
           <td>
-            <%= select_tag('settings[importe1_g2n2]', options_for_select(@fields.to_a.collect{ |key, value| [value, key] }, @settings['importe1_g2n2']), prompt: I18n.t("field_Seleccionar")) %>
+            <%= select_tag('settings[importe1_g2n2]', options_for_select(@fieldsFloat.to_a.collect{ |key, value| [value, key] }, @settings['importe1_g2n2']), prompt: I18n.t("field_Seleccionar")) %>
           </td>
         </tr>
         <tr>
@@ -258,7 +258,7 @@
         <tr>
           <th><%= l(:cost2_g2n2) %></th>
           <td>
-            <%= select_tag('settings[importe2_g2n2]', options_for_select(@fields.to_a.collect{ |key, value| [value, key] }, @settings['importe2_g2n2']), prompt: I18n.t("field_Seleccionar")) %>
+            <%= select_tag('settings[importe2_g2n2]', options_for_select(@fieldsFloat.to_a.collect{ |key, value| [value, key] }, @settings['importe2_g2n2']), prompt: I18n.t("field_Seleccionar")) %>
           </td>
         </tr>
         <tr>
@@ -271,7 +271,7 @@
         <tr>
           <th><%= l(:due_date_g2n2) %></th>
           <td>
-            <%= select_tag('settings[fecha_fin_g2n2]', options_for_select(@fields.to_a.collect{ |key, value| [value, key] }, @settings['fecha_fin_g2n2']), prompt: I18n.t("field_Seleccionar")) %>
+            <%= select_tag('settings[fecha_fin_g2n2]', options_for_select(@fieldsDate.to_a.collect{ |key, value| [value, key] }, @settings['fecha_fin_g2n2']), prompt: I18n.t("field_Seleccionar")) %>
           </td>
         </tr>
         <tr>

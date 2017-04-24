@@ -16,18 +16,38 @@ module TeoManagementIndicatorsSettings
 				@project_custom_fields = IssueCustomField.sorted
 
 				@fields = Hash.new
+				@fieldsDate = Hash.new
+				@fieldsFloat = Hash.new
 
 				tracker_fields = Tracker::CORE_FIELDS
 
 				if !tracker_fields.empty?
 					tracker_fields.each do |field|
 						@fields["core__" + field] = I18n.t(("field_" + field).sub(/_id$/, ''))
+
+						if Issue.columns_hash[field].to_s != nil && Issue.columns_hash[field].to_s != '' && Issue.columns_hash[field].type != nil && Issue.columns_hash[field.to_s].type.to_s != nil && Issue.columns_hash[field.to_s].type.to_s != ''
+							if Issue.columns_hash[field.to_s].type.to_s == 'float'
+								@fieldsFloat["core__" + field] = I18n.t(("field_" + field).sub(/_id$/, ''))
+							end
+							if Issue.columns_hash[field.to_s].type.to_s == 'date'
+								@fieldsDate["core__" + field] = I18n.t(("field_" + field).sub(/_id$/, ''))
+							end
+						end
 					end
 				end
 
 				if !@project_custom_fields.empty?
 					@project_custom_fields.each do |field|
 						@fields["custom__" + field.id.to_s] = I18n.t("field_" + field.name, default: field.name)
+
+						if field.field_format != nil && field.field_format.to_s != nil && field.field_format.to_s != ''
+							if field.field_format.to_s == 'float'
+								@fieldsFloat["custom__" + field.id.to_s] = I18n.t("field_" + field.name, default: field.name)
+							end
+							if field.field_format.to_s == 'date'
+								@fieldsDate["custom__" + field.id.to_s] = I18n.t("field_" + field.name, default: field.name)
+							end
+						end
 					end
 				end
 			end

@@ -90,12 +90,27 @@ module TeoManagementIndicatorsUtilities
 
         if importeg1n1 != nil
           campoImporteg1n1 = IssueCustomField.where({id: (importeg1n1).sub("core__", '').sub("custom__", '')})
+
+          if campoImporteg1n1 != nil && !campoImporteg1n1.empty? && campoImporteg1n1[0] != nil && campoImporteg1n1[0].field_format != nil && campoImporteg1n1[0].field_format.to_s != nil && campoImporteg1n1[0].field_format.to_s != '' && campoImporteg1n1[0].field_format.to_s != 'float'
+            logger.warn('Se ha elegido un campo no válido como importe (' + campoImporteg1n1[0].field_format.to_s + ').')
+            campoImporteg1n1 = nil
+          end
         end
         if fechaIniciog1n1 != nil
           campoFechaIniciog1n1 = IssueCustomField.where({id: (fechaIniciog1n1).sub("core__", '').sub("custom__", '')})
+
+          if campoFechaIniciog1n1 != nil && !campoFechaIniciog1n1.empty? && campoFechaIniciog1n1[0] != nil && campoFechaIniciog1n1[0].field_format != nil && campoFechaIniciog1n1[0].field_format.to_s != nil && campoFechaIniciog1n1[0].field_format.to_s != '' && campoFechaIniciog1n1[0].field_format.to_s != 'date'
+            logger.warn('Se ha elegido un campo no válido como fecha (' + campoFechaIniciog1n1[0].field_format.to_s + ').')
+            campoFechaIniciog1n1 = nil
+          end
         end
         if fechaFing1n1 != nil
           campoFechaFing1n1 = IssueCustomField.where({id: (fechaFing1n1).sub("core__", '').sub("custom__", '')})
+
+          if campoFechaFing1n1 != nil && !campoFechaFing1n1.empty? && campoFechaFing1n1[0] != nil && campoFechaFing1n1[0].field_format != nil && campoFechaFing1n1[0].field_format.to_s != nil && campoFechaFing1n1[0].field_format.to_s != '' && campoFechaFing1n1[0].field_format.to_s != 'date'
+            logger.warn('Se ha elegido un campo no válido como fecha (' + campoFechaFing1n1[0].field_format.to_s + ').')
+            campoFechaFing1n1 = nil
+          end
         end
 
         # Por cada AC se obtendrán las OT y se agruparán por su estado
@@ -107,16 +122,30 @@ module TeoManagementIndicatorsUtilities
 
           if tracker_fields != nil && !tracker_fields.empty?
             tracker_fields.each do |field|
-              if ("core__" + field).sub(/_id$/, '') == importeg1n1
-                importeACCore = eval("ac." + (importeg1n1).sub("core__", ''))
-              end
+              if Issue.columns_hash[field].to_s != nil && Issue.columns_hash[field].to_s != '' && Issue.columns_hash[field].type != nil && Issue.columns_hash[field.to_s].type.to_s != nil && Issue.columns_hash[field.to_s].type.to_s != ''
+                if ("core__" + field).sub(/_id$/, '') == importeg1n1
+                  if Issue.columns_hash[field.to_s].type.to_s == 'float'
+                    importeACCore = eval("ac." + (importeg1n1).sub("core__", ''))
+                  else
+                    logger.warn('Se ha elegido un campo no válido como importe (' + Issue.columns_hash[field.to_s].type.to_s + ').')
+                  end
+                end
 
-              if ("core__" + field).sub(/_id$/, '') == fechaIniciog1n1
-                fechaInicioCore = eval("ac." + (fechaIniciog1n1).sub("core__", ''))
-              end
+                if ("core__" + field).sub(/_id$/, '') == fechaIniciog1n1
+                  if Issue.columns_hash[field.to_s].type.to_s == 'date'
+                    fechaInicioCore = eval("ac." + (fechaIniciog1n1).sub("core__", ''))
+                  else
+                    logger.warn('Se ha elegido un campo no válido como fecha (' + Issue.columns_hash[field.to_s].type.to_s + ').')
+                  end
+                end
 
-              if ("core__" + field).sub(/_id$/, '') == fechaFing1n1
-                fechaFinCore = eval("ac." + (fechaFing1n1).sub("core__", ''))
+                if ("core__" + field).sub(/_id$/, '') == fechaFing1n1
+                  if Issue.columns_hash[field.to_s].type.to_s == 'date'
+                    fechaFinCore = eval("ac." + (fechaFing1n1).sub("core__", ''))
+                  else
+                    logger.warn('Se ha elegido un campo no válido como fecha (' + Issue.columns_hash[field.to_s].type.to_s + ').')
+                  end
+                end
               end
             end
           end
@@ -210,9 +239,19 @@ module TeoManagementIndicatorsUtilities
 
       if importe1g1n2 != nil
         campoImporte1g1n2 = IssueCustomField.where({id: (importe1g1n2).sub("core__", '').sub("custom__", '')})
+
+        if campoImporte1g1n2 != nil && !campoImporte1g1n2.empty? && campoImporte1g1n2[0] != nil && campoImporte1g1n2[0].field_format != nil && campoImporte1g1n2[0].field_format.to_s != nil && campoImporte1g1n2[0].field_format.to_s != '' && campoImporte1g1n2[0].field_format.to_s != 'float'
+          logger.warn('Se ha elegido un campo no válido como importe (' + campoImporte1g1n2[0].field_format.to_s + ').')
+          campoImporte1g1n2 = nil
+        end
       end
       if importe2g1n2 != nil
         campoImporte2g1n2 = IssueCustomField.where({id: (importe2g1n2).sub("core__", '').sub("custom__", '')})
+
+        if campoImporte2g1n2 != nil && !campoImporte2g1n2.empty? && campoImporte2g1n2[0] != nil && campoImporte2g1n2[0].field_format != nil && campoImporte2g1n2[0].field_format.to_s != nil && campoImporte2g1n2[0].field_format.to_s != '' && campoImporte2g1n2[0].field_format.to_s != 'float'
+          logger.warn('Se ha elegido un campo no válido como importe (' + campoImporte2g1n2[0].field_format.to_s + ').')
+          campoImporte2g1n2 = nil
+        end
       end
       if porcentajeg1n2 != nil
         campoPorcentajeg1n2 = IssueCustomField.where({id: (porcentajeg1n2).sub("core__", '').sub("custom__", '')})
@@ -249,17 +288,27 @@ module TeoManagementIndicatorsUtilities
 
               if tracker_fields != nil && !tracker_fields.empty?
                 tracker_fields.each do |field|
-                  if ("core__" + field).sub(/_id$/, '') == importe1g1n2
-                    valorFinalCore = eval("ot." + (importe1g1n2).sub("core__", ''))
-                  end
+                  if Issue.columns_hash[field].to_s != nil && Issue.columns_hash[field].to_s != '' && Issue.columns_hash[field].type != nil && Issue.columns_hash[field.to_s].type.to_s != nil && Issue.columns_hash[field.to_s].type.to_s != ''
+                    if ("core__" + field).sub(/_id$/, '') == importe1g1n2 &&
+                      if Issue.columns_hash[field.to_s].type.to_s == 'float'
+                        valorFinalCore = eval("ot." + (importe1g1n2).sub("core__", ''))
+                      else
+                        logger.warn('Se ha elegido un campo no válido como importe (' + Issue.columns_hash[field.to_s].type.to_s + ').')
+                      end
+                    end
 
-                  if ("core__" + field).sub(/_id$/, '') == importe2g1n2
-                    valorEstimadoCore = eval("ot." + (importe2g1n2).sub("core__", ''))
-                  end
+                    if ("core__" + field).sub(/_id$/, '') == importe2g1n2
+                      if Issue.columns_hash[field.to_s].type.to_s == 'float'
+                        valorEstimadoCore = eval("ot." + (importe2g1n2).sub("core__", ''))
+                      else
+                        logger.warn('Se ha elegido un campo no válido como importe (' + Issue.columns_hash[field.to_s].type.to_s + ').')
+                      end
+                    end
 
-                  if issueStatusOtsInProcess != nil && !issueStatusOtsInProcess.empty? && issueStatusOtsInProcess[0] != nil && issueStatusOtsInProcess[0].id == key
-                    if ("core__" + field).sub(/_id$/, '') == porcentajeg1n2
-                      porcentajeRealizadoCore = eval("ot." + (porcentajeg1n2).sub("core__", ''))
+                    if issueStatusOtsInProcess != nil && !issueStatusOtsInProcess.empty? && issueStatusOtsInProcess[0] != nil && issueStatusOtsInProcess[0].id == key
+                      if ("core__" + field).sub(/_id$/, '') == porcentajeg1n2
+                        porcentajeRealizadoCore = eval("ot." + (porcentajeg1n2).sub("core__", ''))
+                      end
                     end
                   end
                 end
@@ -568,12 +617,27 @@ module TeoManagementIndicatorsUtilities
 
       if importe1g2n2 != nil
         campoImporte1g2n2 = IssueCustomField.where({id: (importe1g2n2).sub("core__", '').sub("custom__", '')})
+
+        if campoImporte1g2n2 != nil && !campoImporte1g2n2.empty? && campoImporte1g2n2[0] != nil && campoImporte1g2n2[0].field_format != nil && campoImporte1g2n2[0].field_format.to_s != nil && campoImporte1g2n2[0].field_format.to_s != '' && campoImporte1g2n2[0].field_format.to_s != 'float'
+          logger.warn('Se ha elegido un campo no válido como importe (' + campoImporte1g2n2[0].field_format.to_s + ').')
+          campoImporte1g2n2 = nil
+        end
       end
       if importe2g2n2 != nil
         campoImporte2g2n2 = IssueCustomField.where({id: (importe2g2n2).sub("core__", '').sub("custom__", '')})
+
+        if campoImporte2g2n2 != nil && !campoImporte2g2n2.empty? && campoImporte2g2n2[0] != nil && campoImporte2g2n2[0].field_format != nil && campoImporte2g2n2[0].field_format.to_s != nil && campoImporte2g2n2[0].field_format.to_s != '' && campoImporte2g2n2[0].field_format.to_s != 'float'
+          logger.warn('Se ha elegido un campo no válido como importe (' + campoImporte2g2n2[0].field_format.to_s + ').')
+          campoImporte2g2n2 = nil
+        end
       end
       if fechaFing2n2 != nil
         campoFechaFing2n2 = IssueCustomField.where({id: (fechaFing2n2).sub("core__", '').sub("custom__", '')})
+
+        if campoFechaFing2n2 != nil && !campoFechaFing2n2.empty? && campoFechaFing2n2[0] != nil && campoFechaFing2n2[0].field_format != nil && campoFechaFing2n2[0].field_format.to_s != nil && campoFechaFing2n2[0].field_format.to_s != '' && campoFechaFing2n2[0].field_format.to_s != 'date'
+          logger.warn('Se ha elegido un campo no válido como fecha (' + campoFechaFing2n2[0].field_format.to_s + ').')
+          campoFechaFing2n2 = nil
+        end
       end
 
       @mapaG2 = Hash.new
@@ -615,16 +679,30 @@ module TeoManagementIndicatorsUtilities
 
           if tracker_fields != nil && !tracker_fields.empty?
             tracker_fields.each do |field|
-              if ("core__" + field).sub(/_id$/, '') == importe1g2n2
-                valorFinalCore = eval("ot." + (importe1g2n2).sub("core__", ''))
-              end
+              if Issue.columns_hash[field].to_s != nil && Issue.columns_hash[field].to_s != '' && Issue.columns_hash[field].type != nil && Issue.columns_hash[field.to_s].type.to_s != nil && Issue.columns_hash[field.to_s].type.to_s != ''
+                if ("core__" + field).sub(/_id$/, '') == importe1g2n2
+                  if Issue.columns_hash[field.to_s].type.to_s == 'float'
+                    valorFinalCore = eval("ot." + (importe1g2n2).sub("core__", ''))
+                  else
+                    logger.warn('Se ha elegido un campo no válido como importe (' + Issue.columns_hash[field.to_s].type.to_s + ').')
+                  end
+                end
 
-              if ("core__" + field).sub(/_id$/, '') == importe2g2n2
-                valorEstimadoCore = eval("ot." + (importe2g2n2).sub("core__", ''))
-              end
+                if ("core__" + field).sub(/_id$/, '') == importe2g2n2
+                  if Issue.columns_hash[field.to_s].type.to_s == 'float'
+                    valorEstimadoCore = eval("ot." + (importe2g2n2).sub("core__", ''))
+                  else
+                    logger.warn('Se ha elegido un campo no válido como importe (' + Issue.columns_hash[field.to_s].type.to_s + ').')
+                  end
+                end
 
-              if ("core__" + field).sub(/_id$/, '') == fechaFing2n2
-                fechaFinCore = eval("ot." + (fechaFing2n2).sub("core__", ''))
+                if ("core__" + field).sub(/_id$/, '') == fechaFing2n2
+                  if Issue.columns_hash[field.to_s].type.to_s == 'date'
+                    fechaFinCore = eval("ot." + (fechaFing2n2).sub("core__", ''))
+                  else
+                    logger.warn('Se ha elegido un campo no válido como fecha (' + Issue.columns_hash[field.to_s].type.to_s + ').')
+                  end
+                end
               end
             end
           end
