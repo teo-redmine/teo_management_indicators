@@ -576,7 +576,9 @@ module TeoManagementIndicatorsUtilities
         f.plot_options({bar: {stacking: "percent", dataLabels: {y: 0, format: "{percentage}%", enabled: true, style: {color: "#FFFFFF", fontWeight: "bold"}}, grouping: false, shadow: false, borderWidth: 0, borderColor: "grey"}})
 
         if @porcentajeDiasTranscurridos != nil
-          f.series(name: I18n.t('field_available'), data: [100 - @porcentajeDiasTranscurridos], color: "grey", pointWidth: pointWidth)
+          if @porcentajeDiasTranscurridos < 100
+            f.series(name: I18n.t('field_available'), data: [100 - @porcentajeDiasTranscurridos], color: "grey", pointWidth: pointWidth)
+          end
           f.series(name: I18n.t('field_passed'), data: [@porcentajeDiasTranscurridos], color: "black", pointWidth: pointWidth)
         end
       end
