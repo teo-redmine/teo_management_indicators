@@ -16,20 +16,20 @@
 
 <h2><%= l(:main_title_management_indicators) %></h2>
 
-<% if (@acsG1 == nil || @acsG1.empty?) && (@mapaG2 == nil || @mapaG2.empty?) %>
+<% if (@chart_view.acsG1 == nil || @chart_view.acsG1.empty?) && (@chart_view.mapaG2 == nil || @chart_view.mapaG2.empty?) %>
 	<%= l(:lbl_no_information) %>
 <% end %>
 
-<% if @acsG1 != nil && !@acsG1.empty? %>
+<% if @chart_view.acsG1 != nil && !@chart_view.acsG1.empty? %>
 	<fieldset style="border:1px solid #628DB6;">
 		<div style="margin:0 0 0 5%">
 			<div style="float: left">
 				<div>
-					<%= high_chart("div_stackG1a", @stackG1a) %>
+					<%= high_chart("div_stackG1a", @chart_view.stackG1a) %>
 				</div>
 
 				<div>
-					<%= high_chart("div_stackG1b", @stackG1b) %>
+					<%= high_chart("div_stackG1b", @chart_view.stackG1b) %>
 				</div>
 			</div>
 
@@ -42,8 +42,8 @@
 							<td style="text-align:center;">%</td>
 							<td style="text-align:center;">% <%= l(:field_accumulate) %></td>
 						</tr>
-						<% if @mapaTablaG1 != nil && !@mapaTablaG1.empty? %>
-							<% @mapaTablaG1.each do |key, value| %>
+						<% if @chart_view.mapaTablaG1 != nil && !@chart_view.mapaTablaG1.empty? %>
+							<% @chart_view.mapaTablaG1.each do |key, value| %>
 								<tr>
 									<td style="text-align:left;"><%= I18n.t("field_" + value[0].to_s) %></td>
 									<td style="text-align:right;"><%= value[1] %> €</td>
@@ -54,8 +54,8 @@
 						<% end %>
 						<tr>
 							<td style="text-align:left;font-weight:bold;"><%= l(:field_budget) %></td>
-							<td style="text-align:right;font-weight:bold;"><%= @importeAcumuladoG1 %> €</td>
-							<td style="text-align:right;font-weight:bold;"><%= @porcentajeAcumuladoG1 %> %</td>
+							<td style="text-align:right;font-weight:bold;"><%= @chart_view.importeAcumuladoG1 %> €</td>
+							<td style="text-align:right;font-weight:bold;"><%= @chart_view.porcentajeAcumuladoG1 %> %</td>
 							<td></td>
 						</tr>
 					</table>
@@ -65,39 +65,39 @@
 					<table style="white-space: nowrap;">
 						<tr>
 							<td style="text-align:left;"><%= l(:field_start_date) %></td>
-							<% if @fechaInicio == nil || @fechaInicio == '' %>
+							<% if @chart_view.fechaInicio == nil || @chart_view.fechaInicio == '' %>
 								<td></td>
 							<% else %>
-								<td style="text-align:right;"><%= (@fechaInicio.to_date).strftime("%d/%m/%y") %></td>
+								<td style="text-align:right;"><%= (@chart_view.fechaInicio.to_date).strftime("%d/%m/%y") %></td>
 							<% end %>
 						</tr>
 						<tr>
 							<td style="text-align:left;"><%= l(:field_due_date) %></td>
-							<% if @fechaFin == nil || @fechaFin == '' %>
+							<% if @chart_view.fechaFin == nil || @chart_view.fechaFin == '' %>
 								<td></td>
 							<% else %>
-								<td style="text-align:right;"><%= (@fechaFin.to_date).strftime("%d/%m/%y") %></td>
+								<td style="text-align:right;"><%= (@chart_view.fechaFin.to_date).strftime("%d/%m/%y") %></td>
 							<% end %>
 						</tr>
 						<tr>
 							<td style="text-align:left;"><%= l(:field_period) %> (<%= l(:field_days) %>)</td>
-							<td style="text-align:right;"><%= @diasTotales %></td>
+							<td style="text-align:right;"><%= @chart_view.diasTotales %></td>
 						</tr>
 						<tr>
 							<td style="text-align:left;"><%= l(:field_today) %></td>
-							<% if @fechaHoy == nil || @fechaHoy == '' %>
+							<% if @chart_view.fechaHoy == nil || @chart_view.fechaHoy == '' %>
 								<td></td>
 							<% else %>
-								<td style="text-align:right;"><%= (@fechaHoy.to_date).strftime("%d/%m/%y") %></td>
+								<td style="text-align:right;"><%= (@chart_view.fechaHoy.to_date).strftime("%d/%m/%y") %></td>
 							<% end %>
 						</tr>
 						<tr>
 							<td style="text-align:left;"><%= l(:field_time_passed) %> (<%= l(:field_days) %>)</td>
-							<td style="text-align:right;"><%= @diasTranscurridos %></td>
+							<td style="text-align:right;"><%= @chart_view.diasTranscurridos %></td>
 						</tr>
 						<tr>
 							<td style="text-align:left;"><%= l(:field_time_passed) %> (%)</td>
-							<td style="text-align:right;"><%= @porcentajeDiasTranscurridos %> %</td>
+							<td style="text-align:right;"><%= @chart_view.porcentajeDiasTranscurridos %> %</td>
 						</tr>
 					</table>
 				</div>
@@ -108,11 +108,11 @@
 
 <br><br>
 
-<% if @mapaG2 != nil && !@mapaG2.empty? %>
+<% if @chart_view.mapaG2 != nil && !@chart_view.mapaG2.empty? %>
 	<fieldset style="border:1px solid #628DB6;">
 		<div style="margin:0 0 0 5%">
 			<div style="float: left">
-				<%= high_chart("div_chartG2", @chartG2) %>
+				<%= high_chart("div_chartG2", @chart_view.chartG2) %>
 			</div>
 
 			<div style="float: left;">
@@ -122,8 +122,8 @@
 							<td style="text-align:center;"><%= l(:field_year) %></td>
 							<td style="text-align:center;"><%= l(:field_executed_cost) %></td>
 						</tr>
-						<% if @mapaG2 != nil && !@mapaG2.empty? %>
-							<% @mapaG2.to_a.reverse.to_h.each do |key, value| %>
+						<% if @chart_view.mapaG2 != nil && !@chart_view.mapaG2.empty? %>
+							<% @chart_view.mapaG2.to_a.reverse.to_h.each do |key, value| %>
 								<tr>
 									<td style="text-align:right;"><%= key %></td>
 									<td style="text-align:right;"><%= value %> €</td>

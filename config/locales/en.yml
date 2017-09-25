@@ -35,7 +35,16 @@ en:
   percentage_g1n2: Percentage
   percentage_g1n2_info: Campo de porcentaje que se usará para conocer la parte completada de las peticiones en progreso
 
+  title_g1_issues: Execution of actions chart
+  issue_level_g1: Chart display in issues
+  issue_type_g1n1_issues: Issue type
+  issue_type_g1n1_issues_info: Tipo de petición en la que se mostrará la gráfica
+
   title_g2: Executed costs per year chart
+  general_level_g2: General settings
+  group_by_g2: Group by
+  group_by_g2_info: Campo de tipo proyecto que se usará para agrupar los importes
+
   first_level_g2n1: First level
   issue_type_g2n1: Issue type
   issue_type_g2n1_info: Tipo de petición que se usará como referencia para el primer nivel de búsqueda

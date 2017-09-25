@@ -6,24 +6,24 @@
 
 	<% cargaGraficasProyecto %>
 
-	<% if (@acsG1 != nil && !@acsG1.empty?) || (@mapaG2 != nil && !@mapaG2.empty?) %>
+	<% if (@chart_view.acsG1 != nil && !@chart_view.acsG1.empty?) || (@chart_view.mapaG2 != nil && !@chart_view.mapaG2.empty?) %>
 		<div class="box">
 			<h3><span class="icon icon-chart"><%= l(:main_title_management_indicators) %></h3>
 			<br>
 			<div style="width:90%;">
-				<% if @acsG1 != nil && !@acsG1.empty? %>
+				<% if @chart_view.acsG1 != nil && !@chart_view.acsG1.empty? %>
 					<fieldset>
-						<%= high_chart("div_stackG1a", @stackG1a) %>
+						<%= high_chart("div_stackG1a", @chart_view.stackG1a) %>
 
-						<%= high_chart("div_stackG1b", @stackG1b) %>
+						<%= high_chart("div_stackG1b", @chart_view.stackG1b) %>
 					</fieldset>
 				<% end %>
 
-				<% if @mapaG2 != nil && !@mapaG2.empty? %>
+				<% if @chart_view.mapaG2 != nil && !@chart_view.mapaG2.empty? %>
 					<br>
 
 					<fieldset>
-						<%= high_chart("div_chartG2", @chartG2) %>
+						<%= high_chart("div_chartG2", @chart_view.chartG2) %>
 					</fieldset>
 				<% end %>
 			</div>

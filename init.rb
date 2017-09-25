@@ -8,7 +8,7 @@ require 'indicators_hook_listener'
 
 ActionDispatch::Callbacks.to_prepare do
   SettingsController.send(:include, TeoManagementIndicatorsSettings)
-  IndicadoresController.send(:include, TeoManagementIndicatorsUtilities)
+  IndicatorsController.send(:include, TeoManagementIndicatorsUtilities)
 end
 
 Redmine::Plugin.register :teo_management_indicators do

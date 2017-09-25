@@ -1,0 +1,15 @@
+<% if User.current.allowed_to?(:view_indicadores, @project, :global => true) %>
+	<%= javascript_include_tag 'highcharts.js', :plugin => 'teo_management_indicators' %>
+	<%= javascript_include_tag 'highcharts-more.js', :plugin => 'teo_management_indicators' %>
+	<%= javascript_include_tag 'modules/exporting.js', :plugin => 'teo_management_indicators' %>
+	<%= stylesheet_link_tag 'indicators', :plugin => 'teo_management_indicators' %>
+
+	<% cargaGraficasPeticion %>
+
+	<% if @chart_view.acsG1 != nil && !@chart_view.acsG1.empty? %>
+		<hr />
+
+		<p><strong><%=l(:title_g1_issues)%></strong></p>
+		<center><%= high_chart("div_stackG1a", @chart_view.stackG1a) %></center>
+	<% end %>
+<% end %>

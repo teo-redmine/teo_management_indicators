@@ -18,6 +18,7 @@ module TeoManagementIndicatorsSettings
 				@fields = Hash.new
 				@fieldsDate = Hash.new
 				@fieldsFloat = Hash.new
+				@fieldsProject = Hash.new
 
 				tracker_fields = Tracker::CORE_FIELDS
 
@@ -31,6 +32,9 @@ module TeoManagementIndicatorsSettings
 							end
 							if Issue.columns_hash[field.to_s].type.to_s == 'date'
 								@fieldsDate["core__" + field] = I18n.t(("field_" + field).sub(/_id$/, ''))
+							end
+							if Issue.columns_hash[field.to_s].type.to_s == 'project'
+								@fieldsProject["core__" + field] = I18n.t(("field_" + field).sub(/_id$/, ''))
 							end
 						end
 					end
@@ -47,6 +51,9 @@ module TeoManagementIndicatorsSettings
 							if field.field_format.to_s == 'date'
 								@fieldsDate["custom__" + field.id.to_s] = I18n.t("field_" + field.name, default: field.name)
 							end
+							if field.field_format.to_s == 'project'
+								@fieldsProject["custom__" + field.id.to_s] = I18n.t("field_" + field.name, default: field.name)
+							end
 						end
 					end
 				end
@@ -62,7 +69,6 @@ module TeoManagementIndicatorsProjects
 		base.send(:include, InstanceMethods)
 
 		base.class_eval do
-			before_filter :get_settings
 			# Con esto sobreescribimos el metodo show del controlador de projects
 			alias_method_chain :show, :managementindicators
 		end
@@ -73,10 +79,6 @@ module TeoManagementIndicatorsProjects
 			calculaGraficas("projects")
 
 		    show_without_managementindicators
-		end
-
-		def get_settings
-			@settings = Setting.plugin_teo_management_indicators
 		end
 	end
 end
