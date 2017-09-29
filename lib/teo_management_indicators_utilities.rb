@@ -1,4 +1,4 @@
-require_dependency 'indicators_controller'
+require_dependency 'indicadores_controller'
 
 # Se importan las clases de utilidad
 require 'indicators_utils/colors'
@@ -55,4 +55,4 @@ module TeoManagementIndicatorsUtilities
   end
 end
 
-IndicatorsController.send(:include, TeoManagementIndicatorsUtilities::InstanceMethods)
+IndicadoresController.send(:include, TeoManagementIndicatorsUtilities::InstanceMethods)
