@@ -190,6 +190,7 @@ en:
   field_accumulate: Accumulate
   field_budget: Budget
   field_executed_cost: Executed cost
+  field_legend_info_1: Calculated by OT end date
   field_year: Year
   field_days: Days
   field_time_passed: Time passed

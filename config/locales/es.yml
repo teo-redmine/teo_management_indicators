@@ -152,6 +152,7 @@ es:
   field_accumulate: Acumulado
   field_budget: Presupuesto
   field_executed_cost: Importe ejecutado
+  field_legend_info_1: A partir de la fecha fin de la OT
   field_year: Año
   field_days: Días
   field_time_passed: Tiempo transcurrido

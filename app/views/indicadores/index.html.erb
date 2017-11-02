@@ -48,7 +48,7 @@
 									<td style="text-align:left;"><%= I18n.t("field_" + value[0].to_s) %></td>
 									<td style="text-align:right;"><%= value[1] %> €</td>
 									<td style="text-align:right;"><%= value[2] %> %</td>
-									<td style="text-align:right;"><%= value[3] %> %</td>
+									<td style="text-align:right;"><% if value[0].to_s != 'Disponible' %><%= value[3] %> %<% end %></td>
 								</tr>
 							<% end %>
 						<% end %>
