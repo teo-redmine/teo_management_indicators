@@ -92,16 +92,18 @@ module Charts
 
           importe = issue_fields.importeEjecutado
           anyo = issue_fields.anyo
+					
+					if importe == nil
+					  importe = 0
+					end
 
           if mapaG2 != nil
-            if mapaG2[anyo] == nil
-              if importe != 0
-                mapaG2[anyo] = importe
+              if mapaG2[anyo] == nil
+                  mapaG2[anyo] = importe
+              else
+                  importe += mapaG2[anyo]
+                  mapaG2[anyo] = importe
               end
-            else
-              importe += mapaG2[anyo]
-              mapaG2[anyo] = importe
-            end
           end
         end
       end
