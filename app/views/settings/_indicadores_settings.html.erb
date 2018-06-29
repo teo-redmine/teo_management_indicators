@@ -1,4 +1,20 @@
 <fieldset>
+  <legend><h2><%= l(:general_level) %></h2></legend>
+  <table>
+    <tbody>
+      <tr>
+        <th><%= l(:active_link) %></th>
+        <td>
+          <%= select_tag('settings[act_link]', options_for_select([["Si", true],["No", false]], Setting.plugin_teo_management_indicators['act_link']), prompt: I18n.t("field_Seleccionar")) %>
+        </td>
+      </tr>        
+    </tbody>
+  </table>
+</fieldset>
+
+<br>
+
+<fieldset>
   <legend><h1><%= l(:title_g1) %></h1></legend>
 
   <fieldset>
@@ -95,21 +111,6 @@
             <em class="info"><%= t(:issue_type_g1n2_info) %></em>
           </td>
         </tr>
-<% if false %>
-        <tr>
-          <th><%= l(:issue_status_inprocess_g1n2) %></th>
-          <td>
-            <%= select_tag('settings[estado_encurso_g1n2]', options_for_select(IssueStatus.sorted.to_a.collect{ |u| [I18n.t("field_" + u.name), u.id] }, Setting.plugin_teo_management_indicators['estado_encurso_g1n2']), prompt: I18n.t("field_Seleccionar")) %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-          </td>
-          <td>
-            <em class="info"><%= t(:issue_status_inprocess_g1n2_info) %></em>
-          </td>
-        </tr>
-<% end %>
         <tr>
           <th><%= l(:issue_status_g1n2) %></th>
           <td>
@@ -149,187 +150,206 @@
             <em class="info"><%= t(:cost2_g1n2_info) %></em>
           </td>
         </tr>
-<% if false %>
-        <tr>
-          <th><%= l(:percentage_g1n2) %></th>
-          <td>
-            <%= select_tag('settings[porcentaje_g1n2]', options_for_select(@fields.to_a.collect{ |key, value| [value, key] }, Setting.plugin_teo_management_indicators['porcentaje_g1n2']), prompt: I18n.t("field_Seleccionar")) %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-          </td>
-          <td>
-            <em class="info"><%= t(:percentage_g1n2_info) %></em>
-          </td>
-        </tr>
-<% end %>
       </tbody>
     </table>
   </fieldset>
-<% if false %>
-  <br>
-
-  <fieldset>
-    <legend><h2><%= l(:issue_level_g1) %></h2></legend>
-
-    <table>
-      <tbody>
-        <tr>
-          <th><%= l(:issue_type_g1n1_issues) %></th>
-          <td>
-            <%= select_tag('settings[tipo_peticion_g1n1_issues]', options_for_select(Tracker.sorted.to_a.collect{ |u| [u.name, u.id] }, Setting.plugin_teo_management_indicators['tipo_peticion_g1n1_issues']), prompt: I18n.t("field_Seleccionar")) %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-          </td>
-          <td>
-            <em class="info"><%= t(:issue_type_g1n1_issues_info) %></em>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </fieldset>
-<% end %>
 </fieldset>
 
 <br>
 
 <fieldset>
-  <legend><h1><%= l(:title_g2) %></h1></legend>
-<% if false %>
-  <fieldset>
-    <legend><h2><%= l(:general_level_g2) %></h2></legend>
-
-    <table>
-      <tbody>
-        <tr>
-          <th><%= l(:group_by_g2) %></th>
-          <td>
-            <%= select_tag('settings[agrupar_por_g2]', options_for_select(@fieldsProject.to_a.collect{ |key, value| [value, key] }, Setting.plugin_teo_management_indicators['agrupar_por_g2']), prompt: I18n.t("field_Seleccionar")) %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-          </td>
-          <td>
-            <em class="info"><%= t(:group_by_g2_info) %></em>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </fieldset>
-<% end %>
-
-  <fieldset>
-    <legend><h2><%= l(:first_level_g2n1) %></h2></legend>
-
-    <table>
-      <tbody>
-        <tr>
-          <th><%= l(:issue_type_g2n1) %></th>
-          <td>
-            <%= select_tag('settings[tipo_peticion_g2n1]', options_for_select(Tracker.sorted.to_a.collect{ |u| [u.name, u.id] }, Setting.plugin_teo_management_indicators['tipo_peticion_g2n1']), prompt: I18n.t("field_Seleccionar")) %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-          </td>
-          <td>
-            <em class="info"><%= t(:issue_type_g2n1_info) %></em>
-          </td>
-        </tr>
-        <tr>
-          <th><%= l(:issue_status_g2n1) %></th>
-          <td>
-            <%= select_tag('settings[estado_g2n1]', options_for_select(IssueStatus.sorted.to_a.collect{ |u| [I18n.t("field_" + u.name), u.id] }, Setting.plugin_teo_management_indicators['estado_g2n1']), prompt: I18n.t("field_Seleccionar"), multiple: true) %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-          </td>
-          <td>
-            <em class="info"><%= t(:issue_status_g2n1_info) %></em>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </fieldset>
+  <legend><h1><%= l(:title_g2) %></h1></legend>  
+  <table>
+    <tbody>
+      <tr>
+        <th><%= l(:group_by_g2) %></th>
+        <td>
+          <%= select_tag('settings[agrupar_por_g2]', options_for_select(@fieldsProject.to_a.collect{ |key, value| [value, key] }, Setting.plugin_teo_management_indicators['agrupar_por_g2']), prompt: I18n.t("field_Seleccionar")) %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+        </td>
+        <td>
+          <em class="info"><%= t(:group_by_g2_info) %></em>
+        </td>
+      </tr>
+      <tr>
+        <th><%= l(:active_legend_g2) %></th>
+        <td>
+          <%= select_tag('settings[act_legend_g2]', options_for_select([["Si", true],["No", false]], Setting.plugin_teo_management_indicators['act_legend_g2']), prompt: I18n.t("field_Seleccionar")) %>
+        </td>
+      </tr>        
+    </tbody>
+  </table>
 
   <br>
 
-  <fieldset>
-    <legend><h2><%= l(:second_level_g2n2) %></h2></legend>
+  <table>
+    <tbody>
+      <tr>
+        <th><%= l(:issue_type_g2n2) %></th>
+        <td>
+          <%= select_tag('settings[tipo_peticion_g2n2]', options_for_select(Tracker.sorted.to_a.collect{ |u| [u.name, u.id] }, Setting.plugin_teo_management_indicators['tipo_peticion_g2n2']), prompt: I18n.t("field_Seleccionar")) %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+        </td>
+        <td>
+          <em class="info"><%= t(:issue_type_g2n2_info) %></em>
+        </td>
+      </tr>
+      <tr>
+        <th><%= l(:issue_status_g2n2) %></th>
+        <td>
+          <%= select_tag('settings[estado_g2n2]', options_for_select(IssueStatus.sorted.to_a.collect{ |u| [I18n.t("field_" + u.name), u.id] }, Setting.plugin_teo_management_indicators['estado_g2n2']), prompt: I18n.t("field_Seleccionar"), multiple: true) %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+        </td>
+        <td>
+          <em class="info"><%= t(:issue_status_g2n2_info) %></em>
+        </td>
+      </tr>
+      <tr>
+        <th><%= l(:cost1_g2n2) %></th>
+        <td>
+          <%= select_tag('settings[importe1_g2n2]', options_for_select(@fieldsFloat.to_a.collect{ |key, value| [value, key] }, Setting.plugin_teo_management_indicators['importe1_g2n2']), prompt: I18n.t("field_Seleccionar")) %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+        </td>
+        <td>
+          <em class="info"><%= t(:cost1_g2n2_info) %></em>
+        </td>
+      </tr>
+      <tr>
+        <th><%= l(:cost2_g2n2) %></th>
+        <td>
+          <%= select_tag('settings[importe2_g2n2]', options_for_select(@fieldsFloat.to_a.collect{ |key, value| [value, key] }, Setting.plugin_teo_management_indicators['importe2_g2n2']), prompt: I18n.t("field_Seleccionar")) %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+        </td>
+        <td>
+          <em class="info"><%= t(:cost2_g2n2_info) %></em>
+        </td>
+      </tr>
+      <tr>
+        <th><%= l(:due_date_g2n2) %></th>
+        <td>
+          <%= select_tag('settings[fecha_fin_g2n2]', options_for_select(@fieldsDate.to_a.collect{ |key, value| [value, key] }, Setting.plugin_teo_management_indicators['fecha_fin_g2n2']), prompt: I18n.t("field_Seleccionar")) %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+        </td>
+        <td>
+          <em class="info"><%= t(:due_date_g2n2_info) %></em>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</fieldset>
 
-    <table>
-      <tbody>
-        <tr>
-          <th><%= l(:issue_type_g2n2) %></th>
-          <td>
-            <%= select_tag('settings[tipo_peticion_g2n2]', options_for_select(Tracker.sorted.to_a.collect{ |u| [u.name, u.id] }, Setting.plugin_teo_management_indicators['tipo_peticion_g2n2']), prompt: I18n.t("field_Seleccionar")) %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-          </td>
-          <td>
-            <em class="info"><%= t(:issue_type_g2n2_info) %></em>
-          </td>
-        </tr>
-        <tr>
-          <th><%= l(:issue_status_g2n2) %></th>
-          <td>
-            <%= select_tag('settings[estado_g2n2]', options_for_select(IssueStatus.sorted.to_a.collect{ |u| [I18n.t("field_" + u.name), u.id] }, Setting.plugin_teo_management_indicators['estado_g2n2']), prompt: I18n.t("field_Seleccionar"), multiple: true) %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-          </td>
-          <td>
-            <em class="info"><%= t(:issue_status_g2n2_info) %></em>
-          </td>
-        </tr>
-        <tr>
-          <th><%= l(:cost1_g2n2) %></th>
-          <td>
-            <%= select_tag('settings[importe1_g2n2]', options_for_select(@fieldsFloat.to_a.collect{ |key, value| [value, key] }, Setting.plugin_teo_management_indicators['importe1_g2n2']), prompt: I18n.t("field_Seleccionar")) %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-          </td>
-          <td>
-            <em class="info"><%= t(:cost1_g2n2_info) %></em>
-          </td>
-        </tr>
-        <tr>
-          <th><%= l(:cost2_g2n2) %></th>
-          <td>
-            <%= select_tag('settings[importe2_g2n2]', options_for_select(@fieldsFloat.to_a.collect{ |key, value| [value, key] }, Setting.plugin_teo_management_indicators['importe2_g2n2']), prompt: I18n.t("field_Seleccionar")) %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-          </td>
-          <td>
-            <em class="info"><%= t(:cost2_g2n2_info) %></em>
-          </td>
-        </tr>
-        <tr>
-          <th><%= l(:due_date_g2n2) %></th>
-          <td>
-            <%= select_tag('settings[fecha_fin_g2n2]', options_for_select(@fieldsDate.to_a.collect{ |key, value| [value, key] }, Setting.plugin_teo_management_indicators['fecha_fin_g2n2']), prompt: I18n.t("field_Seleccionar")) %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-          </td>
-          <td>
-            <em class="info"><%= t(:due_date_g2n2_info) %></em>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </fieldset>
+<br>
+
+<fieldset>
+  <legend><h1><%= l(:title_g3) %></h1></legend>  
+  <table>
+    <tbody>
+      <tr>
+        <th><%= l(:issue_type_g3n2) %></th>
+        <td>
+          <%= select_tag('settings[tipo_peticion_g3n2]', options_for_select(Tracker.sorted.to_a.collect{ |u| [u.name, u.id] }, Setting.plugin_teo_management_indicators['tipo_peticion_g3n2']), prompt: I18n.t("field_Seleccionar")) %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+        </td>
+        <td>
+          <em class="info"><%= t(:issue_type_g3n2_info) %></em>
+        </td>
+      </tr>
+      <tr>
+        <th><%= l(:issue_status_g3n1) %></th>
+        <td>
+          <%= select_tag('settings[estado_g3n1]', options_for_select(IssueStatus.sorted.to_a.collect{ |u| [I18n.t("field_" + u.name), u.id] }, Setting.plugin_teo_management_indicators['estado_g3n1']), prompt: I18n.t("field_Seleccionar"), multiple: true) %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+        </td>
+        <td>
+          <em class="info"><%= t(:issue_status_g3n1_info) %></em>
+        </td>
+      </tr>
+      <tr>
+        <th><%= l(:cost1_g3n2) %></th>
+        <td>
+          <%= select_tag('settings[importe1_g3n2]', options_for_select(@fieldsFloat.to_a.collect{ |key, value| [value, key] }, Setting.plugin_teo_management_indicators['importe1_g3n2']), prompt: I18n.t("field_Seleccionar")) %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+        </td>
+        <td>
+          <em class="info"><%= t(:cost1_g3n2_info) %></em>
+        </td>
+      </tr>
+      <tr>
+        <th><%= l(:cost2_g3n2) %></th>
+        <td>
+          <%= select_tag('settings[importe2_g3n2]', options_for_select(@fieldsFloat.to_a.collect{ |key, value| [value, key] }, Setting.plugin_teo_management_indicators['importe2_g3n2']), prompt: I18n.t("field_Seleccionar")) %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+        </td>
+        <td>
+          <em class="info"><%= t(:cost2_g3n2_info) %></em>
+        </td>
+      </tr>        
+      <tr>
+        <th><%= l(:group_by_g3) %></th>
+        <td>
+          <%= select_tag('settings[agrupar_por_g3]', options_for_select(@fieldsProject.to_a.collect{ |key, value| [value, key] }, Setting.plugin_teo_management_indicators['agrupar_por_g3']), prompt: I18n.t("field_Seleccionar")) %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+        </td>
+        <td>
+          <em class="info"><%= t(:group_by_g3_info) %></em>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</fieldset>
+
+<br>
+
+<fieldset>
+  <legend><h2><%= l(:issue_level_g1) %></h2></legend>
+  <table>
+    <tbody>
+      <tr>
+        <th><%= l(:issue_type_g1n1_issues) %></th>
+        <td>
+          <%= select_tag('settings[tipo_peticion_g1n1_issues]', options_for_select(Tracker.sorted.to_a.collect{ |u| [u.name, u.id] }, Setting.plugin_teo_management_indicators['tipo_peticion_g1n1_issues']), prompt: I18n.t("field_Seleccionar")) %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+        </td>
+        <td>
+          <em class="info"><%= t(:issue_type_g1n1_issues_info) %></em>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </fieldset>

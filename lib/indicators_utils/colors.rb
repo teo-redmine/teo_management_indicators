@@ -6,6 +6,8 @@ module IndicatorsUtils
     COLOR_EN_CURSO = "#83CAFF"
     COLOR_DISPONIBLE = "#AEA79F"
     COLOR_EN_CURSO_REALIZADO = "#819BAF"
+    COLOR_NUEVO = "#73c6b6"
+
 
     class << self
       def colorFacturado
@@ -30,6 +32,10 @@ module IndicatorsUtils
 
       def colorEnCursoRealizado
         COLOR_EN_CURSO_REALIZADO
+      end
+
+      def colorNuevo
+        COLOR_NUEVO
       end
 
       def colores

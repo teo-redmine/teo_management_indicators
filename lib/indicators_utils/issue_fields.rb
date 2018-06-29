@@ -55,5 +55,29 @@ module IndicatorsUtils
     def anyo
       @anyo
     end
+
+    def set_nombre(nombre)
+      @nombre = nombre
+    end
+
+    def nombre
+      @nombre
+    end
+
+    def set_nombre_proy(nombre_proy)
+      @nombre_proy = nombre_proy
+    end
+
+    def nombre_proy
+      @nombre_proy
+    end
+
+    def set_idenf_proy(idenf_proy)
+      @idenf_proy = idenf_proy
+    end
+
+    def idenf_proy
+      @idenf_proy
+    end
   end
 end

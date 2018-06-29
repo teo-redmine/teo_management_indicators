@@ -6,10 +6,36 @@
 
 	<% cargaGraficasPeticion %>
 
-	<% if @chart_view.acsG1 != nil && !@chart_view.acsG1.empty? %>
-		<hr />
+	<script type="text/javascript">
+		idOt= <%=$CONST_OT.id%>;
+	</script>
 
+	<% if @chart_view != nil && @chart_view.acsG1 != nil && !@chart_view.acsG1.empty? && @chart_view.stackG1a != nil%>
+		<hr />
 		<p><strong><%=l(:title_g1_issues)%></strong></p>
-		<center><%= high_chart("div_stackG1a", @chart_view.stackG1a) %></center>
+		<center>
+			<%= high_chart("div_stackG1a", @chart_view.stackG1a) do |gg1| %>
+				<%=raw "options.plotOptions.series.point.events.click = function(options) {
+					console.log(options)
+
+					valorOption = options.currentTarget.series.name;
+					valorCampos = document.getElementById(valorOption+'idStatus').value;
+					arrayCampos = valorCampos.split('##_#');
+
+					tareaPadre = arrayCampos[0];
+					estado = arrayCampos[1];
+												
+					window.open('/projects/sistemas-de-informacion/issues?set_filter=1&tracker_id='+idOt+'&status_id='+estado+'&parent_id='+tareaPadre);
+				}"%>
+			<%end%>
+		</center>
+		<p><%=l(:issue_mensaje)%> <%=@chart_view.mensajeAC%></p>
+		<div>
+			<%if @chart_view.fieldsLinks != nil && !@chart_view.fieldsLinks.empty?  %>
+				<% @chart_view.fieldsLinks.each do |key, value| %>
+					<input type="hidden" id="<%= key + 'idStatus'%>" value="<%= value %>">
+				<% end %>
+			<% end %>
+		</div>
 	<% end %>
 <% end %>
