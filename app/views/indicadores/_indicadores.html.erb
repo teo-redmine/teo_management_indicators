@@ -8,7 +8,8 @@
 
 	<% if (@chart_view.acsG1 != nil && !@chart_view.acsG1.empty?) || (@chart_view.mapaG2 != nil && !@chart_view.mapaG2.empty?) %>
 		<div class="box">
-			<h3><span class="icon icon-chart"><%= l(:main_title_management_indicators) %></h3>
+			<h3><span class="icon icon-chart"><%= l(:main_title_management_indicators) %>
+				<a href="/indicadores?project_id=<%=$CONST_ID_PROJ%>">Ver m&#225;s</a></h3>
 			<br>
 			<div style="width:90%;">
 				<% if @chart_view.acsG1 != nil && !@chart_view.acsG1.empty? %>
@@ -18,16 +19,13 @@
 						<%= high_chart("div_stackG1b", @chart_view.stackG1b) %>
 					</fieldset>
 				<% end %>
-
-				<% if @chart_view.mapaG2 != nil && !@chart_view.mapaG2.empty? %>
-					<br>
-
-					<fieldset>
-						<%= high_chart("div_chartG2", @chart_view.chartG2) %>
-					</fieldset>
-				<% end %>
 			</div>
 			<br>
+		</div>
+	<% else %>
+		<div class="box">
+			<h3><span class="icon icon-chart"><%= l(:main_title_management_indicators) %>
+				<a href="/indicadores?project_id=<%=$CONST_ID_PROJ%>">Ver m&#225;s</a></h3>
 		</div>
 	<% end %>
 <% end %>

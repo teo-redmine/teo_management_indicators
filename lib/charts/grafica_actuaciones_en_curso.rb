@@ -4,6 +4,7 @@ require 'charts/printers/tiempo_transcurrido'
 
 module Charts
   class GraficaActuacionesEnCurso
+
     # Método que calcula los datos para cargar la primera gráfica
     def self.calculaGraficaActuacionesEnCurso(whereProject, tracker_fields, settings, chart_view)
       Rails.logger.info('Dentro de calculaGraficaActuacionesEnCurso.')
@@ -14,6 +15,9 @@ module Charts
       isOtsAux = Array.new
       issueStatusOtsInProcess = Array.new
       tipopeticiong1n1issues = ""
+
+      issueCustomField = IssueCustomField.where('name = \'Contrato\'')[0]
+      $ID_CONST_CUSTFIELD = issueCustomField.id
 
       # Se reciben los parametros de la configuracion
       # y se prepara la grafica de estado de actuaciones "en curso"
@@ -43,22 +47,15 @@ module Charts
       end
 
       mapaG1 = Hash.new
-
       acsG1 = nil
-      if chart_view.procedencia == 'issues'
-        # Se obtiene la AC concreta
-        Rails.logger.info('Se obtiene la AC concreta (G1)')
-        acsG1 = Issue.where({tracker: tipopeticiong1n1issues, id: params[:id]})
-      else
-        # Se obtienen las AC con el estado indicado
-        Rails.logger.info('Se obtienen las AC con el estado indicado (G1)')
-        acsG1 = Issue.where({project: whereProject, tracker: tipopeticiong1n1, status: settings.estadosAcsg1n1})
-      end
+      # Se obtienen las AC con el estado indicado
+      Rails.logger.info('Se obtienen las AC con el estado indicado (G1)')
+      acsG1 = Issue.where({project: whereProject, tracker: tipopeticiong1n1, status: settings.estadosAcsg1n1})
+     
 
       importeAC = 0
       fechaInicio = nil
       fechaFin = nil
-
       if acsG1.nil? || !acsG1.any?
         Rails.logger.info('No se encontraron ACs (G1))')
       else
@@ -96,6 +93,7 @@ module Charts
         # Por cada AC se obtendrán las OT y se agruparán por su estado
         Rails.logger.info('Por cada AC se obtendrán las OT y se agruparán por su estado (G1)')
         acsG1.each do |ac|
+          
           issue_fields = obtenerValorCamposImporteYFechasAC(settings, tracker_fields, ac, campoImporteg1n1, campoFechaIniciog1n1, campoFechaFing1n1, importeAC, fechaInicio, fechaFin)
 
           importeAC = issue_fields.importeAC
@@ -104,8 +102,8 @@ module Charts
 
           if !issueStatusOtsG1.nil? && issueStatusOtsG1.any?
             issueStatusOtsG1.each do |isOts|
+              
               auxs = Array.new
-
               if mapaG1.any? && !mapaG1[isOts.id].nil? && mapaG1[isOts.id].any?
                 arrayMapaG1Aux = Array.new
                 arrayMapaG1Aux = mapaG1[isOts.id]
@@ -164,15 +162,21 @@ module Charts
       # Por cada estado agrupado se acumularán los importes
       # Comprobando el importe final y, si no existiese, el importe estimado
       Rails.logger.info('Recopilando los datos para montar la gráfica 1')
+      mapaG1LinksProy = Hash.new
+      
       if mapaG1 != nil && !mapaG1.empty?
         mapaG1.each do |key, ots|
+          
+          s = '%7C'
+          mapaG1LinksProy[key]
+
           importeEstado = 0
           mapaEnCurso = Hash.new
           porcentajeEnCursoRealizado = 0
 
           if ots != nil && !ots.empty?
             for ot in ots
-              issue_fields = obtenerValorCamposImporteYPorcentajeOT(settings, tracker_fields, ot, issueStatusOtsInProcess, campoImporte1g1n2, campoImporte2g1n2, campoPorcentajeg1n2)
+              issue_fields = obtenerValorCamposImporteYPorcentajeOT(settings, tracker_fields, ot, issueCustomField, issueStatusOtsInProcess, campoImporte1g1n2, campoImporte2g1n2, campoPorcentajeg1n2)
 
               importeEstadoAux = issue_fields.importeEstado
               porcentajeRealizado = issue_fields.porcentajeRealizado
@@ -181,6 +185,13 @@ module Charts
 
               if issueStatusOtsInProcess != nil && !issueStatusOtsInProcess.empty? && issueStatusOtsInProcess[0] != nil && issueStatusOtsInProcess[0].id == key && importeEstadoAux != nil && porcentajeRealizado != nil
                 mapaEnCurso[ot.id] = importeEstadoAux.to_s + "___" + porcentajeRealizado.to_s
+              end
+
+              llave = ot.status.name + $SPLIT_CHAR + ot.status.id.to_s
+              if mapaG1LinksProy[llave] != nil
+                mapaG1LinksProy[llave] = mapaG1LinksProy[llave] + '%7C' + issue_fields.idenf_proy.to_s
+              else
+                mapaG1LinksProy[llave] = issue_fields.idenf_proy.to_s
               end
             end
           end
@@ -305,15 +316,16 @@ module Charts
       chart_view.set_mapaTablaG1(mapaTablaG1)
       chart_view.set_importeAcumuladoG1(importeAcumuladoG1)
       chart_view.set_porcentajeAcumuladoG1(porcentajeAcumuladoG1)
-
-      Printers::ActuacionesEnCurso.pintarActuacionesEnCurso(chart_view, mapaPorcentajesImportes)
-
+      chart_view.set_mapaG1LinksProy(mapaG1LinksProy)
+      
+      linkActivado = settings.actLinkg2 != nil && settings.actLinkg2 == "true"
+      Printers::ActuacionesEnCurso.pintarActuacionesEnCurso(chart_view, mapaPorcentajesImportes, linkActivado)
       Printers::TiempoTranscurrido.pintarTiempoTranscurrido(chart_view)
     end
 
     # Método que obtiene de la AC dada el valor de los campos de importe y fechas
     def self.obtenerValorCamposImporteYFechasAC(settings, tracker_fields, ac, campoImporteg1n1, campoFechaIniciog1n1, campoFechaFing1n1, importeAC, fechaInicio, fechaFin)
-      Rails.logger.info('Dentro de obtenerValorCamposImporteYFechasAC.')
+      Rails.logger.debug('Dentro de obtenerValorCamposImporteYFechasAC.')
       importeACCore = nil
       fechaInicioCore = nil
       fechaFinCore = nil
@@ -374,7 +386,7 @@ module Charts
             fechaInicio = cfv_ac.value.to_date
           end
 
-          if campoFechaFing1n1 != nil && !campoFechaFing1n1.empty? && campoFechaFing1n1[0] != nil && cfv_ac.custom_field_id == campoFechaFing1n1[0].id && cfv_ac.value != nil && (fechaFin == nil || fechaFin < cfv_ac.value.to_date)
+          if campoFechaFing1n1 != nil && !campoFechaFing1n1.empty? && campoFechaFing1n1[0] != nil && cfv_ac.custom_field_id == campoFechaFing1n1[0].id && cfv_ac.value != nil && !cfv_ac.value.empty? && (fechaFin == nil || fechaFin < cfv_ac.value.to_date)
             fechaFin = cfv_ac.value.to_date
           end
         end
@@ -389,8 +401,8 @@ module Charts
     end
 
     # Método que obtiene de la OT dada el valor de los campos de importe y porcentaje
-    def self.obtenerValorCamposImporteYPorcentajeOT(settings, tracker_fields, ot, issueStatusOtsInProcess, campoImporte1g1n2, campoImporte2g1n2, campoPorcentajeg1n2)
-      Rails.logger.info('Dentro de obtenerValorCamposImporteYPorcentajeOT.')
+    def self.obtenerValorCamposImporteYPorcentajeOT(settings, tracker_fields, ot, issueCustomField, issueStatusOtsInProcess, campoImporte1g1n2, campoImporte2g1n2, campoPorcentajeg1n2)
+      Rails.logger.debug('Dentro de obtenerValorCamposImporteYPorcentajeOT.')
       importeEstadoAux = 0
       valorFinalCore = 0
       valorEstimadoCore = 0
@@ -470,6 +482,17 @@ module Charts
       issue_fields = IndicatorsUtils::IssueFields.new
       issue_fields.set_importeEstado(importeEstadoAux)
       issue_fields.set_porcentajeRealizado(porcentajeRealizado)
+
+      if issueCustomField != nil
+        projectId = ot.custom_field_value(issueCustomField.id)
+        if projectId != nil && !projectId.empty?
+          project = Project.where('id = ' + projectId)[0]
+          if project != nil
+            issue_fields.set_nombre_proy(project.name)
+            issue_fields.set_idenf_proy(project.id)
+          end
+        end
+      end
 
       return issue_fields
     end

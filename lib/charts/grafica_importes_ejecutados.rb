@@ -4,16 +4,16 @@ require 'charts/printers/importes_ejecutados'
 module Charts
   class GraficaImportesEjecutados
     # Método que calcula los datos para cargar la segunda gráfica
-    def self.calculaGraficaImportesEjecutados(whereProject, tracker_fields, settings, chart_view)
+    def self.calculaGraficaImportesEjecutados(whereProject, tracker_fields, settings, chart_view, esContrato, stacked)
       Rails.logger.info('Dentro de calculaGraficaImportesEjecutados.')
-
       tipopeticiong2n1 = ""
-      tipopeticiong2n2 = ""
-      issuesOtsG2 = Array.new
+      tipopeticiong2n2 = "" 
+      idTPActuacion = nil    
 
       # Se reciben los parametros de la configuracion
       # y se prepara la grafica de importes ejecutados por año
       Rails.logger.info('Se reciben los parametros de la configuracion y se prepara la grafica de importes ejecutados por año')
+
       if !settings.tipospeticiong2n1.nil? && settings.tipospeticiong2n1.any?
         tipopeticiong2n1 = settings.tipospeticiong2n1[0]
       end
@@ -59,51 +59,53 @@ module Charts
           campoFechaFing2n2 = nil
         end
       end
-
-      mapaG2 = Hash.new
-      
-      # Se obtienen las AC con el estado indicado
-      Rails.logger.info('Se obtienen las AC con el estado indicado (G2)')
-      acsG2 = Issue.where({project: whereProject, tracker: tipopeticiong2n1, status: settings.estadosAcsg2n1})
-
-      if acsG2.nil? || !acsG2.any?
-        # Si no hay AC se obtendrán directamente las OT del contenedor
-        Rails.logger.info('No se encontraron ACs (G2))')
-        issuesOtsG2 = Issue.where({project: whereProject, tracker: tipopeticiong2n2, status: settings.estadosOtsg2n2})
+      if !esContrato && stacked && settings.agruparporg2 != nil && !settings.agruparporg2.empty?
+        montarGraficaImportesStacked(true, tracker_fields, settings, chart_view, whereProject, tipopeticiong2n1, tipopeticiong2n2, campoAgruparPorg2, campoImporte1g2n2, campoImporte2g2n2, campoFechaFing2n2)
+      elsif esContrato && settings.agruparporg2 != nil && !settings.agruparporg2.empty?
+        montarGraficaContStacked(tracker_fields, settings, chart_view, whereProject, tipopeticiong2n1, tipopeticiong2n2, campoAgruparPorg2, campoImporte1g2n2, campoImporte2g2n2, campoFechaFing2n2)
       else
-        Rails.logger.info('Se encontraron ACs, se continúa con los cálculos (G2))')
-        otsAux = Issue.where({tracker: tipopeticiong2n2, status: settings.estadosOtsg2n2})
-        # Por cada AC se obtendrán sus OT
-        Rails.logger.info('Por cada AC se obtendrán las OT (G2)')
-        acsG2.each do |ac|
-          if otsAux != nil && !otsAux.empty?
-            otsAux.each do |ot|
-              if ot.parent_id == ac.id
-                issuesOtsG2.push(ot)
+        montarGraficaNormal(stacked, tracker_fields, settings, chart_view, whereProject, tipopeticiong2n1, tipopeticiong2n2, campoAgruparPorg2, campoImporte1g2n2, campoImporte2g2n2, campoFechaFing2n2)
+      end
+    end
+
+    def self.montarGraficaNormal(esSI, tracker_fields, settings, chart_view, whereProject, tipopeticiong2n1, tipopeticiong2n2, campoAgruparPorg2, campoImporte1g2n2, campoImporte2g2n2, campoFechaFing2n2)
+      mapaG2 = Hash.new      
+      issuesOts = Array.new
+      if tipopeticiong2n1 == $CONST_OT.id || tipopeticiong2n2.id == $CONST_OT.id
+        if esSI
+           issuesOts = Issue.where({tracker: tipopeticiong2n2.id, project: whereProject, status: settings.estadosOtsg2n2})
+        else 
+          listaIdsIssues = CustomValue.where('value in (' + whereProject.ids.join(",")+')')
+
+          if listaIdsIssues != nil && !listaIdsIssues.empty?
+            listaIdsIssues.each do |customValue|
+              issueGood = Issue.where({id: customValue.customized_id, tracker: tipopeticiong2n2.id, status: settings.estadosOtsg2n2})[0]
+              if issueGood != nil
+                issuesOts.push(issueGood)
               end
-            end
+            end        
           end
         end
       end
 
-      if issuesOtsG2 != nil && !issuesOtsG2.empty?
-        issuesOtsG2.each do |ot|
-          issue_fields = obtenerValorCamposImporteYFechaOT(settings, tracker_fields, ot, campoAgruparPorg2, campoImporte1g2n2, campoImporte2g2n2, campoFechaFing2n2)
+      if issuesOts != nil && !issuesOts.empty? 
+        issueCustomField = IssueCustomField.where('name = \'Contrato\'')[0]
+        $ID_CONST_CUSTFIELD = issueCustomField.id
 
+        issuesOts.each do |ot|
+          issue_fields = obtenerValorCamposImporteYFechaOT(esSI, settings, tracker_fields, ot, issueCustomField, campoAgruparPorg2, campoImporte1g2n2, campoImporte2g2n2, campoFechaFing2n2)
           importe = issue_fields.importeEjecutado
           anyo = issue_fields.anyo
-					
-					if importe == nil
-					  importe = 0
-					end
-
-          if mapaG2 != nil
-              if mapaG2[anyo] == nil
-                  mapaG2[anyo] = importe
-              else
-                  importe += mapaG2[anyo]
-                  mapaG2[anyo] = importe
-              end
+          
+          if importe == nil
+            importe = 0
+          end
+          
+          if mapaG2[anyo] == nil
+            mapaG2[anyo] = importe
+          else
+            importe += mapaG2[anyo]
+            mapaG2[anyo] = importe
           end
         end
       end
@@ -111,19 +113,202 @@ module Charts
       if !mapaG2.nil?
         # Se ordena el mapa por key para que salga ordenado cronológicamente
         mapaG2 = mapaG2.sort.to_h
-      end
-
+      end    
       chart_view.set_mapaG2(mapaG2)
-
       Printers::ImportesEjecutados.pintarImportesEjecutados(chart_view)
     end
 
+    def self.montarGraficaImportesStacked(esSI, tracker_fields, settings, chart_view, whereProject, tipopeticiong2n1, tipopeticiong2n2, campoAgruparPorg2, campoImporte1g2n2, campoImporte2g2n2, campoFechaFing2n2)
+      Rails.logger.info('Dentro de calculaGraficaImportesStacked.')
+      mapaG2 = Hash.new
+      issuesOts = nil
+      listaFieldsLinks = Hash.new
+
+      if tipopeticiong2n2.id == $CONST_OT.id
+        issuesOts = Issue.where({tracker: tipopeticiong2n2.id, project: whereProject, status: settings.estadosOtsg2n2})
+      end
+      issueCustomField = IssueCustomField.where('name = \'Contrato\'')[0]
+      $ID_CONST_CUSTFIELD = issueCustomField.id
+      if issuesOts != nil && !issuesOts.empty?    
+        issuesOts.each do |ot|
+          issue_fields = obtenerValorCamposImporteYFechaOT(esSI, settings, tracker_fields, ot, issueCustomField, campoAgruparPorg2, campoImporte1g2n2, campoImporte2g2n2, campoFechaFing2n2)
+
+          if issue_fields.nombre_proy != nil
+            nombre = issue_fields.nombre_proy
+          else
+            nombre = "Sin Contrato Asociado"
+          end
+          importe = issue_fields.importeEjecutado
+          anyo = issue_fields.anyo
+
+          if importe == nil
+            importe = 0
+          end
+
+          fields_links = IndicatorsUtils::FieldsLinks.new
+          fields_links.set_proy_ident($CONST_ID_PROJ) 
+          fields_links.set_estado(settings.estadosOtsg2n2.join("%7C"))
+          fields_links.set_tipo($CONST_OT.id.to_s)
+          if (anyo != "Sin año")
+            fields_links.set_fechaFin_desde(anyo+'-01-01')
+            fields_links.set_fechaFin_hasta(anyo+'-12-31')
+          else 
+            fields_links.set_fechaFin_desde('-1')
+            fields_links.set_fechaFin_hasta('-1')
+          end
+          idProyecto = ot.custom_field_value(issueCustomField.id)
+          if idProyecto != nil
+            fields_links.set_contrato(ot.custom_field_value(issueCustomField.id))
+          else
+            fields_links.set_contrato('')
+          end
+          fields_links.set_tarea_padre('')
+
+          anyoImporteHash = Hash.new
+          if mapaG2[nombre] != nil          
+            anyoImporteHash = mapaG2[nombre]
+          end
+          montarMapaStacked(nombre, importe, anyo, anyoImporteHash, mapaG2)
+
+          if listaFieldsLinks[nombre+anyo.to_s] == nil
+            #posicion 0
+            cadena = fields_links.proy_ident + $SPLIT_CHAR
+            #posicion 1
+            cadena = cadena + fields_links.estado + $SPLIT_CHAR
+            #posicion 2
+            cadena = cadena + fields_links.tipo + $SPLIT_CHAR
+            #posicion 3
+            cadena = cadena + fields_links.fechaFin_desde + $SPLIT_CHAR
+            #posicion 4
+            cadena = cadena + fields_links.fechaFin_hasta + $SPLIT_CHAR
+            #posicion 5
+            cadena = cadena + fields_links.contrato + $SPLIT_CHAR
+            #posicion 6
+            cadena = cadena + fields_links.tarea_padre
+            listaFieldsLinks[nombre+anyo.to_s] = cadena
+          end
+        end
+      else 
+        Rails.logger.info('calculaGraficaImportesStacked no se ha encontrado nada')
+      end      
+
+      if !mapaG2.nil?
+        # Se ordena el mapa por key para que salga ordenado cronológicamente
+        mapaG2 = mapaG2.sort.to_h
+      end
+      chart_view.set_fieldsLinks(listaFieldsLinks)
+      chart_view.set_mapaG2(mapaG2)
+      linkActivado = settings.actLinkg2 != nil && settings.actLinkg2 == "true"
+      Printers::ImportesEjecutados.pintarImportesEjecutadosStacked(chart_view, settings.actLegendg2, linkActivado, whereProject)
+    end
+
+    def self.montarGraficaContStacked(tracker_fields, settings, chart_view, whereProject, tipopeticiong2n1, tipopeticiong2n2, campoAgruparPorg2, campoImporte1g2n2, campoImporte2g2n2, campoFechaFing2n2)
+      Rails.logger.info('Dentro de montarGraficaContStacked.')
+      mapaG2 = Hash.new
+      issuesOts = Array.new
+      listaFieldsLinks = Hash.new
+
+      if tipopeticiong2n1 == $CONST_OT.id || tipopeticiong2n2.id == $CONST_OT.id        
+        listaIdsIssues = CustomValue.where('value in (' + whereProject.ids.join(",")+')')
+
+        if listaIdsIssues != nil && !listaIdsIssues.empty?
+          listaIdsIssues.each do |customValue|
+            issueGood = Issue.where({id: customValue.customized_id, tracker: tipopeticiong2n2.id, status: settings.estadosOtsg2n2})[0]
+            if issueGood != nil
+              issuesOts.push(issueGood)
+            end
+          end        
+        end
+      end    
+
+      if issuesOts != nil && !issuesOts.empty? 
+        issueCustomField = IssueCustomField.where('name = \'Contrato\'')[0]
+        $ID_CONST_CUSTFIELD = issueCustomField.id
+
+        issuesOts.each do |ot|
+          issue_fields = obtenerValorCamposImporteYFechaOT(false, settings, tracker_fields, ot, issueCustomField, campoAgruparPorg2, campoImporte1g2n2, campoImporte2g2n2, campoFechaFing2n2)
+          #Los campos nombre_proy y idenf_proy son la tarea padre en este caso, la ac
+          if issue_fields.nombre_proy != nil
+            nombre = issue_fields.nombre_proy
+          else
+            nombre = "Sin Actuacion Asociada"
+          end
+          importe = issue_fields.importeEjecutado
+          anyo = issue_fields.anyo
+
+          if importe == nil
+            importe = 0
+          end
+
+          fields_links = IndicatorsUtils::FieldsLinks.new
+          fields_links.set_proy_ident("sistemas-de-informacion") 
+          fields_links.set_estado(settings.estadosOtsg2n2.join("%7C"))
+          fields_links.set_tipo($CONST_OT.id.to_s)
+          if (anyo != "Sin año")
+            fields_links.set_fechaFin_desde(anyo+'-01-01')
+            fields_links.set_fechaFin_hasta(anyo+'-12-31')
+          else 
+            fields_links.set_fechaFin_desde('-1')
+            fields_links.set_fechaFin_hasta('-1')
+          end
+          fields_links.set_contrato(whereProject.ids.join("%7C"))
+          fields_links.set_tarea_padre(issue_fields.idenf_proy.to_s)
+
+          anyoImporteHash = Hash.new
+          if mapaG2[nombre] != nil          
+            anyoImporteHash = mapaG2[nombre]
+          end
+          montarMapaStacked(nombre, importe, anyo, anyoImporteHash, mapaG2)
+
+          if listaFieldsLinks[nombre+anyo.to_s] == nil
+            #posicion 0
+            cadena = fields_links.proy_ident + $SPLIT_CHAR
+            #posicion 1
+            cadena = cadena + fields_links.estado + $SPLIT_CHAR
+            #posicion 2
+            cadena = cadena + fields_links.tipo + $SPLIT_CHAR
+            #posicion 3
+            cadena = cadena + fields_links.fechaFin_desde + $SPLIT_CHAR
+            #posicion 4
+            cadena = cadena + fields_links.fechaFin_hasta + $SPLIT_CHAR
+            #posicion 5
+            cadena = cadena + fields_links.contrato + $SPLIT_CHAR
+            #posicion 6
+            cadena = cadena + fields_links.tarea_padre
+            listaFieldsLinks[nombre+anyo.to_s] = cadena
+          end
+        end
+      else 
+        Rails.logger.info('montarGraficaContStacked no se ha encontrado nada')
+      end      
+
+      if !mapaG2.nil?
+        # Se ordena el mapa por key para que salga ordenado cronológicamente
+        mapaG2 = mapaG2.sort.to_h
+      end
+      chart_view.set_fieldsLinks(listaFieldsLinks)
+      chart_view.set_mapaG2(mapaG2)
+      linkActivado = settings.actLinkg2 != nil && settings.actLinkg2 == "true"
+      Printers::ImportesEjecutados.pintarImpEjecContStacked(chart_view, settings.actLegendg2, linkActivado, whereProject)
+    end
+
+    def self.montarMapaStacked(nombre, importe, anyo, anyoImporteHash, mapaG2)
+      if anyoImporteHash[anyo] == nil
+        anyoImporteHash[anyo] = importe
+        mapaG2[nombre] = anyoImporteHash
+      else
+        anyoImporteHash = mapaG2[nombre]
+        importe += anyoImporteHash[anyo]
+        anyoImporteHash[anyo] = importe
+        mapaG2[nombre] = anyoImporteHash
+      end
+    end
+
     # Método que obtiene de la OT dada el valor de los campos de importe y fecha
-    def self.obtenerValorCamposImporteYFechaOT(settings, tracker_fields, ot, campoAgruparPorg2, campoImporte1g2n2, campoImporte2g2n2, campoFechaFing2n2)
-      Rails.logger.info('Dentro de obtenerValorCamposImporteYFechaOT.')
+    def self.obtenerValorCamposImporteYFechaOT(esSI, settings, tracker_fields, ot, issueCustomField, campoAgruparPorg2, campoImporte1g2n2, campoImporte2g2n2, campoFechaFing2n2)
+      Rails.logger.debug('Dentro de obtenerValorCamposImporteYFechaOT.')
       agruparPor = nil
       anyo = I18n.t("field_no_date", default: "0")
-      importe = 0
 
       agruparPorCore = nil
       valorFinalCore = nil
@@ -202,7 +387,7 @@ module Charts
 
           if campoFechaFing2n2 != nil && !campoFechaFing2n2.empty? && campoFechaFing2n2[0] != nil && cfv_ot.custom_field_id == campoFechaFing2n2[0].id && cfv_ot.value != nil && cfv_ot.value != ''
             anyo = (cfv_ot.value.to_date).strftime("%Y")
-          end
+          end          
         end
 
         if agruparPorCustom != nil && agruparPorCustom != ''
@@ -217,11 +402,28 @@ module Charts
           importeEjecutado = valorFinalCustom
         end
       end
-
+      
       issue_fields = IndicatorsUtils::IssueFields.new
       issue_fields.set_importeEjecutado(importeEjecutado)
       issue_fields.set_anyo(anyo)
 
+      if issueCustomField != nil 
+        if esSI
+          projectId = ot.custom_field_value(issueCustomField.id)
+          if projectId != nil && !projectId.empty?
+            project = Project.where('id = ' + projectId)[0]
+            if project != nil
+              issue_fields.set_nombre_proy(project.name)
+              issue_fields.set_idenf_proy(project.identifier)
+            end
+          end
+        else 
+          if ot.parent != nil
+            issue_fields.set_nombre_proy(ot.parent.subject)
+            issue_fields.set_idenf_proy(ot.parent.id.to_s)
+          end
+        end
+      end
       return issue_fields
     end
   end

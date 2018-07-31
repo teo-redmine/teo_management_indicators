@@ -35,15 +35,20 @@ es:
   percentage_g1n2: Porcentaje
   percentage_g1n2_info: Campo de porcentaje que se usará para conocer la parte completada de las peticiones en progreso
 
-  title_g1_issues: Gráfica de ejecución de Actuaciones
+  title_g1_issues: Gráfica de importes de ejecución de Actuaciones
   issue_level_g1: Visualización de gráfica en peticiones
   issue_type_g1n1_issues: Tipo petición
   issue_type_g1n1_issues_info: Tipo de petición en la que se mostrará la gráfica
+  issue_mensaje: El 100% corresponde  
+
+  general_level: Configuración general Gráficas
 
   title_g2: Gráfica de importes ejecutados por año
   general_level_g2: Configuración general
   group_by_g2: Agrupar por
   group_by_g2_info: Campo de tipo proyecto que se usará para agrupar los importes
+  active_legend_g2: Activar leyenda
+  active_link: Activar enlace
 
   first_level_g2n1: Primer nivel
   issue_type_g2n1: Tipo petición
@@ -63,6 +68,23 @@ es:
   due_date_g2n2: Fecha fin
   due_date_g2n2_info: Campo de fecha que se usará como referencia para agrupar peticiones
 
+  title_g3: Gráfica de actuaciones del contrato
+  first_level_g3n1: Primer nivel
+  issue_type_g3n1: Tipo petición
+  issue_type_g3n1_info: Tipo de petición que se usará como referencia para el primer nivel de búsqueda
+  issue_status_g3n1: Estado
+  issue_status_g3n1_info: Estado o estados que se usarán para filtrar las peticiones del primer nivel de búsqueda
+
+  second_level_g3n2: Segundo nivel
+  issue_type_g3n2: Tipo petición
+  issue_type_g3n2_info: Tipo de petición que se usará como referencia para el segundo nivel de búsqueda  
+  cost1_g3n2: Importe 1
+  cost1_g3n2_info: Campo de importe que se tomará como referencia en las peticiones de segundo nivel
+  cost2_g3n2: Importe 2
+  cost2_g3n2_info: Campo de importe que se tomará como referencia en las peticiones de segundo nivel, en caso que el anterior campo no esté relleno en la petición
+  group_by_g3: Agrupar por
+  group_by_g3_info: Campo de tipo proyecto que se usará para agrupar los importes
+ 
   field_account: Cuenta
   field_activity: Actividad
   field_admin: Administrador
@@ -152,7 +174,9 @@ es:
   field_accumulate: Acumulado
   field_budget: Presupuesto
   field_executed_cost: Importe ejecutado
+  field_executed_tipo: Tipo
   field_legend_info_1: A partir de la fecha fin de la OT
+  field_legend_info_ac: A partir de la fecha fin de la AC padre de la OT
   field_year: Año
   field_days: Días
   field_time_passed: Tiempo transcurrido
@@ -167,6 +191,7 @@ es:
   field_Versión detección: Versión detección
   field_Presupuesto: Presupuesto
   field_Contrato: Contrato
+  field_Actuacion: Actuación
 
   # Estados
   field_Nuevo: Nuevo
@@ -193,3 +218,8 @@ es:
   field_Cancelado: Cancelado
   field_Cancelado: Cancelado
   field_no_date: Sin año
+
+  # Proyectos nombres
+  proy_contrato: Contratos
+  proy_sis_info: Sistemas-de-informacion
+  

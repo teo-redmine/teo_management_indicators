@@ -116,5 +116,60 @@ module IndicatorsUtils
       end
       @porcentajeDiasTranscurridos
     end
+
+    def set_mostrarCuadro(mostrar)
+      @mostrarCuadro = mostrar
+    end
+    def mostrarCuadro
+      @mostrarCuadro
+    end
+
+    def set_mapaG3(mapaG3)
+      @mapaG3 = mapaG3
+    end
+
+    def mapaG3
+      @mapaG3
+    end
+
+    def set_chartG3(chartG3)
+      @chartG3 = chartG3
+    end
+
+    def chartG3
+      @chartG3
+    end
+
+    def set_mapaG1LinksProy(mapaG1LinksProy)
+      @mapaG1LinksProy = mapaG1LinksProy
+    end
+
+    def mapaG1LinksProy
+      @mapaG1LinksProy
+    end
+
+    def set_fieldsLinks(fieldsLinks)
+      @fieldsLinks = fieldsLinks
+    end
+
+    def fieldsLinks
+      @fieldsLinks
+    end
+
+    def set_fieldsSectores(fieldsSectores)
+      @fieldsSectores = fieldsSectores
+    end
+
+    def fieldsSectores
+      @fieldsSectores
+    end
+
+    def set_mensajeAC(mensajeAC)
+      @mensajeAC = mensajeAC
+    end
+
+    def mensajeAC
+      @mensajeAC
+    end
   end
 end

@@ -1,20 +1,15 @@
 module Printers
   class ActuacionesEnCurso
     # Método que pinta la gráfica de actuaciones en curso
-    def self.pintarActuacionesEnCurso(chart_view, mapaPorcentajesImportes)
+    def self.pintarActuacionesEnCurso(chart_view, mapaPorcentajesImportes, enlacesActivos)
       Rails.logger.info('Dentro de pintarActuacionesEnCurso.')
       stackG1a = LazyHighCharts::HighChart.new('stackG1a') do |f|
         pointWidth = 60
         if chart_view.procedencia == 'indicadores'
           f.chart({defaultSeriesType: "bar", height: 175, width: 700})
-          f.legend(align: 'right', verticalAlign: 'top', y: 30, x: -50, layout: 'vertical')
+          f.legend(align: 'right', verticalAlign: 'top', y: 30, x: -50, layout: 'vertical', reversed: true)
           f.tooltip(false)
-          f.title(text: I18n.t('title_g1'))
-        elsif chart_view.procedencia == 'issues'
-          f.chart({defaultSeriesType: "bar", height: 175, width: 700, backgroundColor: '#FFD'})
-          f.legend(align: 'right', verticalAlign: 'top', y: 30, x: -50, layout: 'vertical')
-          f.tooltip(false)
-          f.title(text: "")
+          f.title(text: I18n.t('title_g1'))        
         else
           f.chart({defaultSeriesType: "bar", height: 100})
           f.legend(false)
@@ -23,10 +18,8 @@ module Printers
         end
         f.exporting(false)
         f.xAxis(categories: [""])
-        f.plot_options({bar: {stacking: "percent", dataLabels: {format: "{y}%", enabled: true, style: {color: "#FFFFFF", fontWeight: "bold"}}}})
-
         plotLines = Array.new
-
+        
         if !mapaPorcentajesImportes.nil? && mapaPorcentajesImportes.any?
           cont = 0
 
@@ -39,7 +32,6 @@ module Printers
               Rails.logger.error('id no numérico: ' + key)
             end
           end
-
           isSt = IssueStatus.find_by_sql(['SELECT `issue_statuses`.* FROM `issue_statuses` WHERE `issue_statuses`.`id` IN (?)', numericKeys])
 
           mapaPorcentajesImportes.each do |key, porcentajeEstado|
@@ -67,6 +59,12 @@ module Printers
           end
         else
           f.series(name: I18n.t('field_available'), data: [100], color: IndicatorsUtils::Colors.colorDisponible, pointWidth: pointWidth)
+        end
+
+        if chart_view.procedencia == 'indicadores' && enlacesActivos
+          f.plotOptions(series: {:point => {:events => {click: 'click_functionAC'}}, :cursor => 'pointer'}, :bar => {stacking: "percent", :dataLabels => {format: "{y}%", enabled: true, :style => {color: "#FFFFFF", fontWeight: "bold"}}})
+        else
+          f.plotOptions(series: {:point => {:events => {click: 'click_functionAC'}}}, :bar => {stacking: "percent", :dataLabels => {format: "{y}%", enabled: true, :style => {color: "#FFFFFF", fontWeight: "bold"}}})
         end
       end
 

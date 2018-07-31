@@ -38,30 +38,50 @@ en:
   title_g1_issues: Execution of actions chart
   issue_level_g1: Chart display in issues
   issue_type_g1n1_issues: Issue type
-  issue_type_g1n1_issues_info: Tipo de petición en la que se mostrará la gráfica
+  issue_type_g1n1_issues_info: Type of request in which the graph will be displayed
+  issue_mensaje: 100% corresponds  
 
   title_g2: Executed costs per year chart
   general_level_g2: General settings
   group_by_g2: Group by
-  group_by_g2_info: Campo de tipo proyecto que se usará para agrupar los importes
+  group_by_g2_info: Project type field that will be used to group the amounts
+  active_legend_g2: Activate legend
+  active_link: Activate link
 
   first_level_g2n1: First level
   issue_type_g2n1: Issue type
-  issue_type_g2n1_info: Tipo de petición que se usará como referencia para el primer nivel de búsqueda
+  issue_type_g2n1_info: Type of request that will be used as a reference for the first level of search
   issue_status_g2n1: Status
-  issue_status_g2n1_info: Estado o estados que se usarán para filtrar las peticiones del primer nivel de búsqueda
+  issue_status_g2n1_info: State or states that will be used to filter requests for the first level of search
 
   second_level_g2n2: Second level
   issue_type_g2n2: Issue type
-  issue_type_g2n2_info: Tipo de petición que se usará como referencia para el segundo nivel de búsqueda
+  issue_type_g2n2_info: Type of request that will be used as a reference for the second level of search
   issue_status_g2n2: Status
-  issue_status_g2n2_info: Estado o estados que se usarán para filtrar las peticiones del segundo nivel de búsqueda
+  issue_status_g2n2_info: State or states that will be used to filter the requests of the second level of search
   cost1_g2n2: Cost 1
-  cost1_g2n2_info: Campo de importe que se tomará como referencia en las peticiones de segundo nivel
+  cost1_g2n2_info: Amount field that will be taken as reference in second level requests
   cost2_g2n2: Cost 2
-  cost2_g2n2_info: Campo de importe que se tomará como referencia en las peticiones de segundo nivel, en caso que el anterior campo no esté relleno en la petición
+  cost2_g2n2_info: Amount field that will be taken as reference in second level requests, in case the previous field is not filled in the request
   due_date_g2n2: Due date
-  due_date_g2n2_info: Campo de fecha que se usará como referencia para agrupar peticiones
+  due_date_g2n2_info: Date field that will be used as a reference to group requests
+
+  title_g3: Graph of contract sectors
+  first_level_g3n1: First level
+  issue_type_g3n1: Issue type
+  issue_type_g3n1_info: Type of request that will be used as a reference for the first level of search
+  issue_status_g3n1: Status
+  issue_status_g3n1_info: State or states that will be used to filter requests for the first level of search
+
+  second_level_g3n2: Second level
+  issue_type_g3n2: Issue type
+  issue_type_g3n2_info: Type of request that will be used as a reference for the second level of search
+  cost1_g3n2: Cost 1
+  cost1_g3n2_info: Amount field that will be taken as reference in second level requests
+  cost2_g3n2: Cost 2
+  cost2_g3n2_info: Amount field that will be taken as reference in second level requests, in case the previous field is not filled in the request
+  group_by_g3: Group by
+  group_by_g3_info: Project type field that will be used to group the amounts
 
   field_name: Name
   field_description: Description
@@ -190,7 +210,9 @@ en:
   field_accumulate: Accumulate
   field_budget: Budget
   field_executed_cost: Executed cost
+  field_executed_tipo: Kind
   field_legend_info_1: Calculated by OT end date
+  field_legend_info_ac: Calculated by AC father end date of OT
   field_year: Year
   field_days: Days
   field_time_passed: Time passed
@@ -205,6 +227,7 @@ en:
   field_Versión detección: Detection version
   field_Presupuesto: Budget
   field_Contrato: Contract
+  field_Actuacion: Performance
 
   # Estados
   field_Nuevo: New
@@ -230,3 +253,7 @@ en:
   field_En espera: On standby
   field_Cancelado: Cancelled
   field_no_date: No date
+
+  # Proyectos nombres
+  proy_contrato: Contracts
+  proy_sis_info: Information-systems
