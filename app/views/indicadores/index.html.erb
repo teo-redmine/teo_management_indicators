@@ -150,11 +150,14 @@
 							fechaFin = arrayCampos[4];
 							campoCustField = '';
 							tareaPadre= '';
+							arrayfechaInicCampo = fechaInicio.split('**_*');
+							fechaCampoInicioTitulo = arrayfechaInicCampo[0];
+							fechaCampoInicioValor = arrayfechaInicCampo[1];
 
-							if (fechaInicio.indexOf('-1') >= 0) {
-								opcionFecha = '&due_date=!*';
+							if (fechaCampoInicioValor.indexOf('-1') >= 0) {
+								opcionFecha = '&'+fechaCampoInicioTitulo+'=!*';
 							} else {
-								opcionFecha = '&due_date=><'+fechaInicio+'%7C'+fechaFin;
+								opcionFecha = '&'+fechaCampoInicioTitulo+'=><'+fechaCampoInicioValor+'%7C'+fechaFin;
 							}
 							
 							valorIdsContr = arrayCampos[5];

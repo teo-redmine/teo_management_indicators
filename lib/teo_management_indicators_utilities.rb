@@ -23,6 +23,7 @@ module TeoManagementIndicatorsUtilities
     $CONST_ID_PROJ = ""
     $COSNT_IS_SISINF = false
     $SPLIT_CHAR = "##_#"
+    $SPLIT_DATE = "**_*"
     $ID_CONST_CUSTFIELD = nil
 
     def cargaGraficasProyecto
@@ -59,7 +60,7 @@ module TeoManagementIndicatorsUtilities
       while proyectoPadre.parent_id != nil do
          proyectoPadre = Project.where({id: proyectoPadre.parent_id})[0]
       end
-
+      
       begin
         if !procedencia.eql?($CONST_ISSUE)
           $COSNT_IS_SISINF = proyectoPadre.identifier.downcase.include?(I18n.t("proy_sis_info").downcase)

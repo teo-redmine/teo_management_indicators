@@ -59,6 +59,7 @@ module Charts
           campoFechaFing2n2 = nil
         end
       end
+      
       if !esContrato && stacked && settings.agruparporg2 != nil && !settings.agruparporg2.empty?
         montarGraficaImportesStacked(true, tracker_fields, settings, chart_view, whereProject, tipopeticiong2n1, tipopeticiong2n2, campoAgruparPorg2, campoImporte1g2n2, campoImporte2g2n2, campoFechaFing2n2)
       elsif esContrato && settings.agruparporg2 != nil && !settings.agruparporg2.empty?
@@ -149,11 +150,13 @@ module Charts
           fields_links.set_proy_ident($CONST_ID_PROJ) 
           fields_links.set_estado(settings.estadosOtsg2n2.join("%7C"))
           fields_links.set_tipo($CONST_OT.id.to_s)
+          field_date_name = (settings.fechaFing2n2).sub("core__", '')
+          
           if (anyo != "Sin año")
-            fields_links.set_fechaFin_desde(anyo+'-01-01')
+            fields_links.set_fechaFin_desde(field_date_name+$SPLIT_DATE+anyo+'-01-01')
             fields_links.set_fechaFin_hasta(anyo+'-12-31')
           else 
-            fields_links.set_fechaFin_desde('-1')
+            fields_links.set_fechaFin_desde(field_date_name+$SPLIT_DATE+'-1')
             fields_links.set_fechaFin_hasta('-1')
           end
           idProyecto = ot.custom_field_value(issueCustomField.id)
@@ -244,11 +247,13 @@ module Charts
           fields_links.set_proy_ident("sistemas-de-informacion") 
           fields_links.set_estado(settings.estadosOtsg2n2.join("%7C"))
           fields_links.set_tipo($CONST_OT.id.to_s)
+          field_date_name = (settings.fechaFing2n2).sub("core__", '')
+          
           if (anyo != "Sin año")
-            fields_links.set_fechaFin_desde(anyo+'-01-01')
+            fields_links.set_fechaFin_desde(field_date_name+$SPLIT_DATE+anyo+'-01-01')
             fields_links.set_fechaFin_hasta(anyo+'-12-31')
           else 
-            fields_links.set_fechaFin_desde('-1')
+            fields_links.set_fechaFin_desde(field_date_name+$SPLIT_DATE+'-1')
             fields_links.set_fechaFin_hasta('-1')
           end
           fields_links.set_contrato(whereProject.ids.join("%7C"))
