@@ -101,7 +101,7 @@ module Charts
 
       if !mapaTablaG1.nil?
         # Se ordena el mapa por key para que salga ordenado cronológicamente
-        mapaTablaG1 = mapaTablaG1.sort.to_h
+        #mapaTablaG1 = mapaTablaG1.sort.to_h
       end 
 
       chart_view.set_fieldsLinks(listaFieldsLinks)
@@ -138,8 +138,8 @@ module Charts
         end
       end
 
-      if valorFinalCore == nil || valorFinalCore == 0
-        if valorEstimadoCore != nil && valorEstimadoCore != 0
+      if valorFinalCore == nil
+        if valorEstimadoCore != nil
           importeEjecutado = valorEstimadoCore
         end
       else
@@ -159,8 +159,8 @@ module Charts
           end       
         end
 
-        if valorFinalCustom == nil || valorFinalCustom == 0
-          if valorEstimadoCustom != nil && valorEstimadoCustom != 0
+        if valorFinalCustom == nil
+          if valorEstimadoCustom != nil
             importeEjecutado = valorEstimadoCustom
           end
         else
@@ -213,11 +213,11 @@ module Charts
           end       
         end
 
-        if valorFinalCustom != nil && valorFinalCustom != 0
+        if valorFinalCustom != nil
           valorFinalCore = valorFinalCustom
         end
 
-        if valorEstimadoCustom != nil && valorEstimadoCustom != 0
+        if valorEstimadoCustom != nil
           valorEstimadoCore = valorEstimadoCustom
         end
       end

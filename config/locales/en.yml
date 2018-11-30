@@ -14,9 +14,9 @@ en:
   issue_type_g1n1_info: Tipo de petición que se usará como referencia para el primer nivel de búsqueda
   issue_status_g1n1: Status
   issue_status_g1n1_info: Estado o estados que se usarán para filtrar las peticiones del primer nivel de búsqueda
-  start_date_g1n1: Start date
+  start_date_g1n1: Initial date
   start_date_g1n1_info: Campo de fecha que se usará como punto de partida del periodo de tiempo que abarcan las peticiones
-  due_date_g1n1: Due date
+  due_date_g1n1: End date
   due_date_g1n1_info: Campo de fecha que se usará como punto final del periodo de tiempo que abarcan las peticiones
   cost_g1n1: Cost
   cost_g1n1_info: Campo de importe que se tomará como referencia en las peticiones de primer nivel
@@ -63,7 +63,7 @@ en:
   cost1_g2n2_info: Amount field that will be taken as reference in second level requests
   cost2_g2n2: Cost 2
   cost2_g2n2_info: Amount field that will be taken as reference in second level requests, in case the previous field is not filled in the request
-  due_date_g2n2: Due date
+  due_date_g2n2: Date
   due_date_g2n2_info: Date field that will be used as a reference to group requests
 
   title_g3: Graph of contract sectors
@@ -83,6 +83,55 @@ en:
   group_by_g3: Group by
   group_by_g3_info: Project type field that will be used to group the amounts
 
+  # Grafica de desvios
+  title_g4: Graph of Detour imports OTs
+  issue_type_g4: Issue type
+  issue_type_g4_info: Type of request that will be used as a reference for the search level
+  issue_status_g4: Status
+  issue_status_g4_info: State or states that will be used to filter search requests
+  limit_g4_title: Definition of limits in histograms of deviation of amounts in OTs
+
+  title_g5: Graph of Detour deadlines OTs
+  issue_type_g5: Issue type
+  issue_type_g5_info: Type of request that will be used as a reference for the search level
+  issue_status_g5: Status
+  issue_status_g5_info: State or states that will be used to filter search requests
+  limit_g5_title: Definition of limits in histograms of deviation of deadlines in OTs
+
+  field_desvio_name: Detour (%)
+  field_desvio_name_info: Diversion field that will be taken as reference in the requests
+  field_desvio_total: Total
+  field_desvio_resumen: Summary
+  field_desvio_resumen_desvios: Summary detours (%)
+  field_legend_info_g4_5: Numbers OTs
+  limit_g_1: Limit 1
+  limit_g_2: Limit 2
+  limit_g_3: Limit 3
+  limit_g_4: Limit 4
+  limit_g_5: Limit 5
+
+  active_actu: Update
+  active_actu_info: Esta opción permite visualizar un link en las gráficas de indicadores para actualizar todas las peticiones del tipo indicado en las graficas de desvíos
+
+  #Errores de validaciones de graficas
+  error_limitsg4_1_2: To validate the limit 1 with the 2 of the graph deviations amounts, both must be filled
+  error_limitsg4_2_3: To validate the limit 2 with the 3 of the graph deviations amounts, both must be filled
+  error_limitsg4_3_4: To validate the limit 3 with the 4 of the graph deviations amounts, both must be filled
+  error_limitsg4_4_5: To validate the limit 4 with the 5 of the graph deviations amounts, both must be filled
+  error_limitsg5_1_2: To validate the limit 1 with the 2 of the graph deviations amounts, both must be filled
+  error_limitsg5_2_3: To validate the limit 2 with the 3 of the graph deviations amounts, both must be filled
+  error_limitsg5_3_4: To validate the limit 3 with the 4 of the graph deviations amounts, both must be filled
+  error_limitsg5_4_5: To validate the limit 4 with the 5 of the graph deviations amounts, both must be filled
+
+  error_limitsg4_1: Limit 1 must be less than the limit 2.
+  error_limitsg4_2: Limit 2 must be less than the limit 3.
+  error_limitsg4_3: Limit 3 must be less than the limit 4.
+  error_limitsg4_4: Limit 4 must be less than the limit 5.
+  error_limitsg5_1: Limit 1 must be less than the limit 2.
+  error_limitsg5_2: Limit 2 must be less than the limit 3.
+  error_limitsg5_3: Limit 3 must be less than the limit 4.
+  error_limitsg5_4: Limit 4 must be less than the limit 5.
+
   field_name: Name
   field_description: Description
   field_summary: Summary
@@ -96,6 +145,7 @@ en:
   field_downloads: Downloads
   field_author: Author
   field_created_on: Created
+  field_closed_on: Closed
   field_updated_on: Updated
   field_closed_on: Closed
   field_field_format: Format
@@ -235,6 +285,7 @@ en:
   field_En curso: In process
   field_Resuelto: Solved
   field_Resuelta: Solved
+  field_Petición resuelta: Issue Solved
   field_Comentarios: Comments
   field_Cerrado: Closed
   field_Cerrada: Closed

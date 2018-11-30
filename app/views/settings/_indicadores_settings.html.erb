@@ -1,5 +1,5 @@
 <fieldset>
-  <legend><h2><%= l(:general_level) %></h2></legend>
+  <legend><h1><%= l(:general_level) %></h1></legend>
   <table>
     <tbody>
       <tr>
@@ -7,7 +7,7 @@
         <td>
           <%= select_tag('settings[act_link]', options_for_select([["Si", true],["No", false]], Setting.plugin_teo_management_indicators['act_link']), prompt: I18n.t("field_Seleccionar")) %>
         </td>
-      </tr>        
+      </tr>      
     </tbody>
   </table>
 </fieldset>
@@ -242,7 +242,7 @@
       <tr>
         <th><%= l(:due_date_g2n2) %></th>
         <td>
-          <%= select_tag('settings[fecha_fin_g2n2]', options_for_select(@fieldsDate.to_a.collect{ |key, value| [value, key] }, Setting.plugin_teo_management_indicators['fecha_fin_g2n2']), prompt: I18n.t("field_Seleccionar")) %>
+          <%= select_tag('settings[fecha_fin_g2n2]', options_for_select(@fieldsDateImpEjec.to_a.collect{ |key, value| [value, key] }, Setting.plugin_teo_management_indicators['fecha_fin_g2n2']), prompt: I18n.t("field_Seleccionar")) %>
         </td>
       </tr>
       <tr>
@@ -334,7 +334,7 @@
 <br>
 
 <fieldset>
-  <legend><h2><%= l(:issue_level_g1) %></h2></legend>
+  <legend><h1><%= l(:issue_level_g1) %></h1></legend>
   <table>
     <tbody>
       <tr>
@@ -350,6 +350,184 @@
           <em class="info"><%= t(:issue_type_g1n1_issues_info) %></em>
         </td>
       </tr>
+    </tbody>
+  </table>
+</fieldset>
+
+<br>
+
+<fieldset>
+  <legend><h1><%= l(:title_g4) %></h1></legend>  
+  <table>
+    <tbody>
+      <tr>
+        <th><%= l(:issue_type_g4) %></th>
+        <td>
+          <%= select_tag('settings[tipo_peticion_g4n1]', options_for_select(Tracker.sorted.to_a.collect{ |u| [u.name, u.id] }, Setting.plugin_teo_management_indicators['tipo_peticion_g4n1']), prompt: I18n.t("field_Seleccionar")) %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+        </td>
+        <td>
+          <em class="info"><%= t(:issue_type_g4_info) %></em>
+        </td>
+      </tr>
+      <!-- No se quiere que aparezca    
+      <tr>
+        <th><%= l(:field_desvio_name) %></th>
+        <td>
+          <%= select_tag('settings[campo_4n1]', options_for_select(IssueCustomField.where({is_computed: true}).sorted.to_a.collect{ |u| [u.name, u.id] }, Setting.plugin_teo_management_indicators['campo_4n1']), prompt: I18n.t("field_Seleccionar")) %>
+        </td>      
+      </tr>
+      <tr>
+        <td>
+        </td>
+        <td>
+          <em class="info"><%= t(:field_desvio_name_info) %></em>
+        </td>
+      </tr>
+      -->
+      <tr>
+        <th><%= l(:group_by_g4) %></th>
+        <td>
+          <%= select_tag('settings[agrupar_por_g4]', options_for_select(@fieldsProject.to_a.collect{ |key, value| [value, key] }, Setting.plugin_teo_management_indicators['agrupar_por_g4']), prompt: I18n.t("field_Seleccionar")) %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+        </td>
+        <td>
+          <em class="info"><%= t(:group_by_g4_info) %></em>
+        </td>
+      </tr>      
+    </tbody>
+  </table>
+  <fieldset>
+    <legend><h3><%= l(:limit_g4_title) %></h3></legend>
+      <table>
+        <tbody>
+          <tr>
+            <th><%= l(:limit_g_1) %></th>
+            <td>
+              <%= number_field_tag 'settings[limit_g4_1]', settings['limit_g4_1'], in: -100...101 %>
+            </td>
+          </tr>
+          <tr>
+            <th><%= l(:limit_g_2) %></th>
+            <td>
+              <%= number_field_tag 'settings[limit_g4_2]', settings['limit_g4_2'], in: -100...101 %>
+            </td>
+          </tr>
+          <tr>
+            <th><%= l(:limit_g_3) %></th>
+            <td>
+              <%= number_field_tag 'settings[limit_g4_3]', settings['limit_g4_3'], in: -100...101 %>
+            </td>
+          </tr>
+          <tr>
+            <th><%= l(:limit_g_4) %></th>
+            <td>
+              <%= number_field_tag 'settings[limit_g4_4]', settings['limit_g4_4'], in: -100...101 %>
+            </td>
+          </tr>
+          <tr>
+            <th><%= l(:limit_g_5) %></th>
+            <td>
+              <%= number_field_tag 'settings[limit_g4_5]', settings['limit_g4_5'], in: -100...101 %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  </fieldset>
+</fieldset>
+
+<br>
+
+<fieldset>
+  <legend><h1><%= l(:title_g5) %></h1></legend>  
+  <table>
+    <tbody>
+      <tr>
+        <th><%= l(:issue_type_g5) %></th>
+        <td>
+          <%= select_tag('settings[tipo_peticion_g5n1]', options_for_select(Tracker.sorted.to_a.collect{ |u| [u.name, u.id] }, Setting.plugin_teo_management_indicators['tipo_peticion_g5n1']), prompt: I18n.t("field_Seleccionar")) %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+        </td>
+        <td>
+          <em class="info"><%= t(:issue_type_g5_info) %></em>
+        </td>
+      </tr>      
+      <tr>
+        <th><%= l(:group_by_g5) %></th>
+        <td>
+          <%= select_tag('settings[agrupar_por_g5]', options_for_select(@fieldsProject.to_a.collect{ |key, value| [value, key] }, Setting.plugin_teo_management_indicators['agrupar_por_g5']), prompt: I18n.t("field_Seleccionar")) %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+        </td>
+        <td>
+          <em class="info"><%= t(:group_by_g5_info) %></em>
+        </td>
+      </tr>   
+    </tbody>
+  </table>
+  <fieldset>
+    <legend><h3><%= l(:limit_g5_title) %></h3></legend>
+      <table>
+        <tbody>
+          <tr>
+            <th><%= l(:limit_g_1) %></th>
+            <td>
+              <%= number_field_tag 'settings[limit_g5_1]', settings['limit_g5_1'], in: -100...101 %>
+            </td>
+          </tr>
+          <tr>
+            <th><%= l(:limit_g_2) %></th>
+            <td>
+              <%= number_field_tag 'settings[limit_g5_2]', settings['limit_g5_2'], in: -100...101 %>
+            </td>
+          </tr>
+          <tr>
+            <th><%= l(:limit_g_3) %></th>
+            <td>
+              <%= number_field_tag 'settings[limit_g5_3]', settings['limit_g5_3'], in: -100...101 %>
+            </td>
+          </tr>
+          <tr>
+            <th><%= l(:limit_g_4) %></th>
+            <td>
+              <%= number_field_tag 'settings[limit_g5_4]', settings['limit_g5_4'], in: -100...101 %>
+            </td>
+          </tr>
+          <tr>
+            <th><%= l(:limit_g_5) %></th>
+            <td>
+              <%= number_field_tag 'settings[limit_g5_5]', settings['limit_g5_5'], in: -100...101 %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  </fieldset>
+  <table>
+    <tbody>
+      <tr>
+        <th><%= l(:active_actu) %></th>
+        <td>
+          <%= select_tag('settings[act_actu]', options_for_select([["Si", true],["No", false]], Setting.plugin_teo_management_indicators['act_actu']), prompt: I18n.t("field_Seleccionar")) %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+        </td>
+        <td>
+          <em class="info"><%= t(:active_actu_info) %></em>
+        </td>
+      </tr> 
     </tbody>
   </table>
 </fieldset>

@@ -15,7 +15,7 @@ Redmine::Plugin.register :teo_management_indicators do
   name 'Teo Management Indicators plugin'
   author 'Junta de Andalucía. Philip Watfe Sánchez. Juan Antonio Blanco Robles. Abraham Castro Expósito'
   description 'Este plugin añade gestión de indicadores económicos'
-  version '1.1.0'
+  version '1.2.0'
   url 'https://github.com/teo-redmine/teo_management_indicators.git'
   author_url 'http://www.juntadeandalucia.es'
 

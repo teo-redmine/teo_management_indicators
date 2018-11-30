@@ -35,6 +35,7 @@ module Charts
       end
 
       if !issueStatusOtsG1.nil? && issueStatusOtsG1.any?
+        issueStatusOtsG1 = issueStatusOtsG1.order(:position)
         isOtsAux = Issue.where({tracker: tipopeticiong1n2, status: issueStatusOtsG1})
       end
 

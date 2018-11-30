@@ -40,10 +40,10 @@ module Charts
       end
 
       if !settings.agruparporg3.nil?
-        campoAgruparPorg3 = IssueCustomField.where({id: (settings.agruparporg3).sub("core__", '').sub("custom__", '')})
+        agruparporg3 = IssueCustomField.where({id: (settings.agruparporg3).sub("core__", '').sub("custom__", '')})
 
-        if campoAgruparPorg3 != nil && !campoAgruparPorg3.empty? && campoAgruparPorg3[0] != nil && campoAgruparPorg3[0].field_format != nil && campoAgruparPorg3[0].field_format.to_s != nil && campoAgruparPorg3[0].field_format.to_s != '' && campoAgruparPorg3[0].field_format.to_s != 'project'
-          campoAgruparPorg3 = nil
+        if agruparporg3 != nil && !agruparporg3.empty? && agruparporg3[0] != nil && agruparporg3[0].field_format != nil && agruparporg3[0].field_format.to_s != nil && agruparporg3[0].field_format.to_s != '' && agruparporg3[0].field_format.to_s != 'project'
+          agruparporg3 = nil
         end
       end
 
@@ -67,7 +67,7 @@ module Charts
           Rails.logger.info('Se encontraron issues, se continúa con los cálculos (G3))')
           trackerAC = Tracker.where('name like ?', '%AC%')[0]
           listaFieldsLinks = Hash.new
-          issueCustomField = IssueCustomField.where('name = \'Contrato\'')[0]
+          issueCustomField = agruparporg3[0]
           $ID_CONST_CUSTFIELD = issueCustomField.id
 
           issuesOts.each do |ac|
