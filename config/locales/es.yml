@@ -4,6 +4,7 @@ es:
   permission_view_indicadores: Ver indicadores
 
   main_title_management_indicators: Indicadores Económicos
+  main_title_management_indicators_desv: Indicadores de Desviación
 
   lbl_no_information: No se ha encontrado información para calcular los indicadores en este contenedor.
 

@@ -4,6 +4,7 @@ en:
   permission_view_indicadores: View indicators
 
   main_title_management_indicators: Economic Indicators
+  main_title_management_indicators_desv: Detours Indicators
 
   lbl_no_information: No information was found to calculate the indicators in this container.
 

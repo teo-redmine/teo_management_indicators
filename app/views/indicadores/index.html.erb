@@ -274,6 +274,8 @@
 
 <br><br>
 
+<h2><%= l(:main_title_management_indicators) %></h2>
+
 <% if @chart_view.mapaG4 != nil && !@chart_view.mapaG4.empty? %>
 	<fieldset style="border:1px solid #628DB6;">
 		<div>
@@ -281,7 +283,7 @@
 				<%= high_chart("div_chartG4", @chart_view.chartG4) do |gg4| %>
 					<% if @settings.actLinkg2 != nil && @settings.actLinkg2 == "true"%>
 						<%=raw "options.plotOptions.series.point.events.click = function(options) {
-							columna = options.currentTarget.category;
+							columna = options.currentTarget.category+'_imp';
 							posCampoCF = options.currentTarget.x;
 							signoCF = '><';
 
@@ -299,14 +301,26 @@
 							tipo = arrayCampos[1];							
 							campoCF_desvio= '&cf_'+arrayCampos[2]+'='+signoCF;
 							desvio = arrayCampos[3];
-							valorIdsContr = arrayCampos[4];
-							campoCF_contrato = '&cf_'+idCustField+'='+valorIdsContr;
+							valorIdsTotalICF = arrayCampos[4];
+							valorIdsContr = arrayCampos[5];
+							campoCF_contrato = '';
+
+							if (valorIdsContr != null && valorIdsContr != '') {
+								campoCF_contrato = '&cf_'+idCustField+'='+valorIdsContr;
+							}
 							
 							//urlInfoMostrar = '/projects/'+proyecto+'/issues?set_filter=1&tracker_id='+tipo+'&status_id='+estados+campoCF_desvio+desvio+campoCF_contrato;
 
 							urlInfoMostrar = '/projects/'+proyecto+'/issues?set_filter=1&tracker_id='+tipo+'&status_id=*'+campoCF_desvio+desvio+campoCF_contrato;
 							
 							urlColumnasTabla = '&c[]=tracker&c[]=status&c[]=priority&c[]=subject&c[]=assigned_to&c[]=updated_on&c[]=cf_'+arrayCampos[2];
+
+							if (valorIdsTotalICF != null) {
+								arrayICF = valorIdsTotalICF.split('%7C');
+								for(var i=0; i<arrayICF.length; i++){
+									urlColumnasTabla = urlColumnasTabla +'&c[]=cf_'+arrayICF[i]+'&t[]=cf_'+arrayICF[i];
+								}
+							}
 
 							window.open(urlInfoMostrar+urlColumnasTabla);
 						}"%>
@@ -346,7 +360,7 @@
 			<% end %>
 			<%if @chart_view.fieldsLinksg4 != nil && !@chart_view.fieldsLinksg4.empty?  %>
 				<% @chart_view.fieldsLinksg4.each do |key, value| %>
-					<input type="hidden" id="<%= key %>" value="<%= value %>">
+					<input type="hidden" id="<%= key+'_imp' %>" value="<%= value %>">
 				<% end %>														
 			<% end %>
 		</div>
@@ -362,7 +376,7 @@
 				<%= high_chart("div_chartG5", @chart_view.chartG5) do |gg5| %>
 					<% if @settings.actLinkg2 != nil && @settings.actLinkg2 == "true"%>		
 						<%=raw "options.plotOptions.series.point.events.click = function(options) {
-							columna = options.currentTarget.category;
+							columna = options.currentTarget.category+'_plz';
 							posCampoCF = options.currentTarget.x;
 							signoCF = '><';
 
@@ -380,11 +394,15 @@
 							campoCF_desvio = '&cf_'+arrayCampos[2]+'='+signoCF;
 							desvio = arrayCampos[3];
 							valorIdsContr = arrayCampos[4];
-							campoCF_contrato = '&cf_'+idCustField+'='+valorIdsContr;
+							campoCF_contrato = '';
+							
+							if (valorIdsContr != null && valorIdsContr != '') {
+								campoCF_contrato = '&cf_'+idCustField+'='+valorIdsContr;
+							}
 							
 							urlInfoMostrar = '/projects/'+proyecto+'/issues?set_filter=1&tracker_id='+tipo+'&status_id=*'+campoCF_desvio+desvio+campoCF_contrato;
 							
-							urlColumnasTabla = '&c[]=tracker&c[]=status&c[]=priority&c[]=subject&c[]=assigned_to&c[]=updated_on&c[]=cf_'+arrayCampos[2];
+							urlColumnasTabla = '&c[]=tracker&c[]=status&c[]=priority&c[]=subject&c[]=assigned_to&c[]=updated_on&c[]=cf_'+arrayCampos[2]+'&c[]=start_date&c[]=due_date&c[]=closed_on';
 
 							window.open(urlInfoMostrar+urlColumnasTabla);
 						}"%>
@@ -424,7 +442,7 @@
 			<% end %>
 			<%if @chart_view.fieldsLinksg5 != nil && !@chart_view.fieldsLinksg5.empty?  %>
 				<% @chart_view.fieldsLinksg5.each do |key, value| %>
-					<input type="hidden" id="<%= key %>" value="<%= value %>">
+					<input type="hidden" id="<%= key+'_plz' %>" value="<%= value %>">
 				<% end %>														
 			<% end %>		
 		</div>

@@ -117,6 +117,9 @@ module Charts
 
         guardarUnaVez = true
 
+        estimadoICF = IssueCustomField.where('name like \'%estimado%\'')[0]
+        finalICF = IssueCustomField.where('name like \'%final%\'')[0]
+
         issuesOts.each do |ot|
           issue_fields = obtenerValorDesvioOT(ot, issueCustomField, true)
           calculo = issue_fields.campo_calc_importe
@@ -150,6 +153,7 @@ module Charts
               key = posicion6_name
             end
 
+            key = key
             if !mapaG4[key].nil?
               mapaG4[key] = 1 + mapaG4[key]
             else 
@@ -194,6 +198,8 @@ module Charts
               fields_links.set_desvio(limiteg4_5.to_s)
             end
 
+            fields_links.set_tarea_padre(estimadoICF.id.to_s+'%7C'+finalICF.id.to_s)
+            
             if listaFieldsLinks[key] == nil
               #posicion 0
               cadena = fields_links.proy_ident + $SPLIT_CHAR
@@ -205,8 +211,10 @@ module Charts
               cadena = cadena + fields_links.id_cf_desvio + $SPLIT_CHAR
               #posicion 4
               cadena = cadena + fields_links.desvio + $SPLIT_CHAR
-              #posicion 5
-              cadena = cadena + fields_links.contrato 
+              #posicion 5 utilizada para totalizar importes finales y estimados
+              cadena = cadena + fields_links.tarea_padre + $SPLIT_CHAR
+              #posicion 6
+              cadena = cadena + fields_links.contrato
               listaFieldsLinks[key] = cadena
             else 
               listaFieldsLinks[key] = listaFieldsLinks[key] +'%7C'+ fields_links.contrato
@@ -396,6 +404,7 @@ module Charts
               key = posicion6_name
             end
 
+            key = key
             if !mapaG5[key].nil?
               mapaG5[key] = 1 + mapaG5[key]
             else 
@@ -452,7 +461,7 @@ module Charts
               #posicion 4
               cadena = cadena + fields_links.desvio + $SPLIT_CHAR
               #posicion 5
-              cadena = cadena + fields_links.contrato 
+              cadena = cadena + fields_links.contrato
               listaFieldsLinks[key] = cadena
             else 
               listaFieldsLinks[key] = listaFieldsLinks[key] +'%7C'+ fields_links.contrato
