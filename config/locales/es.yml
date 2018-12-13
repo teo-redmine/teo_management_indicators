@@ -87,23 +87,23 @@ es:
   group_by_g3_info: Campo de tipo proyecto que se usará para agrupar los importes
  
   # Grafica de desvios
-  title_g4: Gráfica de Desvío en importes OTs
+  title_g4: Gráfica de desvío en importes en OTs
   issue_type_g4: Tipo petición
   issue_type_g4_info: Tipo de petición que se usará como referencia para el nivel de búsqueda
   issue_status_g4: Estado
   issue_status_g4_info: Estado o estados que se usarán para filtrar las peticiones de búsqueda
   group_by_g4: Agrupar por
   group_by_g4_info: Campo de tipo proyecto que se usará para agrupar las OTs
-  limit_g4_title: Definición de límites en histogramas de desvíos de importes en OTs
+  limit_g4_title: Definición de límites en histogramas de desvíos en importes en OTs
 
-  title_g5: Gráfica de Desvío de plazos OTs
+  title_g5: Gráfica de desvío en plazos en OTs
   issue_type_g5: Tipo petición
   issue_type_g5_info: Tipo de petición que se usará como referencia para el nivel de búsqueda
   issue_status_g5: Estado
   issue_status_g5_info: Estado o estados que se usarán para filtrar las peticiones de búsqueda
   group_by_g5: Agrupar por
   group_by_g5_info: Campo de tipo proyecto que se usará para agrupar las OTs
-  limit_g5_title: Definición de límites en histogramas de desvíos de plazos en OTs
+  limit_g5_title: Definición de límites en histogramas de desvíos en plazos en OTs
 
   field_desvio_name: Desvío (%)
   field_desvio_name_info: Campo de desvío que se tomará como referencia en las peticiones
