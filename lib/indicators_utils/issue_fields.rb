@@ -79,5 +79,21 @@ module IndicatorsUtils
     def idenf_proy
       @idenf_proy
     end
+
+    def set_campo_calc_importe(campo_calc_importe)
+      @campo_calc_importe = campo_calc_importe
+    end
+
+    def campo_calc_importe
+      @campo_calc_importe
+    end
+
+    def set_campo_calc_plazo(campo_calc_plazo)
+      @campo_calc_plazo = campo_calc_plazo
+    end
+
+    def campo_calc_plazo
+      @campo_calc_plazo
+    end
   end
 end

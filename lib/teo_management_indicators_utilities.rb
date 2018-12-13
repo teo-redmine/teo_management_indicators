@@ -47,6 +47,7 @@ module TeoManagementIndicatorsUtilities
       # Se inicializan los datos de las gráficas
       @chart_view = IndicatorsUtils::ChartView.new
       @chart_view.set_procedencia(procedencia)
+      @chart_view.set_mostrarActualizar(@settings.activarActualizar != nil && @settings.activarActualizar == "true")
 
       # Se prepara la condicion para mirar al proyecto y a sus hijos
       condicion = @project.project_condition(true)
@@ -72,8 +73,9 @@ module TeoManagementIndicatorsUtilities
             esTipoContrato = proyectoPadre.identifier.downcase.include?(I18n.t("proy_contrato").downcase)
             Charts::GraficaImportesEjecutados.calculaGraficaImportesEjecutados(whereProject, tracker_fields, @settings, @chart_view, esTipoContrato, $COSNT_IS_SISINF)
             if esTipoContrato && procedencia == 'indicadores'
-              Charts::GraficaSectoresContratos.calculaGraficaSectoresContratos(whereProject, tracker_fields, @settings, @chart_view)
+              Charts::GraficaSectoresContratos.calculaGraficaSectoresContratos(whereProject, tracker_fields, @settings, @chart_view)              
             end
+            Charts::GraficaDesvios.calculaGraficaDesvios(whereProject, tracker_fields, @settings, @chart_view, $COSNT_IS_SISINF)
           end
         else 
           Charts::GraficaActuacionesIssues.calculaGraficaActuacionesIssues(whereProject, tracker_fields, @settings, @chart_view, @issue.id)

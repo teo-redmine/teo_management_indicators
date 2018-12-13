@@ -4,6 +4,7 @@ es:
   permission_view_indicadores: Ver indicadores
 
   main_title_management_indicators: Indicadores Económicos
+  main_title_management_indicators_desv: Indicadores de Desviación
 
   lbl_no_information: No se ha encontrado información para calcular los indicadores en este contenedor.
 
@@ -14,9 +15,9 @@ es:
   issue_type_g1n1_info: Tipo de petición que se usará como referencia para el primer nivel de búsqueda
   issue_status_g1n1: Estado
   issue_status_g1n1_info: Estado o estados que se usarán para filtrar las peticiones del primer nivel de búsqueda
-  start_date_g1n1: Fecha inicio
+  start_date_g1n1: Fecha inicial
   start_date_g1n1_info: Campo de fecha que se usará como punto de partida del periodo de tiempo que abarcan las peticiones
-  due_date_g1n1: Fecha fin
+  due_date_g1n1: Fecha final
   due_date_g1n1_info: Campo de fecha que se usará como punto final del periodo de tiempo que abarcan las peticiones
   cost_g1n1: Importe
   cost_g1n1_info: Campo de importe que se tomará como referencia en las peticiones de primer nivel
@@ -65,7 +66,7 @@ es:
   cost1_g2n2_info: Campo de importe que se tomará como referencia en las peticiones de segundo nivel
   cost2_g2n2: Importe 2
   cost2_g2n2_info: Campo de importe que se tomará como referencia en las peticiones de segundo nivel, en caso que el anterior campo no esté relleno en la petición
-  due_date_g2n2: Fecha fin
+  due_date_g2n2: Fecha
   due_date_g2n2_info: Campo de fecha que se usará como referencia para agrupar peticiones
 
   title_g3: Gráfica de actuaciones del contrato
@@ -73,18 +74,72 @@ es:
   issue_type_g3n1: Tipo petición
   issue_type_g3n1_info: Tipo de petición que se usará como referencia para el primer nivel de búsqueda
   issue_status_g3n1: Estado
-  issue_status_g3n1_info: Estado o estados que se usarán para filtrar las peticiones del primer nivel de búsqueda
+  issue_status_g3n1_info: Estado o estados que se usarán para filtrar las peticiones de búsqueda
 
   second_level_g3n2: Segundo nivel
   issue_type_g3n2: Tipo petición
-  issue_type_g3n2_info: Tipo de petición que se usará como referencia para el segundo nivel de búsqueda  
+  issue_type_g3n2_info: Tipo de petición que se usará como referencia para el nivel de búsqueda  
   cost1_g3n2: Importe 1
-  cost1_g3n2_info: Campo de importe que se tomará como referencia en las peticiones de segundo nivel
+  cost1_g3n2_info: Campo de importe que se tomará como referencia en las peticiones de nivel
   cost2_g3n2: Importe 2
-  cost2_g3n2_info: Campo de importe que se tomará como referencia en las peticiones de segundo nivel, en caso que el anterior campo no esté relleno en la petición
+  cost2_g3n2_info: Campo de importe que se tomará como referencia en las peticiones de nivel, en caso que el anterior campo no esté relleno en la petición
   group_by_g3: Agrupar por
   group_by_g3_info: Campo de tipo proyecto que se usará para agrupar los importes
  
+  # Grafica de desvios
+  title_g4: Gráfica de desvío en importes en OTs
+  issue_type_g4: Tipo petición
+  issue_type_g4_info: Tipo de petición que se usará como referencia para el nivel de búsqueda
+  issue_status_g4: Estado
+  issue_status_g4_info: Estado o estados que se usarán para filtrar las peticiones de búsqueda
+  group_by_g4: Agrupar por
+  group_by_g4_info: Campo de tipo proyecto que se usará para agrupar las OTs
+  limit_g4_title: Definición de límites en histogramas de desvíos en importes en OTs
+
+  title_g5: Gráfica de desvío en plazos en OTs
+  issue_type_g5: Tipo petición
+  issue_type_g5_info: Tipo de petición que se usará como referencia para el nivel de búsqueda
+  issue_status_g5: Estado
+  issue_status_g5_info: Estado o estados que se usarán para filtrar las peticiones de búsqueda
+  group_by_g5: Agrupar por
+  group_by_g5_info: Campo de tipo proyecto que se usará para agrupar las OTs
+  limit_g5_title: Definición de límites en histogramas de desvíos en plazos en OTs
+
+  field_desvio_name: Desvío (%)
+  field_desvio_name_info: Campo de desvío que se tomará como referencia en las peticiones
+  field_desvio_total: Total
+  field_desvio_resumen: Resumen
+  field_desvio_resumen_desvios: Resumen desvíos (%)  
+  field_legend_info_g4_5: Nº OTs
+  limit_g_1: Límite 1
+  limit_g_2: Límite 2
+  limit_g_3: Límite 3
+  limit_g_4: Límite 4
+  limit_g_5: Límite 5
+
+  active_actu: Actualizar
+  active_actu_info: Esta opción permite visualizar un link en las gráficas de indicadores para actualizar todas las peticiones del tipo indicado en las graficas de desvíos
+
+  #Errores de validaciones de graficas
+  error_limitsg4_1_2: Para validar el límite 1 con el 2 de la gráfica desvíos importes, deben estar rellenos los dos
+  error_limitsg4_2_3: Para validar el límite 2 con el 3 de la gráfica desvíos importes, deben estar rellenos los dos
+  error_limitsg4_3_4: Para validar el límite 3 con el 4 de la gráfica desvíos importes, deben estar rellenos los dos
+  error_limitsg4_4_5: Para validar el límite 4 con el 5 de la gráfica desvíos importes, deben estar rellenos los dos
+  error_limitsg5_1_2: Para validar el límite 1 con el 2 de la gráfica desvíos importes, deben estar rellenos los dos
+  error_limitsg5_2_3: Para validar el límite 2 con el 3 de la gráfica desvíos importes, deben estar rellenos los dos
+  error_limitsg5_3_4: Para validar el límite 3 con el 4 de la gráfica desvíos importes, deben estar rellenos los dos
+  error_limitsg5_4_5: Para validar el límite 4 con el 5 de la gráfica desvíos importes, deben estar rellenos los dos
+
+  error_limitsg4_1: Límite 1 debe de ser menor al límite 2 gráfica desvíos importes.
+  error_limitsg4_2: Límite 2 debe de ser menor al límite 3 gráfica desvíos importes.
+  error_limitsg4_3: Límite 3 debe de ser menor al límite 4 gráfica desvíos importes.
+  error_limitsg4_4: Límite 4 debe de ser menor al límite 5 gráfica desvíos importes.
+  error_limitsg5_1: Límite 1 debe de ser menor al límite 2 gráfica desvíos plazos.
+  error_limitsg5_2: Límite 2 debe de ser menor al límite 3 gráfica desvíos plazos.
+  error_limitsg5_3: Límite 3 debe de ser menor al límite 4 gráfica desvíos plazos.
+  error_limitsg5_4: Límite 4 debe de ser menor al límite 5 gráfica desvíos plazos.
+
+  # Otros campos
   field_account: Cuenta
   field_activity: Actividad
   field_admin: Administrador
@@ -102,6 +157,7 @@ es:
   field_comments: Comentario
   field_comments_sorting: Mostrar comentarios
   field_created_on: Creado
+  field_closed_on: Cerrada
   field_default_value: Estado por defecto
   field_delay: Retraso
   field_description: Descripción
@@ -199,6 +255,7 @@ es:
   field_En curso: En curso
   field_Resuelto: Resuelto
   field_Resuelta: Resuelta
+  field_Petición resuelta: Petición resuelta
   field_Comentarios: Comentarios
   field_Cerrado: Cerrado
   field_Cerrada: Cerrada
@@ -221,5 +278,4 @@ es:
 
   # Proyectos nombres
   proy_contrato: Contratos
-  proy_sis_info: Sistemas-de-informacion
-  
+  proy_sis_info: Sistemas-de-informacion  

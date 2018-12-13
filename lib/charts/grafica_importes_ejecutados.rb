@@ -244,7 +244,7 @@ module Charts
           end
 
           fields_links = IndicatorsUtils::FieldsLinks.new
-          fields_links.set_proy_ident("sistemas-de-informacion") 
+          fields_links.set_proy_ident(I18n.t("proy_sis_info").downcase) 
           fields_links.set_estado(settings.estadosOtsg2n2.join("%7C"))
           fields_links.set_tipo($CONST_OT.id.to_s)
           field_date_name = (settings.fechaFing2n2).sub("core__", '')
@@ -356,6 +356,10 @@ module Charts
             end
           end
         end
+      end
+
+      if fechaFinCore == nil && settings.fechaFing2n2 == 'issue__closed_on'
+        fechaFinCore = eval("ot." + (settings.fechaFing2n2).sub("issue__", ''))
       end
 
       if agruparPorCore != nil && agruparPorCore != ''

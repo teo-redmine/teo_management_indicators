@@ -120,8 +120,17 @@ module IndicatorsUtils
     def set_mostrarCuadro(mostrar)
       @mostrarCuadro = mostrar
     end
+
     def mostrarCuadro
       @mostrarCuadro
+    end
+
+    def set_mostrarActualizar(mostrarActualizar)
+      @mostrarActualizar = mostrarActualizar
+    end
+
+    def mostrarActualizar
+      @mostrarActualizar
     end
 
     def set_mapaG3(mapaG3)
@@ -156,6 +165,22 @@ module IndicatorsUtils
       @fieldsLinks
     end
 
+    def set_fieldsLinksg4(fieldsLinksg4)
+      @fieldsLinksg4 = fieldsLinksg4
+    end
+
+    def fieldsLinksg4
+      @fieldsLinksg4
+    end
+
+    def set_fieldsLinksg5(fieldsLinksg5)
+      @fieldsLinksg5 = fieldsLinksg5
+    end
+
+    def fieldsLinksg5
+      @fieldsLinksg5
+    end
+
     def set_fieldsSectores(fieldsSectores)
       @fieldsSectores = fieldsSectores
     end
@@ -170,6 +195,54 @@ module IndicatorsUtils
 
     def mensajeAC
       @mensajeAC
+    end
+
+    def set_mapaG4(mapaG4)
+      @mapaG4 = mapaG4
+    end
+
+    def mapaG4
+      @mapaG4
+    end
+
+    def set_chartG4(chartG4)
+      @chartG4 = chartG4
+    end
+
+    def chartG4
+      @chartG4
+    end
+
+    def set_mapaG4_resumen(mapaG4_resumen)
+      @mapaG4_resumen = mapaG4_resumen
+    end
+
+    def mapaG4_resumen
+      @mapaG4_resumen
+    end
+
+    def set_mapaG5_resumen(mapaG5_resumen)
+      @mapaG5_resumen = mapaG5_resumen
+    end
+
+    def mapaG5_resumen
+      @mapaG5_resumen
+    end
+
+    def set_mapaG5(mapaG5)
+      @mapaG5 = mapaG5
+    end
+
+    def mapaG5
+      @mapaG5
+    end
+
+    def set_chartG5(chartG5)
+      @chartG5 = chartG5
+    end
+
+    def chartG5
+      @chartG5
     end
   end
 end

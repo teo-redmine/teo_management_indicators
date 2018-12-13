@@ -55,5 +55,21 @@ module IndicatorsUtils
     def tarea_padre
       @tarea_padre
     end
+
+    def set_id_cf_desvio(id_cf_desvio)
+      @id_cf_desvio = id_cf_desvio
+    end
+
+    def id_cf_desvio
+      @id_cf_desvio
+    end
+
+    def set_desvio(desvio)
+      @desvio = desvio
+    end
+
+    def desvio
+      @desvio
+    end
   end
 end

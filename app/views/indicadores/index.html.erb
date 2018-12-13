@@ -271,3 +271,186 @@
 		</div>
 	</fieldset>
 <% end %>
+
+<br><br>
+
+<h2><%= l(:main_title_management_indicators) %></h2>
+
+<% if @chart_view.mapaG4 != nil && !@chart_view.mapaG4.empty? %>
+	<fieldset style="border:1px solid #628DB6;">
+		<div>
+			<div style="float: left">				 
+				<%= high_chart("div_chartG4", @chart_view.chartG4) do |gg4| %>
+					<% if @settings.actLinkg2 != nil && @settings.actLinkg2 == "true"%>
+						<%=raw "options.plotOptions.series.point.events.click = function(options) {
+							columna = options.currentTarget.category+'_imp';
+							posCampoCF = options.currentTarget.x;
+							signoCF = '><';
+
+							if (posCampoCF == 0) {
+								signoCF = '<%3D';
+							} else if (posCampoCF == 5) {
+								signoCF = '>%3D';
+							}
+
+							valorCampos = document.getElementById(columna).value;
+							arrayCampos = valorCampos.split('##_#');
+
+							proyecto = arrayCampos[0];
+							//estados = arrayCampos[1];
+							tipo = arrayCampos[1];							
+							campoCF_desvio= '&cf_'+arrayCampos[2]+'='+signoCF;
+							desvio = arrayCampos[3];
+							valorIdsTotalICF = arrayCampos[4];
+							valorIdsContr = arrayCampos[5];
+							campoCF_contrato = '';
+
+							if (valorIdsContr != null && valorIdsContr != '') {
+								campoCF_contrato = '&cf_'+idCustField+'='+valorIdsContr;
+							}
+							
+							//urlInfoMostrar = '/projects/'+proyecto+'/issues?set_filter=1&tracker_id='+tipo+'&status_id='+estados+campoCF_desvio+desvio+campoCF_contrato;
+
+							urlInfoMostrar = '/projects/'+proyecto+'/issues?set_filter=1&tracker_id='+tipo+'&status_id=*'+campoCF_desvio+desvio+campoCF_contrato;
+							
+							urlColumnasTabla = '&c[]=tracker&c[]=status&c[]=priority&c[]=subject&c[]=assigned_to&c[]=updated_on&c[]=cf_'+arrayCampos[2];
+
+							if (valorIdsTotalICF != null) {
+								arrayICF = valorIdsTotalICF.split('%7C');
+								for(var i=0; i<arrayICF.length; i++){
+									urlColumnasTabla = urlColumnasTabla +'&c[]=cf_'+arrayICF[i]+'&t[]=cf_'+arrayICF[i];
+								}
+							}
+
+							window.open(urlInfoMostrar+urlColumnasTabla);
+						}"%>
+					<%end%>
+				<%end%>									
+			</div>	
+			<%if @chart_view.mostrarCuadro%>
+				<div style="float: left;">
+					<div style="margin:10% 0 0 15%">
+						<table style="white-space: nowrap;">
+							<tr style="background-color: lightgrey;color: #3E5B76;font-weight: bold;">
+								<td style="text-align:center;"><%= l(:field_desvio_name) %></td>
+								<td style="text-align:center;"><%= l(:field_desvio_total) %></td>
+							</tr>
+							<% @chart_view.mapaG4.each do |key, value| %>
+								<tr>
+									<td style="text-align:right;"><%= key %></td>
+									<td style="text-align:right;"><%= value %></td>
+								</tr>
+							<% end %>						
+						</table>
+						<br/>
+						<br/>
+						<table style="white-space: nowrap;">
+							<tr style="background-color: lightgrey;color: #3E5B76;font-weight: bold;text-align:center;">
+								<td colspan="2" style="text-align:center;"><%= l(:field_desvio_resumen_desvios) %></td>
+							</tr>
+							<% @chart_view.mapaG4_resumen.each do |key, value| %>
+								<tr>
+									<td style="text-align:right;"><%= key %></td>
+									<td style="text-align:right;"><%= value %></td>
+								</tr>
+							<% end %>						
+						</table>
+					</div>
+				</div>
+			<% end %>
+			<%if @chart_view.fieldsLinksg4 != nil && !@chart_view.fieldsLinksg4.empty?  %>
+				<% @chart_view.fieldsLinksg4.each do |key, value| %>
+					<input type="hidden" id="<%= key+'_imp' %>" value="<%= value %>">
+				<% end %>														
+			<% end %>
+		</div>
+	</fieldset>
+<% end %>
+
+<br><br>
+
+<% if @chart_view.mapaG5_resumen != nil && !@chart_view.mapaG5_resumen.empty? %>
+	<fieldset style="border:1px solid #628DB6;">
+		<div>
+			<div style="float: left">				 
+				<%= high_chart("div_chartG5", @chart_view.chartG5) do |gg5| %>
+					<% if @settings.actLinkg2 != nil && @settings.actLinkg2 == "true"%>		
+						<%=raw "options.plotOptions.series.point.events.click = function(options) {
+							columna = options.currentTarget.category+'_plz';
+							posCampoCF = options.currentTarget.x;
+							signoCF = '><';
+
+							if (posCampoCF == 0) {
+								signoCF = '<%3D';
+							} else if (posCampoCF == 5) {
+								signoCF = '>%3D';
+							}
+
+							valorCampos = document.getElementById(columna).value;
+							arrayCampos = valorCampos.split('##_#');
+
+							proyecto = arrayCampos[0];
+							tipo = arrayCampos[1];
+							campoCF_desvio = '&cf_'+arrayCampos[2]+'='+signoCF;
+							desvio = arrayCampos[3];
+							valorIdsContr = arrayCampos[4];
+							campoCF_contrato = '';
+							
+							if (valorIdsContr != null && valorIdsContr != '') {
+								campoCF_contrato = '&cf_'+idCustField+'='+valorIdsContr;
+							}
+							
+							urlInfoMostrar = '/projects/'+proyecto+'/issues?set_filter=1&tracker_id='+tipo+'&status_id=*'+campoCF_desvio+desvio+campoCF_contrato;
+							
+							urlColumnasTabla = '&c[]=tracker&c[]=status&c[]=priority&c[]=subject&c[]=assigned_to&c[]=updated_on&c[]=cf_'+arrayCampos[2]+'&c[]=start_date&c[]=due_date&c[]=closed_on';
+
+							window.open(urlInfoMostrar+urlColumnasTabla);
+						}"%>
+					<%end%>
+				<%end%>									
+			</div>	
+			<%if @chart_view.mostrarCuadro%>
+				<div style="float: left;">
+					<div style="margin:10% 0 0 15%">
+						<table style="white-space: nowrap;">
+							<tr style="background-color: lightgrey;color: #3E5B76;font-weight: bold;">
+								<td style="text-align:center;"><%= l(:field_desvio_name) %></td>
+								<td style="text-align:center;"><%= l(:field_desvio_total) %></td>
+							</tr>
+							<% @chart_view.mapaG5.each do |key, value| %>
+								<tr>
+									<td style="text-align:right;"><%= key %></td>
+									<td style="text-align:right;"><%= value %></td>
+								</tr>
+							<% end %>						
+						</table>
+						<br/>
+						<br/>
+						<table style="white-space: nowrap;">
+							<tr style="background-color: lightgrey;color: #3E5B76;font-weight: bold;text-align:center;">
+								<td colspan="2" style="text-align:center;"><%= l(:field_desvio_resumen_desvios) %></td>
+							</tr>
+							<% @chart_view.mapaG5_resumen.each do |key, value| %>
+								<tr>
+									<td style="text-align:right;"><%= key %></td>
+									<td style="text-align:right;"><%= value %></td>
+								</tr>
+							<% end %>						
+						</table>
+					</div>
+				</div>
+			<% end %>
+			<%if @chart_view.fieldsLinksg5 != nil && !@chart_view.fieldsLinksg5.empty?  %>
+				<% @chart_view.fieldsLinksg5.each do |key, value| %>
+					<input type="hidden" id="<%= key+'_plz' %>" value="<%= value %>">
+				<% end %>														
+			<% end %>		
+		</div>
+	</fieldset>
+<% end %>
+
+</br>
+</br>
+<%if !@chart_view.mostrarActualizar.nil? && @chart_view.mostrarActualizar%>
+	<%= link_to "ACTUALIZAR PETICIONES PROYECTO", indicadores_actissues2_path(@project), method: :get %>
+<%end%>
